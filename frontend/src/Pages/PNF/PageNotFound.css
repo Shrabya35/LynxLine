@@ -1,0 +1,45 @@
+.PNF {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-height: 70vh;
+  padding-top: 5rem;
+}
+
+.pnf-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pnf-container {
+  gap: 3rem;
+}
+
+.pnf-content {
+  gap: 1rem;
+}
+
+.pnf-btn {
+  width: 100%;
+  padding: 1rem 2rem 1rem 2rem;
+  margin: 10px auto;
+  justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background: black;
+  font-size: 1em;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 5rem;
+  transition: 0.2s ease-in;
+  cursor: pointer;
+}
+
+.pnf-btn:hover {
+  background: rgba(0, 0, 0, 0.837);
+}

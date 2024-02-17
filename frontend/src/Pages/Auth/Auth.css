@@ -1,0 +1,79 @@
+:root {
+  --white: white;
+  --black: #000;
+  --theme1: #343c69;
+  --btn: #e94948;
+}
+
+html,
+body,
+#root,
+.Auth {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.Auth {
+  font-family: "Ubuntu", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.auth-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.auth-left {
+  flex: 1;
+  position: sticky;
+  left: 0;
+}
+
+.auth-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(70%);
+}
+
+.auth-right {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-content {
+  padding: 20px;
+}
+
+.auth-img {
+  margin-top: 2rem;
+  width: 4rem;
+}
+
+@media (max-width: 765px) {
+  .auth-left {
+    display: none;
+  }
+  .auth-logo {
+    display: flex;
+    padding-top: 1rem;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+  }
+  .auth-form {
+    padding-top: 5.5rem;
+    position: fixed;
+  }
+}

@@ -1,0 +1,206 @@
+:root {
+  --white: white;
+  --black: #000;
+  --theme1: #343c69;
+  --btn: #e94948;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+li {
+  list-style: none;
+}
+
+.Navbar {
+  font-family: "Ubuntu", sans-serif;
+}
+
+.nav-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: -1px 3px 3px -2px rgba(107, 105, 105, 0.61);
+  padding: 1rem 2rem 1rem 2rem;
+  position: relative;
+}
+
+@media (min-width: 765px) {
+  .nav-container {
+    .nav-container {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: all 0.1s ease-out;
+      padding: 1rem 2rem 1rem 2rem;
+    }
+  }
+  .nav-logo {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+  .nav-logo a img {
+    width: 3rem;
+  }
+  .logo-name {
+    margin-top: 1rem;
+  }
+  .nav-menu {
+    display: flex;
+    gap: 3rem;
+    padding: 0 4rem;
+  }
+  .nav-items a {
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .nav-user {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.25rem;
+  }
+  .nav-userItems {
+    cursor: pointer;
+  }
+  .nav-user-mob {
+    display: none;
+  }
+  .nav-toggle,
+  .close-btn,
+  .nav-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 765px) {
+  .nav-container {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 0.1s ease-out;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+  }
+  .nav-logo {
+    order: 2;
+  }
+  .nav-logo a img {
+    width: 4rem;
+  }
+  .nav-menu {
+    display: none;
+  }
+  .nav-user {
+    order: 1;
+    display: flex;
+    font-size: 1.5rem;
+    gap: 1rem;
+  }
+  .nav-user-mob {
+    order: 3;
+    font-size: 1.5rem;
+    font-weight: 100;
+    display: flex;
+    gap: 1rem;
+  }
+  .logo-name,
+  .nav-account,
+  .nav-wishlist,
+  .nav-shopping,
+  .nav-account {
+    display: none;
+  }
+  .nav-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: white;
+    transition: left 0.8s ease-in-out;
+    z-index: 1000;
+  }
+  .nav-sidebar.open {
+    left: 0;
+  }
+  .close-btn {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 1001;
+  }
+  .mob-wishlist {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    z-index: 1001;
+  }
+  .nav-mob-up {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 0.1s ease-out;
+    padding: 2rem 1.5rem 0.5rem 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    justify-content: center;
+    background: white;
+    box-shadow: -1px 3px 3px -2px rgba(107, 105, 105, 0.61);
+  }
+  .sidebar-title {
+    margin-top: 2.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  .nav-mob-search {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    background: #f4f4f5;
+    padding: 0 1rem 0 1rem;
+  }
+  .nav-mob-search-input {
+    width: 100%;
+    border: none;
+    font-weight: 400;
+    outline: none;
+    color: black;
+    background: #f4f4f5;
+    font-size: 1rem;
+  }
+  .nav-mob-search-icon {
+    font-size: 1.5rem;
+    color: black;
+  }
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0rem 2rem 0.5rem 2rem;
+    overflow-y: auto;
+  }
+  .nav-items-mob {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(143, 137, 137, 0.526);
+  }
+  .nav-items-mob a {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+}
