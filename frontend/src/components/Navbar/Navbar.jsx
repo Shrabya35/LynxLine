@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 import NavLogo from "../../assets/logo.png";
 
@@ -10,6 +11,12 @@ import { HiShoppingBag } from "react-icons/hi2";
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(token ? true : false);
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -26,7 +33,7 @@ const Navbar = () => {
           <a href="/">
             <img src={NavLogo} alt="" />
           </a>
-          <h1 class="logo-name">LynxLine</h1>
+          <h1 className="logo-name">LynxLine</h1>
         </div>
         <div className="nav-menu">
           <li className="nav-items">
@@ -43,15 +50,27 @@ const Navbar = () => {
           <IoMdMenu className="nav-userItems nav-toggle" onClick={toggleMenu} />
           <IoSearchOutline className="nav-userItems nav-search" />
           <FaRegHeart className="nav-userItems nav-wishlist" />
-          <a href="/auth" target="_" className="nav-userItems nav-account">
-            <LuUser />
-          </a>
+          {isLoggedIn ? (
+            <Link to="/profile" className="nav-userItems nav-account">
+              <LuUser />
+            </Link>
+          ) : (
+            <Link to="/auth" className="nav-userItems nav-account">
+              <LuUser />
+            </Link>
+          )}
           <HiShoppingBag className="nav-userItems nav-shopping" />
         </div>
         <div className="nav-user-mob">
-          <a href="/auth" className="nav-user-account-mob">
-            <LuUser />
-          </a>
+          {isLoggedIn ? (
+            <a href="/profile" className="nav-user-account-mob">
+              <LuUser />
+            </a>
+          ) : (
+            <a href="/auth" className="nav-user-account-mob">
+              <LuUser />
+            </a>
+          )}
           <HiShoppingBag className=" nav-shopping-mob" />
         </div>
       </div>

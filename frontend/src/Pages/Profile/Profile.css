@@ -1,0 +1,84 @@
+.Profile {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-flex {
+  display: flex;
+}
+
+.profile-title {
+  text-align: center;
+  padding: 3rem;
+}
+
+.profile-side {
+  width: 100%;
+}
+
+.profile-left {
+  flex: 0 0 35%;
+  padding-left: 5rem;
+}
+
+.profile-account {
+  display: flex;
+  gap: 1rem;
+}
+
+.pacc-contents {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pacc-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.pacc-email {
+  font-size: 0.9rem;
+  color: rgba(38, 37, 37, 0.818);
+}
+
+.pacc-logo {
+  text-transform: uppercase;
+  padding: 0.5rem;
+  background: black;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 1000;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.pacc-contents button {
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+  align-self: flex-start;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-right {
+  align-items: center;
+  flex: 65%;
+  flex-direction: column;
+}
+
+.profile-right-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  align-self: flex-start;
+}

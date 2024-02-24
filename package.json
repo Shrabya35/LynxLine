@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "e-commerce",
+  "name": "lynxline",
   "proxy": "http://localhost:9080",
   "version": "1.0.0",
   "description": "",

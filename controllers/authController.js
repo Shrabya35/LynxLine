@@ -26,7 +26,7 @@ export const registerController = async (req, res) => {
     if (exitingUser) {
       return res.status(200).send({
         success: true,
-        message: "already registered",
+        message: "Email already registered",
       });
     }
 
@@ -41,14 +41,14 @@ export const registerController = async (req, res) => {
 
     res.status(201).send({
       success: true,
-      message: "user registered",
+      message: "Registration successful!",
       user,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "error in registration",
+      message: "Error in registration",
       error,
     });
   }

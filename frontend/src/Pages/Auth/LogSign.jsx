@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./LogSign.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 import { GoEye, GoEyeClosed } from "react-icons/go";
@@ -26,8 +27,13 @@ const SignUpForm = () => {
         console.log(message);
         if (success) {
           toast.success(message);
+
+          setName("");
+          setEmail("");
+          setPassword("");
+          setPhone("");
         } else {
-          toast.error(message);
+          toast.warn(message);
         }
       })
       .catch((err) => console.log(err));
@@ -89,10 +95,37 @@ const LogInForm = () => {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:9080/api/v1/auth/login", {
+        email,
+        password,
+      })
+      .then((response) => {
+        const { success, message, token, user } = response.data;
+        console.log(message);
+        if (success) {
+          localStorage.setItem("token", token);
+          localStorage.setItem("userDetails", JSON.stringify(user));
+          toast.success(message);
+          navigate("/");
+        } else {
+          toast.error(message);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="login">
-      <form>
+      <Toaster />
+      <form onSubmit={handleSubmit} action="POST">
         <label htmlFor="chk" aria-hidden="true">
           Login
         </label>
@@ -100,6 +133,8 @@ const LogInForm = () => {
           className="auth-input"
           type="email"
           name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
           required
         />
@@ -107,7 +142,9 @@ const LogInForm = () => {
           <input
             className="auth-input"
             type={showPassword ? "text" : "password"}
-            name="pswd"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
           />
