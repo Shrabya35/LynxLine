@@ -32,8 +32,8 @@ const Navbar = () => {
         <div className="nav-logo">
           <a href="/">
             <img src={NavLogo} alt="" />
+            <h1 className="logo-name">LynxLine</h1>
           </a>
-          <h1 className="logo-name">LynxLine</h1>
         </div>
         <div className="nav-menu">
           <li className="nav-items">

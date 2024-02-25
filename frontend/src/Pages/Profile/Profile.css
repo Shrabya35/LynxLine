@@ -15,6 +15,10 @@
   padding: 3rem;
 }
 
+.profile-container {
+  gap: 3rem;
+}
+
 .profile-side {
   width: 100%;
 }
@@ -81,4 +85,26 @@
   font-size: 1.5rem;
   font-weight: 600;
   align-self: flex-start;
+}
+
+@media (max-width: 770px) {
+  .Profile {
+    padding: 0rem;
+  }
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    width: 100%;
+  }
+  .profile-left {
+    padding: 0;
+  }
+  .profile-title {
+    align-self: flex-start;
+    padding: 3rem;
+  }
 }

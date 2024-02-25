@@ -6,7 +6,8 @@ import NoOrder from "../../assets/no-order.png";
 const Profile = () => {
   const userDetailsString = localStorage.getItem("userDetails");
   const userDetails = JSON.parse(userDetailsString);
-  const ProfileLogo = userDetails.name.split(" ")[0].charAt(0);
+  const firstName = userDetails.name.split(" ")[0];
+  const ProfileLogo = firstName.charAt(0);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -15,7 +16,7 @@ const Profile = () => {
 
   if (!userDetails) {
     return (
-      <Layout title={"Account - LynxLine "}>
+      <Layout title={" - LynxLine "}>
         <div className="Profile">
           <h1>User details not found!</h1>
           <button onClick={handleLogout}>Logout</button>
@@ -25,7 +26,7 @@ const Profile = () => {
   }
 
   return (
-    <Layout title={"Account - LynxLine "}>
+    <Layout title={`${firstName} - LynxLine`}>
       <div className="Profile">
         <div className="profile-title">
           <h1>Your LynxLine Profile</h1>

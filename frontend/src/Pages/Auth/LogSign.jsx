@@ -110,10 +110,16 @@ const LogInForm = () => {
       })
       .then((response) => {
         const { success, message, token, user } = response.data;
+        const userDetails = {
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+        };
         console.log(message);
         if (success) {
           localStorage.setItem("token", token);
-          localStorage.setItem("userDetails", JSON.stringify(user));
+          localStorage.setItem("userDetails", JSON.stringify(userDetails));
+
           toast.success(message);
           navigate("/");
         } else {
@@ -124,7 +130,6 @@ const LogInForm = () => {
   };
   return (
     <div className="login">
-      <Toaster />
       <form onSubmit={handleSubmit} action="POST">
         <label htmlFor="chk" aria-hidden="true">
           Login

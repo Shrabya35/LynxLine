@@ -1,11 +1,11 @@
 import React from "react";
-
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Auth from "./Pages/Auth/Auth";
 import PageNotFound from "./Pages/PNF/PageNotFound";
 import Profile from "./Pages/Profile/Profile";
+import PrivateRoutes from "./PrivateRoutes";
 
 const App = () => {
   return (
@@ -14,7 +14,9 @@ const App = () => {
         <Route path="/auth" element={<Auth />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
