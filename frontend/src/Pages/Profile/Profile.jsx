@@ -4,14 +4,31 @@ import Layout from "../../components/Layout";
 import NoOrder from "../../assets/no-order.png";
 
 const Profile = () => {
-  const userDetailsString = localStorage.getItem("userDetails");
+  const userDetailsString =
+    localStorage.getItem("userDetails") ||
+    sessionStorage.getItem("userDetails");
+
   const userDetails = JSON.parse(userDetailsString);
-  const firstName = userDetails.name.split(" ")[0];
-  const ProfileLogo = firstName.charAt(0);
+  const firstName = userDetails?.name.split(" ")[0];
+  const ProfileLogo = firstName?.charAt(0);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userDetails");
+
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userDetails");
+
     window.location.href = "/";
+  };
+  const handleReset = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userDetails");
+
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userDetails");
+
+    window.location.href = "auth/reset-password";
   };
 
   if (!userDetails) {
@@ -38,6 +55,7 @@ const Profile = () => {
               <div className="pacc-contents">
                 <div className="pacc-name">{userDetails.name}</div>
                 <div className="pacc-email">{userDetails.email}</div>
+                <button onClick={handleReset}>Reset Password</button>
                 <button onClick={handleLogout}>Logout</button>
               </div>
             </div>

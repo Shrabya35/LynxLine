@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./LogSign.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import { GoEye, GoEyeClosed } from "react-icons/go";
 
@@ -33,14 +33,13 @@ const SignUpForm = () => {
           setPassword("");
           setPhone("");
         } else {
-          toast.warn(message);
+          toast.error(message);
         }
       })
       .catch((err) => console.log(err));
   };
   return (
     <div className="signup">
-      <Toaster />
       <form onSubmit={handleSubmit} action="POST">
         <label htmlFor="chk" aria-hidden="true">
           Register
@@ -91,6 +90,7 @@ const SignUpForm = () => {
 
 const LogInForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -117,9 +117,13 @@ const LogInForm = () => {
         };
         console.log(message);
         if (success) {
-          localStorage.setItem("token", token);
-          localStorage.setItem("userDetails", JSON.stringify(userDetails));
-
+          if (rememberMe) {
+            localStorage.setItem("token", token);
+            localStorage.setItem("userDetails", JSON.stringify(userDetails));
+          } else {
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
+          }
           toast.success(message);
           navigate("/");
         } else {
@@ -156,6 +160,21 @@ const LogInForm = () => {
           <span className="password-toggle-icon" onClick={handleTogglePassword}>
             {showPassword ? <GoEye /> : <GoEyeClosed />}
           </span>
+        </div>
+        <div className="login-attribute">
+          <div className="remember-me">
+            <input
+              type="checkbox"
+              id="remember-me"
+              name="remember-me"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
+            <span htmlFor="remember-me">Remember me</span>
+          </div>
+          <a href="/auth/reset-password" className="forgot-password">
+            Forgot Password?
+          </a>
         </div>
         <button type="submit" className="login-btn auth-btn">
           Login

@@ -29,7 +29,7 @@ label {
 }
 
 .auth-input {
-  width: 60%;
+  width: 80%;
   height: 20px;
   background: #f4f4f5;
   justify-content: center;
@@ -75,9 +75,36 @@ label {
 .password-toggle-icon {
   position: absolute;
   top: 38%;
-  right: 2.25rem;
+  right: 3rem;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+.login-attribute {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1.5rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.remember-me {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#remember-me {
+  cursor: pointer;
+}
+
+.forgot-password {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
 }
 
 .login label {

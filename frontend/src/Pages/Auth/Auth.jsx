@@ -1,6 +1,7 @@
 import React from "react";
 import "./Auth.css";
 import { Helmet } from "react-helmet";
+import { Toaster } from "react-hot-toast";
 
 import LogSign from "./LogSign";
 import AuthImage from "../../assets/auth.jpg";
@@ -27,6 +28,7 @@ const Auth = ({ description, keywords, author }) => {
           </div>
           <div className="auth-form">
             <LogSign />
+            <Toaster />
           </div>
         </div>
       </div>

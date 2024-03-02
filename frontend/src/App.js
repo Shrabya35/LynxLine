@@ -5,6 +5,7 @@ import About from "./Pages/About/About";
 import Auth from "./Pages/Auth/Auth";
 import PageNotFound from "./Pages/PNF/PageNotFound";
 import Profile from "./Pages/Profile/Profile";
+import ResetPassword from "./Pages/Auth/ResetPassword";
 import PrivateRoutes from "./PrivateRoutes";
 
 const App = () => {
@@ -12,11 +13,13 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/auth" element={<Auth />} />
+        <Route path="/auth/reset-password" element={<ResetPassword />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/profile" element={<Profile />} />
         </Route>
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>

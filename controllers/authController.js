@@ -106,6 +106,59 @@ export const loginController = async (req, res) => {
   }
 };
 
+export const ForgotPassword = async (req, res) => {
+  try {
+    const { email, password, newPassword } = req.body;
+    if (!email) {
+      return res.status(400).send({ message: "Email is required" });
+    }
+    if (!password) {
+      return res.status(400).send({
+        success: false,
+        message: "Invalid password ",
+      });
+    }
+    if (!newPassword) {
+      return res.status(400).send({
+        success: false,
+        message: "New password is required",
+      });
+    }
+
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "Email is not registered",
+      });
+    }
+    const match = await comparePassword(password, user.password);
+    if (!match) {
+      return res.status(404).send({
+        success: false,
+        message: "Password didn't match",
+      });
+    }
+
+    const hashedNewPassword = await hashPassword(newPassword);
+
+    user.password = hashedNewPassword;
+    await user.save();
+
+    res.status(200).send({
+      success: true,
+      message: "Password reset successful",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Something went wrong",
+      error,
+    });
+  }
+};
+
 //middleware
 export const testController = (req, res) => {
   res.send("protected route");
