@@ -172,7 +172,7 @@ const LogInForm = () => {
             />
             <span htmlFor="remember-me">Remember me</span>
           </div>
-          <a href="/auth/reset-password" className="forgot-password">
+          <a href="/auth/forgot-password" className="forgot-password">
             Forgot Password?
           </a>
         </div>

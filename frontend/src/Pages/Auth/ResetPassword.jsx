@@ -39,13 +39,13 @@ const ResetPassword = () => {
 
   return (
     <Layout title={"Reset Password - LynxLine Account"}>
-      <div className="Forgot-Password">
+      <div className="Reset-Password">
         <Toaster />
-        <div className="fp-container">
-          <form onSubmit={handleSubmit} className="fp-content" action="POST">
-            <h1 className="fp-title">Reset Your Password</h1>
+        <div className="rp-container">
+          <form onSubmit={handleSubmit} className="rp-content" action="POST">
+            <h1 className="rp-title">Reset Your Password</h1>
             <input
-              className="fp-input"
+              className="rp-input"
               type="email"
               name="email"
               value={email}
@@ -55,7 +55,7 @@ const ResetPassword = () => {
             />
 
             <input
-              className="fp-input"
+              className="rp-input"
               type="password"
               name="password"
               value={password}
@@ -65,7 +65,7 @@ const ResetPassword = () => {
             />
 
             <input
-              className="fp-input"
+              className="rp-input"
               type="text"
               name="newpassword"
               value={newPassword}
@@ -73,11 +73,11 @@ const ResetPassword = () => {
               placeholder="New password"
               required
             />
-            <a href="/auth/reset-password" className="forgot-password">
+            <a href="/auth/forget-password" className="forgot-password">
               Forgot Password?
             </a>
 
-            <button type="submit" className="fp-btn">
+            <button type="submit" className="rp-btn">
               Reset Password
             </button>
           </form>

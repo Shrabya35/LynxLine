@@ -6,6 +6,7 @@ import Auth from "./Pages/Auth/Auth";
 import PageNotFound from "./Pages/PNF/PageNotFound";
 import Profile from "./Pages/Profile/Profile";
 import ResetPassword from "./Pages/Auth/ResetPassword";
+import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import PrivateRoutes from "./PrivateRoutes";
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
       <Routes>
         <Route path="/auth" element={<Auth />} />
         <Route path="/auth/reset-password" element={<ResetPassword />} />
+        <Route path="/auth/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route element={<PrivateRoutes />}>

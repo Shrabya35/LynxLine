@@ -1,13 +1,25 @@
 import userModel from "../models/userModel.js";
 import { comparePassword, hashPassword } from "../helper/authHelper.js";
 import JWT from "jsonwebtoken";
+import nodemailer from "nodemailer";
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: "shrabyaraj@gmail.com",
+    pass: "bumk ofjv ktrg urnx",
+  },
+  debug: true,
+});
 
 //register
 export const registerController = async (req, res) => {
   try {
     const { name, email, password, phone } = req.body;
 
-    //validation check
     if (!name) {
       return res.send({ error: "name is required" });
     }
@@ -106,7 +118,7 @@ export const loginController = async (req, res) => {
   }
 };
 
-export const ForgotPassword = async (req, res) => {
+export const resetPasswordController = async (req, res) => {
   try {
     const { email, password, newPassword } = req.body;
     if (!email) {
@@ -137,6 +149,111 @@ export const ForgotPassword = async (req, res) => {
       return res.status(404).send({
         success: false,
         message: "Password didn't match",
+      });
+    }
+
+    const hashedNewPassword = await hashPassword(newPassword);
+
+    user.password = hashedNewPassword;
+    await user.save();
+
+    res.status(200).send({
+      success: true,
+      message: "Password reset successful",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Something went wrong",
+      error,
+    });
+  }
+};
+
+let globalOTP;
+export const generateOtpController = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "Email is not registered",
+      });
+    }
+
+    const OTP = Math.floor(100000 + Math.random() * 900000).toString();
+    globalOTP = OTP;
+
+    await sendMail(email, OTP);
+
+    res.status(200).send({
+      success: true,
+      message: "OTP sent successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Something went wrong",
+      error,
+    });
+  }
+};
+
+async function sendMail(email, OTP) {
+  try {
+    const info = await transporter.sendMail({
+      from: '"LynxLine" <shrabyaraj@gmail.com>',
+      to: email,
+      subject: "OTP for password reset",
+      text: `Your OTP for password reset is: ${OTP}`,
+    });
+
+    console.log("Email sent: ", info.messageId);
+  } catch (error) {
+    console.log("Error occurred while sending email: ", error);
+    throw error;
+  }
+}
+
+export const forgetPasswordController = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+    if (!email) {
+      return res.status(400).send({
+        success: false,
+        message: "Email is required",
+      });
+    }
+    if (!otp) {
+      return res.status(400).send({
+        success: false,
+        message: "Enter Otp",
+      });
+    }
+    if (!newPassword) {
+      return res.status(400).send({
+        success: false,
+        message: "New password is required",
+      });
+    }
+
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "Email is not registered",
+      });
+    }
+
+    if (otp !== globalOTP) {
+      console.log(globalOTP);
+      return res.status(404).send({
+        success: false,
+        message: "Incorrect OTP",
       });
     }
 
