@@ -106,6 +106,7 @@ export const loginController = async (req, res) => {
         name: user.name,
         email: user.email,
         phone: user.phone,
+        role: user.role,
       },
       token,
     });
@@ -208,8 +209,56 @@ async function sendMail(email, OTP) {
     const info = await transporter.sendMail({
       from: '"LynxLine" <shrabyaraj@gmail.com>',
       to: email,
-      subject: "OTP for password reset",
-      text: `Your OTP for password reset is: ${OTP}`,
+      subject: "OTP for Password Reset",
+      html: `
+        <html>
+          <head>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                color: #333;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+              }
+              .container {
+                max-width: 600px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+              }
+              h1 {
+                color: #333;
+              }
+              h3{
+                margin-bottom: 20px;
+              }
+              p {
+                margin-bottom: 20px;
+              }
+              .footer {
+                margin-top: 20px;
+                text-align: center;
+                color: #666;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>OTP for Password Reset</h1>
+              <h3>Your OTP is: <strong>${OTP}</strong></h3>
+              <p>Please use this OTP to reset your password.</p>
+            </div>
+            <div class="footer">
+              This email was sent by LynxLine. Please do not reply to this email.
+            </div>
+          </body>
+        </html>
+      `,
     });
 
     console.log("Email sent: ", info.messageId);
@@ -218,7 +267,6 @@ async function sendMail(email, OTP) {
     throw error;
   }
 }
-
 export const forgetPasswordController = async (req, res) => {
   try {
     const { email, otp, newPassword } = req.body;

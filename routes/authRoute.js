@@ -2,11 +2,11 @@ import express from "express";
 import {
   registerController,
   loginController,
+  testController,
   resetPasswordController,
   forgetPasswordController,
   generateOtpController,
 } from "../controllers/authController.js";
-import { testController } from "../controllers/authController.js";
 import { isAdmin, requireSignIn } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
@@ -25,4 +25,7 @@ router.post("/generate-otp", generateOtpController);
 //middleware
 router.get("/test", requireSignIn, isAdmin, testController);
 
+router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
+  res.status(200).send({ ok: true });
+});
 export default router;

@@ -17,21 +17,38 @@ export const requireSignIn = async (req, res, next) => {
 //admin
 export const isAdmin = async (req, res, next) => {
   try {
-    const user = await userModel.findById(req.user._id);
-    if (user.role !== 1) {
+    if (!req.user || !req.user._id) {
+      console.log("User not authenticated");
       return res.status(401).send({
         success: false,
-        message: "unauthorized access",
+        message: "Unauthorized access",
+      });
+    }
+
+    const user = await userModel.findById(req.user._id);
+
+    if (!user) {
+      console.log("User not found");
+      return res.status(401).send({
+        success: false,
+        message: "Unauthorized access",
+      });
+    }
+
+    if (user.role === 0) {
+      return res.status(403).send({
+        success: false,
+        message: "Access forbidden",
       });
     } else {
       next();
     }
   } catch (error) {
-    console.log(error);
-    return res.status(401).send({
+    console.error("Error in isAdmin middleware:", error);
+    return res.status(500).send({
       success: false,
-      error,
-      message: "error in admin middleware",
+      error: error.message,
+      message: "Internal server error",
     });
   }
 };

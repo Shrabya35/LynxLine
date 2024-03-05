@@ -10,6 +10,7 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [otp, setOtp] = useState("");
+  const [gototp, setGototp] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -44,6 +45,7 @@ const ForgotPassword = () => {
 
       if (success) {
         toast.success(message);
+        setGototp(true);
       } else {
         toast.error(message);
       }
@@ -55,6 +57,9 @@ const ForgotPassword = () => {
       }
     }
   };
+  const sendAgain = () => {
+    setGototp(false);
+  };
 
   return (
     <Layout title={"Reset Password - LynxLine Account"}>
@@ -63,7 +68,12 @@ const ForgotPassword = () => {
         <div className="rp-container">
           <form onSubmit={handleSubmit} className="rp-content" action="POST">
             <h1 className="rp-title">Change Your Password</h1>
-            <div className="fp-email">
+            <div
+              className="fp-email"
+              style={{
+                display: gototp ? "none" : "block",
+              }}
+            >
               <input
                 className="rp-input"
                 type="email"
@@ -76,33 +86,42 @@ const ForgotPassword = () => {
                 Request OTP
               </button>
             </div>
+            <div
+              className="fp-gototp"
+              style={{
+                display: gototp ? "block" : "none",
+              }}
+            >
+              <div className="fp-otp">
+                <input
+                  className="rp-input fp-otp"
+                  inputMode="number"
+                  type="number"
+                  name="otp"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  placeholder="Enter OTP"
+                />
+              </div>
 
-            <div className="fp-otp">
-              <input
-                className="rp-input"
-                inputMode="number"
-                type="number"
-                name="otp"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                placeholder="Enter OTP"
-              />
+              <div className="fp-password">
+                <input
+                  className="rp-input rp-password"
+                  type="password"
+                  name="newpassword"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="New password"
+                />
+              </div>
+
+              <button type="submit" className="rp-btn fp-submit">
+                Change Password
+              </button>
+              <p onClick={sendAgain} className="forgot-password">
+                Send Again?
+              </p>
             </div>
-
-            <div className="fp-password">
-              <input
-                className="rp-input"
-                type="password"
-                name="newpassword"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="New password"
-              />
-            </div>
-
-            <button type="submit" className="rp-btn">
-              Change Password
-            </button>
           </form>
         </div>
       </div>

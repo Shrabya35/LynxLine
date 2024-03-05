@@ -52,7 +52,7 @@ const Navbar = () => {
           <IoSearchOutline className="nav-userItems nav-search" />
           <FaRegHeart className="nav-userItems nav-wishlist" />
           {isLoggedIn ? (
-            <Link to="/profile" className="nav-userItems nav-account">
+            <Link to="/profile/user" className="nav-userItems nav-account">
               <LuUser />
             </Link>
           ) : (
@@ -64,7 +64,7 @@ const Navbar = () => {
         </div>
         <div className="nav-user-mob">
           {isLoggedIn ? (
-            <a href="/profile" className="nav-user-account-mob">
+            <a href="/profile/user" className="nav-user-account-mob">
               <LuUser />
             </a>
           ) : (

@@ -73,7 +73,7 @@ const ResetPassword = () => {
               placeholder="New password"
               required
             />
-            <a href="/auth/forget-password" className="forgot-password">
+            <a href="/auth/forgot-password" className="forgot-password">
               Forgot Password?
             </a>
 
