@@ -1,8 +1,11 @@
 import React from "react";
 import "./User.css";
-import Layout from "../../components/Layout";
+import Layout from "../../../components/Layout";
+import NoOrder from "../../../assets/no-order.png";
+import { useNavigate } from "react-router-dom";
 
-const AdminProfile = () => {
+const UserProfile = () => {
+  const navigate = useNavigate();
   const userDetailsString =
     localStorage.getItem("userDetails") ||
     sessionStorage.getItem("userDetails");
@@ -18,7 +21,10 @@ const AdminProfile = () => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("userDetails");
 
-    window.location.href = "/";
+    navigate("/");
+  };
+  const handleReset = () => {
+    navigate("/auth/reset-password");
   };
 
   if (!userDetails) {
@@ -38,7 +44,7 @@ const AdminProfile = () => {
     <Layout title={`${firstName} - LynxLine`}>
       <div className="Profile">
         <div className="profile-title">
-          <h1>LynxLine Admin's Profile</h1>
+          <h1>Your LynxLine Profile</h1>
         </div>
         <div className="profile-container profile-flex">
           <div className="profile-left profile-side profile-flex">
@@ -47,15 +53,19 @@ const AdminProfile = () => {
               <div className="pacc-contents">
                 <div className="pacc-name">{userDetails.name}</div>
                 <div className="pacc-email">{userDetails.email}</div>
+                <button onClick={handleReset}>Reset Password</button>
                 <button onClick={handleLogout}>Logout</button>
               </div>
             </div>
           </div>
-          <div className="profile-right profile-side profile-flex"></div>
+          <div className="profile-right profile-side profile-flex">
+            <div className="profile-right-title">Your Orders</div>
+            <img src={NoOrder} alt="" />
+          </div>
         </div>
       </div>
     </Layout>
   );
 };
 
-export default AdminProfile;
+export default UserProfile;

@@ -8,8 +8,10 @@ import ResetPassword from "./Pages/Auth/ResetPassword";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import PrivateRoutes from "./route/PrivateRoutes";
 import AdminRoute from "./route/AdminRoute";
-import UserProfile from "./Pages/Profile/User";
-import AdminProfile from "./Pages/Profile/Admin";
+import AdminProfile from "./Pages/Profile/AdminProfile/Admin";
+import UserProfile from "./Pages/Profile/UserProfile/User";
+import CreateCategory from "./Pages/Profile/AdminProfile/CreateCategory";
+import AddProduct from "./Pages/Profile/AdminProfile/AddProduct";
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
         </Route>
         <Route path="/profile/" element={<AdminRoute />}>
           <Route path="admin" element={<AdminProfile />} />
+          <Route path="admin/category" element={<CreateCategory />} />
+          <Route path="admin/product" element={<AddProduct />} />
         </Route>
 
         <Route path="*" element={<PageNotFound />} />

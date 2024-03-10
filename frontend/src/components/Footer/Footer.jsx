@@ -100,23 +100,35 @@ const Footer = () => {
             </div>
           </div>
           <div className="footer-small-right footer-flex">
-            <div className="footer-small-icon">
-              <FaDiscord />
+            <div>
+              <a href="/" className="footer-small-icon">
+                <FaDiscord />
+              </a>
             </div>
-            <div className="footer-small-icon">
-              <FaFacebookF />
+            <div>
+              <a href="/" className="footer-small-icon">
+                <FaFacebookF />
+              </a>
             </div>
-            <div className="footer-small-icon">
-              <FaYoutube />
+            <div>
+              <a href="/" className="footer-small-icon">
+                <FaYoutube />
+              </a>
             </div>
-            <div className="footer-small-icon">
-              <FaInstagram />
+            <div>
+              <a href="/" className="footer-small-icon">
+                <FaInstagram />
+              </a>
             </div>
-            <div className="footer-small-icon">
-              <FaXTwitter />
+            <div>
+              <a href="/" className="footer-small-icon">
+                <FaXTwitter />
+              </a>
             </div>
-            <div className="footer-small-icon">
-              <FaTiktok />
+            <div>
+              <a href="/" className="footer-small-icon">
+                <FaTiktok />
+              </a>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ const SignUpForm = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:9080/api/v1/auth/register", {
+      .post("http://192.168.1.10:9080/api/v1/auth/register", {
         name,
         email,
         password,
@@ -104,7 +104,7 @@ const LogInForm = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:9080/api/v1/auth/login", {
+      .post("http://192.168.1.10:9080/api/v1/auth/login", {
         email,
         password,
       })

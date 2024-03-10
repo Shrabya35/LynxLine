@@ -19,7 +19,7 @@
   gap: 5rem;
 }
 .footer-link {
-  margin-top: 0.25rem;
+  padding-top: 0.75rem;
 }
 .footer-link a {
   font-size: 0.85rem;
@@ -53,6 +53,7 @@
 .footer-small-img img {
   width: 4.5rem;
   height: 3.5rem;
+  margin-right: 3rem;
 }
 .footer-down {
   border-top: 0.5px solid rgba(165, 151, 151, 0.287);

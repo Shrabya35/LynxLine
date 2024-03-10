@@ -51,7 +51,7 @@ const AdminRoute = () => {
     return <div>Loading...</div>;
   }
 
-  return ok ? <Outlet /> : <Navigate to="/auth" />;
+  return ok ? <Outlet /> : <Navigate to="/admin" />;
 };
 
 export default AdminRoute;

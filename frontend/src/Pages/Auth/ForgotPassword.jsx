@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:9080/api/v1/auth/forgot-password", {
+      .post("http://192.168.1.10:9080/api/v1/auth/forgot-password", {
         email,
         otp,
         newPassword,
@@ -38,7 +38,7 @@ const ForgotPassword = () => {
   const handleGenerateOTP = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:9080/api/v1/auth/generate-otp",
+        "http://192.168.1.10:9080/api/v1/auth/generate-otp",
         { email }
       );
       const { success, message } = response.data;
