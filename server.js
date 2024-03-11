@@ -5,6 +5,7 @@ import morgan from "morgan";
 import connectDB from "./config/connectDB.js";
 import authRoute from "./routes/authRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
+import productRoute from "./routes/productRoute.js";
 import cors from "cors";
 
 //env config
@@ -24,6 +25,7 @@ app.use(cors());
 
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/category", categoryRoute);
+app.use("/api/v1/product", productRoute);
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to my app</h1>");

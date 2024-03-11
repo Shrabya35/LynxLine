@@ -6,7 +6,7 @@ export const createCategoryController = async (req, res) => {
     const { name } = req.body;
 
     if (!name) {
-      return res.send({ error: "name is required" });
+      return res.status(500).send({ error: "name is required" });
     }
 
     const exitingCategory = await categoryModel.findOne({ name });
