@@ -29,7 +29,7 @@
     width: 15%;
     height: 100vh;
     padding: 1rem 0.5rem 1rem 0.5rem;
-    background: #f4f4f5;
+    background: #cacad0;
     gap: 2rem;
     flex-wrap: wrap;
   }
@@ -75,7 +75,7 @@
     align-items: center;
     width: 100%;
     flex-wrap: wrap;
-    background: #e4e4e6;
+    background: #a7a7a9;
   }
   .admin-profile-side1 {
     display: flex;

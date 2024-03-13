@@ -1,0 +1,121 @@
+.Admin-Category {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2.5rem 0 1rem 3rem;
+}
+.category-title {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+.admin-new-category button {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background: black;
+  border-radius: 0.35rem;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+.admin-new-category button:hover {
+  background: rgba(0, 0, 0, 0.837);
+}
+.admin-category-form {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.admin-category-input {
+  width: 40%;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background: #d3d3d3;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.create-category-btn {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  justify-content: center;
+  color: #fff;
+  background: black;
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 5rem;
+  transition: 0.2s ease-in;
+  cursor: pointer;
+}
+.create-category-btn:hover {
+  background: rgba(0, 0, 0, 0.837);
+}
+.custom-table {
+  width: 80%;
+  border-collapse: collapse;
+}
+
+.custom-table th,
+.custom-table td {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem;
+  text-align: left;
+}
+.custom-table th:nth-child(2) {
+  text-align: center;
+}
+
+.custom-table th {
+  color: #333;
+  background-color: #d3d3d3;
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.admin-category-action {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.admin-category-action button {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.delete-category-btn {
+  background-color: #ee3232;
+}
+.delete-category-btn:hover {
+  background-color: #d32f2f;
+}
+.edit-category-btn {
+  background-color: #478fe5;
+}
+.edit-category-btn:hover {
+  background-color: #2e75c5;
+}
+@media (max-width: 770px) {
+  .Admin-Category {
+    padding: 1rem;
+  }
+  .category-title {
+    width: 100%;
+  }
+  .admin-category-form {
+    width: 100%;
+  }
+  .admin-category-input {
+    width: 80%;
+  }
+  .custom-table {
+    width: 100%;
+  }
+}

@@ -125,7 +125,7 @@ const LogInForm = () => {
             sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
           }
           toast.success(message);
-          navigate("/");
+          navigate("/profile/user");
         } else {
           toast.error(message);
         }

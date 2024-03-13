@@ -10,29 +10,14 @@ import { isAdmin, requireSignIn } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post(
-  "/create-category",
-  requireSignIn,
-  isAdmin,
-  createCategoryController
-);
+router.post("/create-category", createCategoryController);
 
-router.put(
-  "/update-category/:id",
-  requireSignIn,
-  isAdmin,
-  updateCategoryController
-);
+router.put("/update-category/:id", updateCategoryController);
 
 router.get("/get-category", categoryController);
 
 router.get("/single-category/:slug", singleCategoryController);
 
-router.delete(
-  "/delete-category/:id",
-  requireSignIn,
-  isAdmin,
-  deleteCategoryController
-);
+router.delete("/delete-category/:id", deleteCategoryController);
 
 export default router;

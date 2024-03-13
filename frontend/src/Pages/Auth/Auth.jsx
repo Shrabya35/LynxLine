@@ -21,6 +21,14 @@ const Auth = ({ description, keywords, author }) => {
       <div className="auth-container">
         <div className="auth-left">
           <img src={AuthImage} alt="Authentication" className="auth-image" />
+          <div className="auth-image-text">
+            <p className="auth-image-small-text">Unleash your inner beast</p>
+            <h1>Welcome to LynxLine</h1>
+            <p className="auth-image-text-description">
+              Save your most-loved activewear pieces to build your perfect
+              outfit
+            </p>
+          </div>
         </div>
         <div className="auth-right">
           <div className="auth-logo">
