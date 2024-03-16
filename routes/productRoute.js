@@ -12,21 +12,9 @@ import {
 
 const router = express.Router();
 
-router.post(
-  "/create-product",
-  requireSignIn,
-  isAdmin,
-  formidable(),
-  createProductController
-);
+router.post("/create-product", formidable(), createProductController);
 
-router.put(
-  "/update-product/:pid",
-  requireSignIn,
-  isAdmin,
-  formidable(),
-  updateProductController
-);
+router.put("/update-product/:pid", formidable(), updateProductController);
 
 router.get("/get-product", getProductController);
 

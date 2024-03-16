@@ -24,8 +24,16 @@
 .admin-category-form {
   width: 80%;
   display: flex;
-  justify-content: center;
   gap: 1rem;
+  justify-content: center;
+}
+.admin-product-form {
+  flex-direction: column;
+}
+.admin-product-form-1 {
+  display: flex;
+  gap: 1rem;
+  width: 90%;
 }
 .admin-category-input {
   width: 40%;
@@ -39,6 +47,66 @@
   border-radius: 5px;
   box-sizing: border-box;
 }
+
+.admin-product-textarea {
+  margin: 0;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  outline: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.admin-product-input {
+  width: 60%;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.admin-product-form-5 {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.admin-product-short-input {
+  width: 30%;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+.admin-img-upload-btn {
+  margin: auto;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0.75rem 1rem 0.75rem 1rem;
+  width: 60%;
+  background-color: black;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1rem;
+}
+.upload-hidden {
+  display: none;
+}
+.admin-product-form-3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 60%;
+}
+.admin-product-preview {
+  margin-top: 0;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+.admin-product-preview img {
+  max-width: 100%;
+  height: 15rem;
+}
+
 .create-category-btn {
   padding: 0.5rem 1rem 0.5rem 1rem;
   justify-content: center;
@@ -54,6 +122,15 @@
 }
 .create-category-btn:hover {
   background: rgba(0, 0, 0, 0.837);
+}
+.admin-product-submit {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.admin-product-submit-btn {
+  padding: 1rem 1.5rem 1rem 1.5rem;
 }
 .custom-table {
   width: 80%;
@@ -106,16 +183,22 @@
   .Admin-Category {
     padding: 1rem;
   }
-  .category-title {
+  .category-title,
+  .admin-product-textarea,
+  .admin-category-form,
+  .custom-table,
+  .admin-product-input,
+  .admin-product-preview,
+  .admin-category-input,
+  .admin-product-category-select,
+  .admin-product-form-5,
+  .admin-product-submit {
     width: 100%;
   }
-  .admin-category-form {
-    width: 100%;
+  .admin-img-upload-btn {
+    width: 90%;
   }
-  .admin-category-input {
-    width: 80%;
-  }
-  .custom-table {
-    width: 100%;
+  .admin-product-form-1 {
+    flex-direction: column;
   }
 }

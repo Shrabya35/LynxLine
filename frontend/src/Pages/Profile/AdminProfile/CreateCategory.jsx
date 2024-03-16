@@ -27,8 +27,8 @@ const CreateCategory = () => {
       const { data } = await axios.get(
         "http://192.168.1.10:9080/api/v1/category/get-category"
       );
-      if (data.success) {
-        setCategory(data.category);
+      if (data?.success) {
+        setCategory(data?.category);
       }
     } catch (error) {
       toast.error("Something Went Wrong");

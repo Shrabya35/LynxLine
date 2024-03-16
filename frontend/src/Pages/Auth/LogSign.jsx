@@ -36,7 +36,7 @@ const SignUpForm = () => {
           toast.error(message);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error(err));
   };
   return (
     <div className="signup">
