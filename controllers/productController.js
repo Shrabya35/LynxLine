@@ -1,5 +1,6 @@
 import fs from "fs";
 import productModel from "../models/productModel.js";
+import userModel from "../models/userModel.js";
 import slugify from "slugify";
 
 export const createProductController = async (req, res) => {
@@ -82,20 +83,28 @@ export const getProductController = async (req, res) => {
 
 export const singleProductController = async (req, res) => {
   try {
-    const products = await productModel
+    const product = await productModel
       .findOne({ slug: req.params.slug })
       .populate("category")
       .select("-image");
-    res.status(201).send({
+
+    if (!product) {
+      return res.status(404).send({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    res.status(200).send({
       success: true,
       message: "Single Product",
-      products,
+      product,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error in getting Single Category",
+      message: "Error in getting single product",
       error,
     });
   }
@@ -191,6 +200,41 @@ export const deleteProductController = async (req, res) => {
       success: false,
       message: "Error in Deleting product",
       error,
+    });
+  }
+};
+
+export const addReviewController = async (req, res) => {
+  try {
+    const { author, rating, comment } = req.body; // Use req.body instead of req.fields
+    const productSlug = req.params.slug;
+
+    const product = await productModel.findOne({ slug: productSlug });
+
+    if (!product) {
+      return res.status(404).json({ error: "No product found with this slug" });
+    }
+
+    const newReview = {
+      author,
+      rating,
+      comment,
+    };
+
+    product.reviews.push(newReview);
+    await product.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Review added successfully",
+      reviews: product.reviews,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Error in adding review",
+      error: error.message,
     });
   }
 };

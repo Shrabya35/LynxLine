@@ -49,7 +49,7 @@ const Navbar = () => {
         </div>
         <div className="nav-user">
           <IoMdMenu className="nav-userItems nav-toggle" onClick={toggleMenu} />
-          <IoSearchOutline className="nav-userItems nav-search" />
+
           <FaRegHeart className="nav-userItems nav-wishlist" />
           {isLoggedIn ? (
             <Link to="/profile/user" className="nav-userItems nav-account">

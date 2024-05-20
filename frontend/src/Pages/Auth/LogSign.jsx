@@ -103,35 +103,51 @@ const LogInForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://192.168.1.10:9080/api/v1/auth/login", {
-        email,
-        password,
-      })
-      .then((response) => {
-        const { success, message, token, user } = response.data;
-        const userDetails = {
-          name: user.name,
-          email: user.email,
-          phone: user.phone,
-        };
-        console.log(message);
-        if (success) {
-          if (rememberMe) {
-            localStorage.setItem("token", token);
-            localStorage.setItem("userDetails", JSON.stringify(userDetails));
-          } else {
-            sessionStorage.setItem("token", token);
-            sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
-          }
-          toast.success(message);
-          navigate("/profile/user");
-        } else {
-          toast.error(message);
+    try {
+      const response = await axios.post(
+        "http://192.168.1.10:9080/api/v1/auth/login",
+        {
+          email,
+          password,
         }
-      })
-      .catch((err) => console.log(err));
+      );
+
+      const { success, message, token, user } = response.data;
+      const userDetails = {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      };
+
+      console.log(message);
+      if (success) {
+        if (rememberMe) {
+          localStorage.setItem("token", token);
+          localStorage.setItem("userDetails", JSON.stringify(userDetails));
+        } else {
+          sessionStorage.setItem("token", token);
+          sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
+        }
+        toast.success(message);
+        navigate("/profile/user");
+      } else {
+        toast.error(message);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userDetails");
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("userDetails");
+        toast.error("Session expired. Please log in again.");
+        navigate("/login");
+      } else {
+        console.error("An error occurred:", error);
+        toast.error("An error occurred. Please try again later.");
+      }
+    }
   };
+
   return (
     <div className="login">
       <form onSubmit={handleSubmit} action="POST">

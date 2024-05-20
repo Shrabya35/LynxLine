@@ -1,0 +1,218 @@
+.home-offer {
+  background: #f4f4f5;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home-offer-text {
+  text-align: center;
+}
+.home-banner-container {
+  background: url(../../assets/banner.png);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 28rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.home-banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.home-banner-button {
+  display: flex;
+  gap: 1rem;
+}
+.home-banner-btn {
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 1.25rem 0.75rem 1.25rem;
+  color: #fff;
+  background: black;
+  font-size: 1em;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 5rem;
+  transition: 0.2s ease-in;
+  cursor: pointer;
+}
+.home-banner-btn:hover {
+  background: rgba(0, 0, 0, 0.837);
+}
+.home-category-1 {
+  padding: 4rem 0 1rem 2rem;
+}
+.home-product-title {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 2rem;
+}
+.home-product-title p {
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+}
+.product-card-container {
+  padding: 2rem 0 0 0.5rem;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.product-card-container::-webkit-scrollbar {
+  display: none;
+}
+
+.product-card {
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-right: 3rem;
+  height: 30rem;
+  width: 15rem;
+}
+
+.product-card-img {
+  width: 100%;
+  height: 18rem;
+  object-fit: cover;
+}
+
+.product-card-body {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-card-title {
+  font-size: 1rem;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.product-card-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.product-card-category,
+.product-card-type {
+  color: rgba(0, 0, 0, 0.923);
+  font-size: 0.875rem;
+}
+.home-banner-2 {
+  background: url(../../assets/banner2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 3rem;
+}
+.home-banner2-content {
+  text-align: start;
+}
+.home-picks-1 {
+  padding: 5rem 0 5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  background: black;
+}
+.home-picks-title h2 {
+  color: white;
+}
+.home-picks-container {
+  display: flex;
+  width: 100%;
+  padding-right: 2rem;
+  justify-content: center;
+  gap: 1rem;
+  align-self: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.home-picks-container::-webkit-scrollbar {
+  display: none;
+}
+.picks-card {
+  min-height: 28rem;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1rem 0 1rem 3rem;
+}
+.picks-card1 {
+  background: url(../../assets/pick1.png);
+}
+.picks-card2 {
+  background: url(../../assets/pick2.png);
+}
+@media (max-width: 767px) {
+  .home-banner-container {
+    background: url(../../assets/banner-mb.png);
+    background-size: cover;
+    min-height: 38rem;
+    z-index: auto;
+    justify-content: flex-end;
+  }
+  .home-banner-2 {
+    background: url(../../assets/banner2-mb.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .home-banner-content h1,
+  .home-banner-content p {
+    color: white;
+  }
+  .home-banner-content p {
+    font-weight: 600;
+  }
+  .home-banner-button {
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .home-banner-btn {
+    width: 60%;
+  }
+  .home-picks-container {
+    justify-content: flex-start;
+    gap: 0;
+    align-self: flex-start;
+    padding-right: 1rem;
+  }
+  .picks-card {
+    background: url(../../assets/pick1-mb.png);
+    background-size: cover;
+    width: 99%;
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin-right: 1rem;
+    padding: 1rem 0 1rem 1rem;
+  }
+  .picks-card2 {
+    background: url(../../assets/pick2-mb.png);
+    background-size: cover;
+  }
+}

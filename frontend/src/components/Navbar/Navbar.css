@@ -24,17 +24,16 @@ li {
   justify-content: space-between;
   align-items: center;
   box-shadow: -1px 3px 3px -2px rgba(107, 105, 105, 0.61);
-  padding: 1rem 2rem 1rem 2rem;
-  position: relative;
+  padding: 0.5rem 2rem 0.5em 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.1s ease-out;
 }
 
 @media (min-width: 765px) {
   .nav-container {
     .nav-container {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      transition: all 0.1s ease-out;
       padding: 1rem 2rem 1rem 2rem;
     }
   }
@@ -79,11 +78,7 @@ li {
 
 @media (max-width: 765px) {
   .nav-container {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    transition: all 0.1s ease-out;
-    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    padding: 0.25rem 0.75rem 0.25rem 0.75rem;
   }
   .nav-logo {
     order: 2;
@@ -128,9 +123,12 @@ li {
     transition: left 0.8s ease-in-out;
     z-index: 1000;
   }
+
   .nav-sidebar.open {
     left: 0;
+    z-index: 1500;
   }
+
   .close-btn {
     position: absolute;
     top: 30px;
