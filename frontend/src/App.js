@@ -13,6 +13,7 @@ import UserProfile from "./Pages/Profile/UserProfile/User";
 import CreateCategory from "./Pages/Profile/AdminProfile/CreateCategory";
 import AddProduct from "./Pages/Profile/AdminProfile/AddProduct";
 import SingleProduct from "./Pages/SingleProduct/SingleProduct";
+import Wishlist from "./Pages/Wishlist/Wishlist";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/auth/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/products/:slug" element={<SingleProduct />} />
+        <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile/" element={<PrivateRoutes />}>
           <Route path="user" element={<UserProfile />} />

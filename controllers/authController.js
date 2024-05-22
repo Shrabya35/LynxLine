@@ -324,7 +324,84 @@ export const forgetPasswordController = async (req, res) => {
   }
 };
 
-//middleware
-export const testController = (req, res) => {
-  res.send("protected route");
+export const singleUserController = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ email: req.params.email });
+
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "email not found",
+      });
+    }
+
+    res.status(200).send({
+      success: true,
+      message: "user details fetched",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting user details",
+      error,
+    });
+  }
+};
+
+export const addWishlistController = async (req, res) => {
+  try {
+    const { email, productId } = req.body;
+    const user = await userModel.findOne({ email }).populate("wishlist");
+    console.log("User:", user);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (!user.wishlist) {
+      user.wishlist = [];
+    }
+
+    if (user.wishlist.includes(productId)) {
+      return res.status(400).json({ message: "Product already in wishlist" });
+    }
+
+    user.wishlist.push(productId);
+    await user.save();
+
+    return res.status(200).json({ message: "Product added to wishlist" });
+  } catch (error) {
+    console.error("Error adding product to wishlist:", error);
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
+  }
+};
+
+export const removeWishlistController = async (req, res) => {
+  try {
+    const { email, productId } = req.body;
+    const user = await userModel.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    user.wishlist = user.wishlist.filter(
+      (item) => item.toString() !== productId
+    );
+    await user.save();
+
+    res.status(200).json({ message: "Product removed from wishlist" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+export const getWishlistController = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await userModel.findOne({ email }).populate("wishlist");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json(user.wishlist);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
 };

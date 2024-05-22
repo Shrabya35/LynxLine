@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import "./SingleProduct.css";
 import axios from "axios";
@@ -7,15 +7,27 @@ import Layout from "../../components/Layout";
 import PageNotFound from "../PNF/PageNotFound";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
-
 import { FaShareAlt, FaStar } from "react-icons/fa";
-import { FaRegHeart } from "react-icons/fa6";
+import { FaRegHeart, FaHeart } from "react-icons/fa6";
 
 const SingleProduct = ({ description, keywords, author }) => {
   const { slug } = useParams();
   const [productData, setProductData] = useState(null);
   const [sugProducts, setSugProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isWishlisted, setIsWishlisted] = useState(false);
+
+  const userDetailsString = useMemo(
+    () =>
+      localStorage.getItem("userDetails") ||
+      sessionStorage.getItem("userDetails"),
+    []
+  );
+  const userDetails = useMemo(
+    () => JSON.parse(userDetailsString),
+    [userDetailsString]
+  );
+  const userEmail = userDetails?.email;
 
   const fetchData = useCallback(async () => {
     try {
@@ -62,6 +74,43 @@ const SingleProduct = ({ description, keywords, author }) => {
 
     fetchSugData();
   }, [productData]);
+
+  useEffect(() => {
+    const checkWishlist = async () => {
+      try {
+        const response = await axios.get(
+          `http://192.168.1.10:9080/api/v1/auth/wishlist/${userEmail}`
+        );
+        const wishlist = response.data;
+        setIsWishlisted(wishlist.some((item) => item._id === productData._id));
+      } catch (error) {
+        console.error("Error checking wishlist:", error);
+      }
+    };
+
+    if (productData) {
+      checkWishlist();
+    }
+  }, [productData, userEmail]);
+
+  const handleWishlist = async () => {
+    try {
+      const endpoint = isWishlisted
+        ? "http://192.168.1.10:9080/api/v1/auth/remove-wishlist"
+        : "http://192.168.1.10:9080/api/v1/auth/add-wishlist";
+      await axios.post(endpoint, {
+        email: userEmail,
+        productId: productData._id,
+      });
+      setIsWishlisted(!isWishlisted);
+      toast.success(
+        isWishlisted ? "Item removed from wishlist" : "Item added to wishlist"
+      );
+    } catch (error) {
+      toast.error("Error updating wishlist");
+      console.error("Error updating wishlist:", error);
+    }
+  };
 
   const copyLink = () => {
     const url = window.location.href;
@@ -139,8 +188,12 @@ const SingleProduct = ({ description, keywords, author }) => {
                   <div className="sp-icons-rating">
                     <FaStar />
                   </div>
-                  <div className="sp-icons-wishlist">
-                    <FaRegHeart className="sp-icon" />
+                  <div className="sp-icons-wishlist" onClick={handleWishlist}>
+                    {isWishlisted ? (
+                      <FaHeart className="sp-icon" />
+                    ) : (
+                      <FaRegHeart className="sp-icon" />
+                    )}
                   </div>
                   <div className="sp-icons-share">
                     <FaShareAlt className="sp-icon" onClick={copyLink} />
@@ -163,8 +216,8 @@ const SingleProduct = ({ description, keywords, author }) => {
             </div>
             <div className="sp-suggestion-container">
               {sugProducts.map((p) => (
-                <Link to={`/products/${p.slug}`}>
-                  <div className="product-card" key={p._id}>
+                <Link to={`/products/${p.slug}`} key={p._id}>
+                  <div className="product-card">
                     <img
                       src={`http://192.168.1.10:9080/api/v1/product/product-photo/${p._id}`}
                       className="product-card-img"

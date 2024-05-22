@@ -8,6 +8,7 @@ import { IoMdMenu } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa6";
 import { LuUser } from "react-icons/lu";
 import { HiShoppingBag } from "react-icons/hi2";
+import toast, { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -25,6 +26,9 @@ const Navbar = () => {
 
   const closeMenu = () => {
     setMenuOpen(false);
+  };
+  const handleWishlist = () => {
+    toast.error("Sign in to view wishlisted items");
   };
 
   return (
@@ -50,7 +54,16 @@ const Navbar = () => {
         <div className="nav-user">
           <IoMdMenu className="nav-userItems nav-toggle" onClick={toggleMenu} />
 
-          <FaRegHeart className="nav-userItems nav-wishlist" />
+          {isLoggedIn ? (
+            <Link to="/wishlist" className="nav-userItems nav-wishlist">
+              <FaRegHeart />
+            </Link>
+          ) : (
+            <FaRegHeart
+              className="nav-userItems nav-wishlist"
+              onClick={handleWishlist}
+            />
+          )}
           {isLoggedIn ? (
             <Link to="/profile/user" className="nav-userItems nav-account">
               <LuUser />
@@ -79,7 +92,13 @@ const Navbar = () => {
         <div className="nav-mob-up">
           <div className="nav-mob-icon">
             <IoClose className="close-btn" onClick={closeMenu} />
-            <FaRegHeart className="mob-wishlist" />
+            {isLoggedIn ? (
+              <a href="/wishlist">
+                <FaRegHeart className="mob-wishlist" />
+              </a>
+            ) : (
+              <FaRegHeart className="mob-wishlist" onClick={handleWishlist} />
+            )}
           </div>
           <div className="nav-mob-cont">
             <div className="sidebar-title">SHOP</div>
@@ -111,6 +130,7 @@ const Navbar = () => {
           </li>
         </div>
       </div>
+      <Toaster />
     </nav>
   );
 };
