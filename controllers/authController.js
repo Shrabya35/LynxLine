@@ -397,7 +397,10 @@ export const removeWishlistController = async (req, res) => {
 export const getWishlistController = async (req, res) => {
   try {
     const { email } = req.params;
-    const user = await userModel.findOne({ email }).populate("wishlist");
+    const user = await userModel.findOne({ email }).populate({
+      path: "wishlist",
+      populate: { path: "category" },
+    });
     if (!user) return res.status(404).json({ message: "User not found" });
 
     res.status(200).json(user.wishlist);

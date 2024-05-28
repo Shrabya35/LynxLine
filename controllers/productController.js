@@ -204,9 +204,10 @@ export const deleteProductController = async (req, res) => {
   }
 };
 
+//not used currently
 export const addReviewController = async (req, res) => {
   try {
-    const { author, rating, comment } = req.body; // Use req.body instead of req.fields
+    const { author, rating, comment } = req.body;
     const productSlug = req.params.slug;
 
     const product = await productModel.findOne({ slug: productSlug });

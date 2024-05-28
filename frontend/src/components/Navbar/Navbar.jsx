@@ -28,7 +28,7 @@ const Navbar = () => {
     setMenuOpen(false);
   };
   const handleWishlist = () => {
-    toast.error("Sign in to view wishlisted items");
+    toast.error("Sign in to save and view your wishlist");
   };
 
   return (
@@ -53,6 +53,7 @@ const Navbar = () => {
         </div>
         <div className="nav-user">
           <IoMdMenu className="nav-userItems nav-toggle" onClick={toggleMenu} />
+          <IoSearchOutline />
 
           {isLoggedIn ? (
             <Link to="/wishlist" className="nav-userItems nav-wishlist">
@@ -126,7 +127,11 @@ const Navbar = () => {
             <a href="/about">My Cart</a>
           </li>
           <li className="nav-items-mob">
-            <a href="/about">My Wishlist</a>
+            {isLoggedIn ? (
+              <a href="/wishlist">My Wishlist</a>
+            ) : (
+              <span onClick={handleWishlist}>My Wishlist</span>
+            )}
           </li>
         </div>
       </div>

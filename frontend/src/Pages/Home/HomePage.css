@@ -77,8 +77,9 @@
   flex-shrink: 0;
   flex-grow: 0;
   margin-right: 3rem;
-  height: 30rem;
+  height: 25rem;
   width: 15rem;
+  margin-bottom: 1rem;
 }
 
 .product-card-img {

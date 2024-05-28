@@ -16,6 +16,13 @@ const SingleProduct = ({ description, keywords, author }) => {
   const [sugProducts, setSugProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    setIsLoggedIn(token ? true : false);
+  }, []);
 
   const userDetailsString = useMemo(
     () =>
@@ -94,6 +101,10 @@ const SingleProduct = ({ description, keywords, author }) => {
   }, [productData, userEmail]);
 
   const handleWishlist = async () => {
+    if (!isLoggedIn) {
+      toast.error("Sign In to wishlist your favourite items");
+      return;
+    }
     try {
       const endpoint = isWishlisted
         ? "http://192.168.1.10:9080/api/v1/auth/remove-wishlist"
