@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
+import "./MWA.css";
 import "./HomePage.css";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-const HomePage = () => {
+const Men = () => {
   const [products, setProducts] = useState([]);
-  const [gbProducts, setGBProducts] = useState([]);
   const [offerIndex, setOfferIndex] = useState(0);
   const offers = [
     "🎉 Shop over $75 & enjoy FREE delivery🚚💰",
@@ -30,16 +30,9 @@ const HomePage = () => {
         );
         if (data?.success) {
           const filteredProducts = data.products.filter(
-            (product) =>
-              product.category.name !== "Gym Bro" &&
-              product.category.name !== "Accesories"
+            (product) => product.type === "Men"
           );
           setProducts(filteredProducts);
-
-          const gymBroProducts = data.products.filter(
-            (product) => product.category.name === "Gym Bro"
-          );
-          setGBProducts(gymBroProducts);
         }
       } catch (error) {
         toast.error("Something went wrong while fetching products");
@@ -57,25 +50,27 @@ const HomePage = () => {
           <div className="home-offer">
             <h4 className="home-offer-text">{offers[offerIndex]}</h4>
           </div>
-          <div className="home-banner-container">
-            <div className="home-banner-content">
-              <h1>THIS MONTH'S FRESH FITS</h1>
-              <p>Brand new drops, brand new reasons to unleash your beast.</p>
-            </div>
-            <div className="home-banner-button">
-              <button className="home-banner-btn home-banner-btn-women">
-                Shop Women
-              </button>
-              <button className="home-banner-btn home-banner-btn-men">
-                Shop Men
-              </button>
+          <div className="home-banner-container men-banner-container">
+            <div className="men-banner-section">
+              <div className="home-banner-content men-banner-content">
+                <h1>Unleash Your Swagger!</h1>
+                <p>
+                  Explore the freshest men's arrivals and take your style to the
+                  next level.
+                </p>
+              </div>
+              <div className="home-banner-button">
+                <button className="home-banner-btn home-banner-btn-men">
+                  Shop Men
+                </button>
+              </div>
             </div>
           </div>
         </div>
         <div className="home-down">
           <div className="home-category-1">
             <div className="home-product-title">
-              <h2>Fresh Fits</h2>
+              <h2>Men's Fits</h2>
               <p>View all</p>
             </div>
             <div className="product-card-container">
@@ -117,48 +112,10 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <div className="home-banner-2 home-banner-container">
-            <div className="home-banner-content home-banner2-content">
-              <h1>Gym Bro Tshirts</h1>
-              <p>Brand new drops for the Gym Bros</p>
-            </div>
-            <div className="home-banner-button">
-              <button className="home-banner-btn">Shop Now</button>
-            </div>
-          </div>
-          <div className="home-category-2 home-category-1 ">
-            <div className="home-product-title">
-              <h2>Gym Bro T-shirts</h2>
-              <p>View all</p>
-            </div>
-            <div className="product-card-container">
-              {gbProducts.map((p) => (
-                <Link to={`/products/${p.slug}`}>
-                  <div className="product-card" key={p._id}>
-                    <img
-                      src={`http://192.168.1.10:9080/api/v1/product/product-photo/${p._id}`}
-                      className="product-card-img"
-                      alt={p.name}
-                    />
-                    <div className="product-card-body">
-                      <div className="product-card-title">{p.name}</div>
-                      <div className="product-card-desc">
-                        <div className="product-card-category">
-                          {p.category.name}
-                        </div>
-                        <div className="product-card-type">{p.type}</div>
-                        <h4 className="product-card-price">${p.price}</h4>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </Layout>
   );
 };
 
-export default HomePage;
+export default Men;

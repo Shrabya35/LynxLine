@@ -1,0 +1,50 @@
+.men-banner-container {
+  background: url(../../assets/banner-m.png);
+}
+.women-banner-container {
+  background: url(../../assets/banner-w.png);
+}
+.accessories-banner-container {
+  background: url(../../assets/banner-a.png);
+}
+.men-banner-container,
+.women-banner-container,
+.accessories-banner-container {
+  align-items: flex-start;
+  text-align: center;
+}
+.men-banner-section,
+.women-banner-section,
+.accessories-banner-section {
+  padding-left: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 767px) {
+  .men-banner-container {
+    background: url(../../assets/banner-m-mob.png);
+    background-size: cover;
+  }
+  .women-banner-container {
+    background: url(../../assets/banner-w-mob.png);
+    background-size: cover;
+  }
+  .accessories-banner-container {
+    background: url(../../assets/banner-a-mob.png);
+    background-size: cover;
+  }
+  .accessories-banner-section {
+    padding: 0;
+  }
+  .men-banner-content h1,
+  .men-banner-content p,
+  .women-banner-content h1,
+  .women-banner-content p,
+  .accessories-banner-contents h1,
+  .accessories-banner-contents p {
+    color: black;
+  }
+}

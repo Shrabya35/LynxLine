@@ -14,6 +14,19 @@ const Wishlist = ({ description, keywords, author }) => {
   const [loading, setLoading] = useState(true);
   const [sort, setSort] = useState("latest");
   const [isWishlistOpen, setWishlistOpen] = useState(false);
+  const [offerIndex, setOfferIndex] = useState(0);
+  const offers = [
+    "🎉 Shop over $75 & enjoy FREE delivery🚚💰",
+    "🌟 Discover our exclusive deals & discounts this month! 💸✨",
+    "💳 Get 20% off on your purchase with code BlackNigga! 💳🛍️",
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setOfferIndex((prevIndex) => (prevIndex + 1) % offers.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [offers.length]);
 
   const userDetailsString = useMemo(
     () =>
@@ -134,23 +147,97 @@ const Wishlist = ({ description, keywords, author }) => {
         <title>Wishlist | LynxLine</title>
       </Helmet>
       <div className="Wishlist">
-        <div className="wishlist-title">
-          <h1>Your WishList</h1>
-          <p>{wishlist.length} items</p>
-        </div>
-        <div className="wishlist-container">
-          <div className="wishlist-left">
-            <div className="wishlist-left-title">
-              <h2 className="wishlist-left-title-text">Filter</h2>
-              <div
-                className="wishlist-mob-filter-dropdown"
-                onClick={wishlistMobOpen}
-              >
-                <TbAdjustmentsHorizontal />
-                Browse By
+        <div className="whislist-main">
+          <div className="home-offer wishlist-offer">
+            <h4 className="home-offer-text">{offers[offerIndex]}</h4>
+          </div>
+          <div className="wishlist-title">
+            <h1>Your WishList</h1>
+            <p>{wishlist.length} items</p>
+          </div>
+          <div className="wishlist-container">
+            <div className="wishlist-left">
+              <div className="wishlist-left-title">
+                <h2 className="wishlist-left-title-text">Filter</h2>
+                <div
+                  className="wishlist-mob-filter-dropdown"
+                  onClick={wishlistMobOpen}
+                >
+                  <TbAdjustmentsHorizontal />
+                  Browse By
+                </div>
+              </div>
+              <div className="wishlist-filters">
+                <div className="wishlist-filter-categories">
+                  <h4>Filter by category</h4>
+                  <div className="wishlist-filter-select">
+                    {Array.isArray(category) &&
+                      category.map((c) => (
+                        <div className="wishlist-category-list" key={c._id}>
+                          <input
+                            type="checkbox"
+                            value={c.name}
+                            checked={selectedCategories.includes(c.name)}
+                            onChange={handleCheckboxChange}
+                          />
+                          {c.name}
+                        </div>
+                      ))}
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="wishlist-filters">
+            <div className="wishlist-right">
+              <div className="wishlist-right-sort">
+                Sort by :
+                <select
+                  className="wishlist-right-sort-select"
+                  onChange={handleSortChange}
+                  value={sort}
+                >
+                  <option value="latest">Latest</option>
+                  <option value="oldest">Oldest</option>
+                  <option value="high">Price High To Low</option>
+                  <option value="low">Price Low To High</option>
+                </select>
+              </div>
+              <div className="whishlist-card-container">
+                {sortedWishlist.map((item) => (
+                  <Link to={`/products/${item.slug}`} key={item._id}>
+                    <div className="wishlist-card product-card">
+                      <img
+                        src={`http://192.168.1.10:9080/api/v1/product/product-photo/${item._id}`}
+                        className="product-card-img"
+                        alt={item.name}
+                      />
+                      <div className="product-card-body">
+                        <div className="product-card-title">{item.name}</div>
+                        <div className="product-card-desc">
+                          <div className="product-card-category">
+                            {item.category.name}
+                          </div>
+                          <div className="product-card-type">{item.type}</div>
+                          <h4 className="product-card-price">${item.price}</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className={`wishlist-mob ${isWishlistOpen ? "open" : ""}`}>
+            <div className="wishlist-mob-up">
+              <div className="wishlist-close">
+                <IoClose
+                  className="wishlist-close-icon"
+                  onClick={wishlistMobClose}
+                />
+              </div>
+              <h3 className="wishlist-mob-title">Filters</h3>
+              <div className="wishlist-mob-hide">hide text</div>
+            </div>
+            <div className="wishlist-filters-mob">
               <div className="wishlist-filter-categories">
                 <h4>Filter by category</h4>
                 <div className="wishlist-filter-select">
@@ -167,75 +254,6 @@ const Wishlist = ({ description, keywords, author }) => {
                       </div>
                     ))}
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="wishlist-right">
-            <div className="wishlist-right-sort">
-              Sort by :
-              <select
-                className="wishlist-right-sort-select"
-                onChange={handleSortChange}
-                value={sort}
-              >
-                <option value="latest">Latest</option>
-                <option value="oldest">Oldest</option>
-                <option value="high">Price High To Low</option>
-                <option value="low">Price Low To High</option>
-              </select>
-            </div>
-            <div className="whishlist-card-container">
-              {sortedWishlist.map((item) => (
-                <Link to={`/products/${item.slug}`} key={item._id}>
-                  <div className="wishlist-card product-card">
-                    <img
-                      src={`http://192.168.1.10:9080/api/v1/product/product-photo/${item._id}`}
-                      className="product-card-img"
-                      alt={item.name}
-                    />
-                    <div className="product-card-body">
-                      <div className="product-card-title">{item.name}</div>
-                      <div className="product-card-desc">
-                        <div className="product-card-category">
-                          {item.category.name}
-                        </div>
-                        <div className="product-card-type">{item.type}</div>
-                        <h4 className="product-card-price">${item.price}</h4>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className={`wishlist-mob ${isWishlistOpen ? "open" : ""}`}>
-          <div className="wishlist-mob-up">
-            <div className="wishlist-close">
-              <IoClose
-                className="wishlist-close-icon"
-                onClick={wishlistMobClose}
-              />
-            </div>
-            <h3 className="wishlist-mob-title">Filters</h3>
-            <div className="wishlist-mob-hide">hide text</div>
-          </div>
-          <div className="wishlist-filters-mob">
-            <div className="wishlist-filter-categories">
-              <h4>Filter by category</h4>
-              <div className="wishlist-filter-select">
-                {Array.isArray(category) &&
-                  category.map((c) => (
-                    <div className="wishlist-category-list" key={c._id}>
-                      <input
-                        type="checkbox"
-                        value={c.name}
-                        checked={selectedCategories.includes(c.name)}
-                        onChange={handleCheckboxChange}
-                      />
-                      {c.name}
-                    </div>
-                  ))}
               </div>
             </div>
           </div>

@@ -42,13 +42,13 @@ const Navbar = () => {
         </div>
         <div className="nav-menu">
           <li className="nav-items">
-            <a href="/">Men</a>
+            <a href="/men">Men</a>
           </li>
           <li className="nav-items">
-            <a href="/about">Women</a>
+            <a href="/women">Women</a>
           </li>
           <li className="nav-items">
-            <a href="/about">Accesories</a>
+            <a href="/accessories">Accesories</a>
           </li>
         </div>
         <div className="nav-user">
@@ -115,13 +115,13 @@ const Navbar = () => {
         </div>
         <div className="sidebar-menu">
           <li className="nav-items-mob">
-            <a href="/">Men</a>
+            <a href="/men">Men</a>
           </li>
           <li className="nav-items-mob">
-            <a href="/about">Women</a>
+            <a href="/women">Women</a>
           </li>
           <li className="nav-items-mob">
-            <a href="/about">Accesories</a>
+            <a href="/accessories">Accesories</a>
           </li>
           <li className="nav-items-mob">
             <a href="/about">My Cart</a>

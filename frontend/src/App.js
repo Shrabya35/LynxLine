@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./Pages/Home/HomePage";
+import Men from "./Pages/Home/Men";
+import Women from "./Pages/Home/Women";
+import Accesories from "./Pages/Home/Accesories";
 import About from "./Pages/About/About";
 import Auth from "./Pages/Auth/Auth";
 import PageNotFound from "./Pages/PNF/PageNotFound";
@@ -23,6 +26,9 @@ const App = () => {
         <Route path="/auth/reset-password" element={<ResetPassword />} />
         <Route path="/auth/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/men" element={<Men />} />
+        <Route path="/women" element={<Women />} />
+        <Route path="/accessories" element={<Accesories />} />
         <Route path="/products/:slug" element={<SingleProduct />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/about" element={<About />} />
