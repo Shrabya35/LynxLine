@@ -60,15 +60,18 @@ const Men = () => {
                 </p>
               </div>
               <div className="home-banner-button">
-                <button className="home-banner-btn home-banner-btn-men">
+                <a
+                  href="#shop-men"
+                  className="home-banner-btn home-banner-btn-men"
+                >
                   Shop Men
-                </button>
+                </a>
               </div>
             </div>
           </div>
         </div>
         <div className="home-down">
-          <div className="home-category-1">
+          <div className="home-category-1" id="shop-men">
             <div className="home-product-title">
               <h2>Men's Fits</h2>
               <p>View all</p>

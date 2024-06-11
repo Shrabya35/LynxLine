@@ -3,7 +3,9 @@
   margin: 0;
   width: 100%;
   min-height: 90vh;
-  padding-top: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .pnf-flex {
@@ -14,13 +16,16 @@
 }
 
 .pnf-container {
-  gap: 3rem;
+  gap: 1rem;
 }
 
 .pnf-content {
   gap: 1rem;
 }
-
+.pnf-content p {
+  font-size: 0.9rem;
+  color: rgba(42, 41, 41, 0.94);
+}
 .pnf-btn {
   width: 100%;
   padding: 1rem 2rem 1rem 2rem;

@@ -3,6 +3,7 @@ import axios from "axios";
 import "./adminManage.css";
 import AdminLayout from "./AdminLayout/AdminLayout";
 import { Link } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 const ViewProduct = () => {
   const [products, setProducts] = useState([]);
@@ -48,6 +49,7 @@ const ViewProduct = () => {
   return (
     <AdminLayout title={`View Products - LynxLine`}>
       <div className="View-Products">
+        <Toaster />
         <div className="view-products-container">
           <div className="admin-products-section whishlist-card-container">
             {products.map((p) => (

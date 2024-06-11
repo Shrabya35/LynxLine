@@ -3,6 +3,12 @@ import "./Footer.css";
 
 import Esewa from "../../assets/e_sewa.png";
 import Khalti from "../../assets/khalti.png";
+import QrCode from "../../assets/qrcode.png";
+import Nepal from "../../assets/nepal.png";
+import Wales from "../../assets/wales.png";
+import Bhutan from "../../assets/bhutan.png";
+import Brazil from "../../assets/brazil.png";
+import Cyprus from "../../assets/cyprus.png";
 
 import {
   FaDiscord,
@@ -86,8 +92,44 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="footer-left">
-            <h3>Ya Kei ta halne ho k halne sochna sakina</h3>
+          <div className="footer-left footer-flex">
+            <div className="footer-left-flag footer-right-item footer-flex">
+              <div className="footer-content-title">
+                <h3>LynxLine Global</h3>
+              </div>
+              <div className="footer-flags footer-flex">
+                <ul>
+                  <li className="footer-global footer-link footer-links-pages">
+                    <img className="footer-flag" src={Nepal} alt="wales" />
+                    <p>Nepal</p>
+                  </li>
+                  <li className="footer-global footer-link footer-links-pages">
+                    <img className="footer-flag" src={Wales} alt="wales" />
+                    <p>Wales</p>
+                  </li>
+                  <li className="footer-global footer-link footer-links-pages">
+                    <img className="footer-flag" src={Bhutan} alt="wales" />
+                    <p>Bhutan</p>
+                  </li>
+                  <li className="footer-global footer-link footer-links-pages">
+                    <img className="footer-flag" src={Brazil} alt="wales" />
+                    <p>Brazil</p>
+                  </li>
+                  <li className="footer-global footer-link footer-links-pages">
+                    <img className="footer-flag" src={Cyprus} alt="wales" />
+                    <p>Cyprus</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="footer-left-qr footer-right-item footer-flex">
+              <div className="footer-content-title">
+                <h3>Scan For More :</h3>
+              </div>
+              <div className="footer-qr-img">
+                <img src={QrCode} alt="qrcode" />
+              </div>
+            </div>
           </div>
         </div>
         <div className="footer-small footer-flex">

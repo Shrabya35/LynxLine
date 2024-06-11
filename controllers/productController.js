@@ -142,46 +142,69 @@ export const updateProductController = async (req, res) => {
       shipping,
     } = req.fields;
     const { image } = req.files;
+
     switch (true) {
       case !name:
-        return res.status(500).send({ error: "name is required" });
+        return res.status(500).send({ error: "Name is required" });
       case !type:
-        return res.status(500).send({ error: "type is required" });
+        return res.status(500).send({ error: "Type is required" });
       case !description:
-        return res.status(500).send({ error: "description is required" });
+        return res.status(500).send({ error: "Description is required" });
       case !price:
-        return res.status(500).send({ error: "price is required" });
+        return res.status(500).send({ error: "Price is required" });
       case !category:
-        return res.status(500).send({ error: "category is required" });
+        return res.status(500).send({ error: "Category is required" });
       case !quantity:
-        return res.status(500).send({ error: "quantity is required" });
-      case image:
-        return res.status(500).send({ error: "image is required " });
-      case image.size > 1000000:
+        return res.status(500).send({ error: "Quantity is required" });
+      case image && !image.size:
+        return res.status(500).send({ error: "Image is required" });
+      case image && image.size > 1000000:
         return res
           .status(500)
-          .send({ error: "image's size should be smaller than 1 mb" });
+          .send({ error: "Image's size should be smaller than 1 MB" });
     }
-    const products = await productModel.findByIdAndUpdate(
+
+    let shippingValue;
+    if (shipping === "Not Specified") {
+      shippingValue = undefined; //
+    } else {
+      shippingValue = shipping === "true" || shipping === "1" ? true : false;
+    }
+
+    const updateFields = {
+      name,
+      slug: slugify(name),
+      type,
+      description,
+      price,
+      category,
+      quantity,
+      ...(shippingValue !== undefined && { shipping: shippingValue }),
+    };
+
+    const product = await productModel.findByIdAndUpdate(
       req.params.pid,
-      { ...req.fields, slug: slugify(name) },
+      updateFields,
       { new: true }
     );
+
     if (image) {
-      products.image.data = fs.readFileSync(image.path);
-      products.image.contentType = image.type;
+      product.image.data = fs.readFileSync(image.path);
+      product.image.contentType = image.type;
     }
-    await products.save();
+
+    await product.save();
+
     res.status(201).send({
       success: true,
-      message: "Products Updated Successfully",
-      products,
+      message: "Product updated successfully",
+      product,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error in updating Product",
+      message: "Error in updating product",
       error,
     });
   }

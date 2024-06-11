@@ -1,23 +1,32 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+//Pages
 import HomePage from "./Pages/Home/HomePage";
 import Men from "./Pages/Home/Men";
 import Women from "./Pages/Home/Women";
 import Accesories from "./Pages/Home/Accesories";
-import About from "./Pages/About/About";
+import SingleProduct from "./Pages/SingleProduct/SingleProduct";
+import Wishlist from "./Pages/Wishlist/Wishlist";
+
+//User Auth
 import Auth from "./Pages/Auth/Auth";
 import PageNotFound from "./Pages/PNF/PageNotFound";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import PrivateRoutes from "./route/PrivateRoutes";
+import UserProfile from "./Pages/Profile/UserProfile/User";
+
+//Admin
 import AdminRoute from "./route/AdminRoute";
 import AdminProfile from "./Pages/Profile/AdminProfile/Admin";
-import UserProfile from "./Pages/Profile/UserProfile/User";
-import ViewProduct from "./Pages/Profile/AdminProfile/ViewProduct";
 import CreateCategory from "./Pages/Profile/AdminProfile/CreateCategory";
+import ViewProduct from "./Pages/Profile/AdminProfile/ViewProduct";
 import AddProduct from "./Pages/Profile/AdminProfile/AddProduct";
-import SingleProduct from "./Pages/SingleProduct/SingleProduct";
-import Wishlist from "./Pages/Wishlist/Wishlist";
+import ModifyProduct from "./Pages/Profile/AdminProfile/ModifyProduct";
+
+//Others
+import About from "./Pages/About/About";
 
 const App = () => {
   return (
@@ -41,6 +50,7 @@ const App = () => {
           <Route path="admin/category" element={<CreateCategory />} />
           <Route path="admin/add-product" element={<AddProduct />} />
           <Route path="admin/view-products" element={<ViewProduct />} />
+          <Route path="admin/product/:slug" element={<ModifyProduct />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>

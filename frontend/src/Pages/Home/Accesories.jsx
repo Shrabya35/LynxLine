@@ -60,15 +60,18 @@ const Accesories = () => {
                 </p>
               </div>
               <div className="home-banner-button accessories-banner-btn">
-                <button className="home-banner-btn home-banner-btn-men">
+                <a
+                  href="#shop-accessories"
+                  className="home-banner-btn home-banner-btn-men"
+                >
                   Shop Accessories
-                </button>
+                </a>
               </div>
             </div>
           </div>
         </div>
         <div className="home-down">
-          <div className="home-category-1">
+          <div className="home-category-1" id="shop-accessories">
             <div className="home-product-title">
               <h2>Accessories</h2>
               <p>View all</p>

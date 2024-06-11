@@ -223,34 +223,36 @@ const SingleProduct = ({ description, keywords, author }) => {
             </div>
           </div>
 
-          <div className="sp-suggestion">
-            <div className="sp-suggestion-title">
-              <h2>You May Also Like</h2>
-            </div>
-            <div className="sp-suggestion-container">
-              {sugProducts.map((p) => (
-                <Link to={`/products/${p.slug}`} key={p._id}>
-                  <div className="product-card">
-                    <img
-                      src={`http://192.168.1.10:9080/api/v1/product/product-photo/${p._id}`}
-                      className="product-card-img"
-                      alt={p.name}
-                    />
-                    <div className="product-card-body">
-                      <div className="product-card-title">{p.name}</div>
-                      <div className="product-card-desc">
-                        <div className="product-card-category">
-                          {p.category.name}
+          {sugProducts.length !== 0 && (
+            <div className="sp-suggestion">
+              <div className="sp-suggestion-title">
+                <h2>You May Also Like</h2>
+              </div>
+              <div className="sp-suggestion-container">
+                {sugProducts.map((p) => (
+                  <Link to={`/products/${p.slug}`} key={p._id}>
+                    <div className="product-card">
+                      <img
+                        src={`http://192.168.1.10:9080/api/v1/product/product-photo/${p._id}`}
+                        className="product-card-img"
+                        alt={p.name}
+                      />
+                      <div className="product-card-body">
+                        <div className="product-card-title">{p.name}</div>
+                        <div className="product-card-desc">
+                          <div className="product-card-category">
+                            {p.category.name}
+                          </div>
+                          <div className="product-card-type">{p.type}</div>
+                          <h4 className="product-card-price">${p.price}</h4>
                         </div>
-                        <div className="product-card-type">{p.type}</div>
-                        <h4 className="product-card-price">${p.price}</h4>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <Toaster />
       </div>

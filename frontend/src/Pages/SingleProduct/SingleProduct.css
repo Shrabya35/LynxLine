@@ -11,12 +11,14 @@
 }
 .sp-container {
   background: #ffffff;
-  width: 100%;
+  width: 95%;
   padding: 1rem 3rem 1rem 3rem;
   display: flex;
   justify-content: space-around;
   gap: 2rem;
   border-radius: 0.5rem;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 .sp-suggestion {
   display: flex;
@@ -24,7 +26,11 @@
   gap: 2rem;
   justify-content: center;
 }
-
+.sp-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .sp-image-container img {
   width: 20rem;
   height: 23rem;
@@ -39,10 +45,11 @@
 .sp-detail-top {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 3rem;
 }
 .sp-detail-price {
-  font-weight: 800;
+  font-size: 1.2rem;
+  font-weight: bolder;
 }
 .sp-icons-section {
   display: flex;
@@ -83,6 +90,7 @@
     gap: 3rem;
   }
   .sp-container {
+    width: 100%;
     flex-direction: column;
     gap: 3rem;
     justify-content: center;
