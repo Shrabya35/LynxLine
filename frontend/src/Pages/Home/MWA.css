@@ -36,6 +36,8 @@
     background: url(../../assets/banner-a-mob.png);
     background-size: cover;
   }
+  .men-banner-section,
+  .women-banner-section,
   .accessories-banner-section {
     padding: 0;
   }

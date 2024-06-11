@@ -29,17 +29,18 @@ const HomePage = () => {
           "http://192.168.1.10:9080/api/v1/product/get-product"
         );
         if (data?.success) {
-          const filteredProducts = data.products.filter(
+          const filteredProduct = data.products.filter(
             (product) =>
               product.category.name !== "Gym Bro" &&
-              product.category.name !== "Accesories"
+              product.type !== "Accessories"
           );
-          setProducts(filteredProducts);
+          setProducts(filteredProduct);
 
           const gymBroProducts = data.products.filter(
             (product) => product.category.name === "Gym Bro"
           );
           setGBProducts(gymBroProducts);
+        } else {
         }
       } catch (error) {
         toast.error("Something went wrong while fetching products");
@@ -59,16 +60,19 @@ const HomePage = () => {
           </div>
           <div className="home-banner-container">
             <div className="home-banner-content">
-              <h1>THIS MONTH'S FRESH FITS</h1>
+              <h1>Unleash Your Beast, Anytime, Anywhere</h1>
               <p>Brand new drops, brand new reasons to unleash your beast.</p>
             </div>
             <div className="home-banner-button">
-              <button className="home-banner-btn home-banner-btn-women">
+              <a
+                href="/women"
+                className="home-banner-btn home-banner-btn-women"
+              >
                 Shop Women
-              </button>
-              <button className="home-banner-btn home-banner-btn-men">
+              </a>
+              <a href="men" className="home-banner-btn home-banner-btn-men">
                 Shop Men
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -80,8 +84,8 @@ const HomePage = () => {
             </div>
             <div className="product-card-container">
               {products.map((p) => (
-                <Link to={`/products/${p.slug}`}>
-                  <div className="product-card" key={p._id}>
+                <Link to={`/products/${p.slug}`} key={p._id}>
+                  <div className="product-card">
                     <img
                       src={`http://192.168.1.10:9080/api/v1/product/product-photo/${p._id}`}
                       className="product-card-img"
@@ -133,8 +137,8 @@ const HomePage = () => {
             </div>
             <div className="product-card-container">
               {gbProducts.map((p) => (
-                <Link to={`/products/${p.slug}`}>
-                  <div className="product-card" key={p._id}>
+                <Link to={`/products/${p.slug}`} key={p._id}>
+                  <div className="product-card">
                     <img
                       src={`http://192.168.1.10:9080/api/v1/product/product-photo/${p._id}`}
                       className="product-card-img"

@@ -4,6 +4,7 @@ import {
   createProductController,
   deleteProductController,
   getProductController,
+  getPaginatedProductsController,
   productPhotoController,
   singleProductController,
   updateProductController,
@@ -22,5 +23,7 @@ router.get("/single-product/:slug", singleProductController);
 router.get("/product-photo/:pid", productPhotoController);
 
 router.delete("/delete-product/:pid", deleteProductController);
+
+router.get("/paginated-products", getPaginatedProductsController);
 
 export default router;

@@ -204,38 +204,36 @@ export const deleteProductController = async (req, res) => {
   }
 };
 
-//not used currently
-export const addReviewController = async (req, res) => {
+export const getPaginatedProductsController = async (req, res) => {
   try {
-    const { author, rating, comment } = req.body;
-    const productSlug = req.params.slug;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 9;
+    const skip = (page - 1) * limit;
 
-    const product = await productModel.findOne({ slug: productSlug });
+    const products = await productModel
+      .find({})
+      .populate("category")
+      .select("-image")
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 });
 
-    if (!product) {
-      return res.status(404).json({ error: "No product found with this slug" });
-    }
+    const total = await productModel.countDocuments();
 
-    const newReview = {
-      author,
-      rating,
-      comment,
-    };
-
-    product.reviews.push(newReview);
-    await product.save();
-
-    res.status(201).json({
+    res.status(200).send({
       success: true,
-      message: "Review added successfully",
-      reviews: product.reviews,
+      message: "Paginated Products fetched successfully",
+      total,
+      page,
+      pages: Math.ceil(total / limit),
+      products,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
+    console.log(error);
+    res.status(500).send({
       success: false,
-      message: "Error in adding review",
-      error: error.message,
+      message: "Error in fetching paginated products",
+      error,
     });
   }
 };

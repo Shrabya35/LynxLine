@@ -13,6 +13,7 @@ import PrivateRoutes from "./route/PrivateRoutes";
 import AdminRoute from "./route/AdminRoute";
 import AdminProfile from "./Pages/Profile/AdminProfile/Admin";
 import UserProfile from "./Pages/Profile/UserProfile/User";
+import ViewProduct from "./Pages/Profile/AdminProfile/ViewProduct";
 import CreateCategory from "./Pages/Profile/AdminProfile/CreateCategory";
 import AddProduct from "./Pages/Profile/AdminProfile/AddProduct";
 import SingleProduct from "./Pages/SingleProduct/SingleProduct";
@@ -38,9 +39,9 @@ const App = () => {
         <Route path="/profile/" element={<AdminRoute />}>
           <Route path="admin" element={<AdminProfile />} />
           <Route path="admin/category" element={<CreateCategory />} />
-          <Route path="admin/product" element={<AddProduct />} />
+          <Route path="admin/add-product" element={<AddProduct />} />
+          <Route path="admin/view-products" element={<ViewProduct />} />
         </Route>
-
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>

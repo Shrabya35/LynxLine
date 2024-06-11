@@ -21,7 +21,7 @@ const SingleProduct = ({ description, keywords, author }) => {
   useEffect(() => {
     const token =
       localStorage.getItem("token") || sessionStorage.getItem("token");
-    setIsLoggedIn(token ? true : false);
+    setIsLoggedIn(!!token);
   }, []);
 
   const userDetailsString = useMemo(
@@ -45,7 +45,7 @@ const SingleProduct = ({ description, keywords, author }) => {
       setLoading(false);
     } catch (error) {
       toast.error("Something went wrong while fetching the product");
-      console.log(error);
+      console.error(error);
       setLoading(false);
     }
   }, [slug]);
@@ -75,7 +75,7 @@ const SingleProduct = ({ description, keywords, author }) => {
         }
       } catch (error) {
         toast.error("Something went wrong while fetching products");
-        console.log(error);
+        console.error(error);
       }
     };
 
@@ -84,20 +84,22 @@ const SingleProduct = ({ description, keywords, author }) => {
 
   useEffect(() => {
     const checkWishlist = async () => {
-      try {
-        const response = await axios.get(
-          `http://192.168.1.10:9080/api/v1/auth/wishlist/${userEmail}`
-        );
-        const wishlist = response.data;
-        setIsWishlisted(wishlist.some((item) => item._id === productData._id));
-      } catch (error) {
-        console.error("Error checking wishlist:", error);
+      if (userEmail && productData) {
+        try {
+          const response = await axios.get(
+            `http://192.168.1.10:9080/api/v1/auth/wishlist/${userEmail}`
+          );
+          const wishlist = response.data.wishlist;
+          setIsWishlisted(
+            wishlist.some((item) => item._id === productData._id)
+          );
+        } catch (error) {
+          console.error("Error checking wishlist:", error);
+        }
       }
     };
 
-    if (productData) {
-      checkWishlist();
-    }
+    checkWishlist();
   }, [productData, userEmail]);
 
   const handleWishlist = async () => {

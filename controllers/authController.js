@@ -354,7 +354,6 @@ export const addWishlistController = async (req, res) => {
   try {
     const { email, productId } = req.body;
     const user = await userModel.findOne({ email }).populate("wishlist");
-    console.log("User:", user);
     if (!user) return res.status(404).json({ message: "User not found" });
 
     if (!user.wishlist) {
@@ -397,13 +396,28 @@ export const removeWishlistController = async (req, res) => {
 export const getWishlistController = async (req, res) => {
   try {
     const { email } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 9;
+    const skip = (page - 1) * limit;
+
     const user = await userModel.findOne({ email }).populate({
       path: "wishlist",
       populate: { path: "category" },
     });
+
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    res.status(200).json(user.wishlist);
+    const total = user.wishlist.length;
+    const paginatedWishlist = user.wishlist.slice(skip, skip + limit);
+
+    res.status(200).json({
+      success: true,
+      message: "Paginated wishlist fetched successfully",
+      total,
+      page,
+      pages: Math.ceil(total / limit),
+      wishlist: paginatedWishlist,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }

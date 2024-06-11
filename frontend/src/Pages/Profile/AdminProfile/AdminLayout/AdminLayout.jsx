@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 import "./AdminLayout.css";
 
 import NavLogo from "../../../../assets/logo.png";
-import { MdDashboard, MdSupervisedUserCircle } from "react-icons/md";
+import {
+  MdDashboard,
+  MdOutlineAddShoppingCart,
+  MdShoppingCart,
+} from "react-icons/md";
 import { FaTachometerAlt } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
-import { FaTags } from "react-icons/fa6";
 
 const AdminLayout = ({ children, title, description, keywords, author }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -71,17 +74,17 @@ const AdminLayout = ({ children, title, description, keywords, author }) => {
               <FaTachometerAlt className="admin-icon" />
               <span> Dashboard</span>
             </a>
-            <a href="/profile/admin/product" className="admin-nav-items">
-              <FaTags className="admin-icon" />
-              <span> Products</span>
+            <a href="/profile/admin/add-product" className="admin-nav-items">
+              <MdOutlineAddShoppingCart className="admin-icon" />
+              <span> Add Products</span>
+            </a>
+            <a href="/profile/admin/view-products" className="admin-nav-items">
+              <MdShoppingCart className="admin-icon" />
+              <span>View Products</span>
             </a>
             <a href="/profile/admin/category" className="admin-nav-items ">
               <MdDashboard className="admin-icon" />
               <span> Category</span>
-            </a>
-            <a href="/" className="admin-nav-items">
-              <MdSupervisedUserCircle className="admin-icon" />
-              <span> Users</span>
             </a>
           </div>
         </nav>
