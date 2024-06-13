@@ -29,9 +29,9 @@ const Women = () => {
           "http://192.168.1.10:9080/api/v1/product/get-product"
         );
         if (data?.success) {
-          const filteredProducts = data.products.filter(
-            (product) => product.type === "Women"
-          );
+          const filteredProducts = data.products
+            .filter((product) => product.type === "Women")
+            .slice(0, 9);
           setProducts(filteredProducts);
         }
       } catch (error) {

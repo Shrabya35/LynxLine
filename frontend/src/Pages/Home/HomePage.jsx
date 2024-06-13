@@ -29,16 +29,15 @@ const HomePage = () => {
           "http://192.168.1.10:9080/api/v1/product/get-product"
         );
         if (data?.success) {
-          const filteredProduct = data.products.filter(
-            (product) =>
-              product.category.name !== "Gym Bro" &&
-              product.type !== "Accessories"
-          );
-          setProducts(filteredProduct);
+          const filteredProducts = data.products
+            .filter((product) => product.category.name === "Fresh Fits")
+            .slice(0, 9);
 
-          const gymBroProducts = data.products.filter(
-            (product) => product.category.name === "Gym Bro"
-          );
+          setProducts(filteredProducts);
+
+          const gymBroProducts = data.products
+            .filter((product) => product.category.name === "Gym Bro")
+            .slice(0, 9);
           setGBProducts(gymBroProducts);
         } else {
         }

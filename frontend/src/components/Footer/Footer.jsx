@@ -56,13 +56,13 @@ const Footer = () => {
               <div className="footer-links footer-flex">
                 <ul>
                   <li className="footer-link footer-links-pages">
-                    <a href="/">Mens</a>
+                    <a href="/men">Mens</a>
                   </li>
                   <li className="footer-link footer-links-pages">
-                    <a href="/">Womens</a>
+                    <a href="/women">Womens</a>
                   </li>
                   <li className="footer-link footer-links-pages">
-                    <a href="/">Accesories</a>
+                    <a href="/accessories">Accesories</a>
                   </li>
                 </ul>
               </div>

@@ -56,14 +56,12 @@ export const createProductController = async (req, res) => {
     });
   }
 };
-
 export const getProductController = async (req, res) => {
   try {
     const products = await productModel
       .find({})
       .populate("category")
       .select("-image")
-      .limit(12)
       .sort({ createdt: -1 });
     res.status(201).send({
       success: true,
@@ -256,6 +254,56 @@ export const getPaginatedProductsController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in fetching paginated products",
+      error,
+    });
+  }
+};
+
+export const searchProductController = async (req, res) => {
+  const searchTerm = req.params.search || "";
+  const searchRegex = searchTerm
+    .split(" ")
+    .map((term) => new RegExp(`\\b${term}\\b`, "i"));
+
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 9;
+  const skip = (page - 1) * limit;
+
+  try {
+    const query = {
+      $or: [
+        { $or: searchRegex.map((regex) => ({ name: { $regex: regex } })) },
+        {
+          $or: searchRegex.map((regex) => ({
+            type: { $regex: regex },
+          })),
+        },
+      ],
+    };
+
+    const results = await productModel
+      .find(query)
+      .populate("category")
+      .select("-image")
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+
+    const total = await productModel.countDocuments(query);
+
+    res.status(200).send({
+      success: true,
+      message: "Paginated Products fetched successfully",
+      total,
+      page,
+      pages: Math.ceil(total / limit),
+      results,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Search",
       error,
     });
   }

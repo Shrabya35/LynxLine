@@ -8,6 +8,7 @@ import Women from "./Pages/Home/Women";
 import Accesories from "./Pages/Home/Accesories";
 import SingleProduct from "./Pages/SingleProduct/SingleProduct";
 import Wishlist from "./Pages/Wishlist/Wishlist";
+import SearchPage from "./Pages/SearchPage/SearchPage";
 
 //User Auth
 import Auth from "./Pages/Auth/Auth";
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/women" element={<Women />} />
         <Route path="/accessories" element={<Accesories />} />
         <Route path="/products/:slug" element={<SingleProduct />} />
+        <Route path="/search/:searchTerm" element={<SearchPage />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile/" element={<PrivateRoutes />}>

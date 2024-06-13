@@ -29,9 +29,9 @@ const Accesories = () => {
           "http://192.168.1.10:9080/api/v1/product/get-product"
         );
         if (data?.success) {
-          const filteredProducts = data.products.filter(
-            (product) => product.category.name === "Accesories"
-          );
+          const filteredProducts = data.products
+            .filter((product) => product.category.name === "Accesories")
+            .slice(0, 9);
           setProducts(filteredProducts);
         }
       } catch (error) {

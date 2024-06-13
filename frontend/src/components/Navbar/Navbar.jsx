@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import NavLogo from "../../assets/logo.png";
 
@@ -12,7 +13,11 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isSearchOpen, setSearchOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const token =
@@ -29,6 +34,16 @@ const Navbar = () => {
   };
   const handleWishlist = () => {
     toast.error("Sign in to save and view your wishlist");
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    navigate(`/search/${searchTerm}`);
+    setMenuOpen(false);
+    inputRef.current.blur();
+  };
+  const handleSearchBtn = () => {
+    setSearchOpen(!isSearchOpen);
   };
 
   return (
@@ -53,7 +68,10 @@ const Navbar = () => {
         </div>
         <div className="nav-user">
           <IoMdMenu className="nav-userItems nav-toggle" onClick={toggleMenu} />
-          <IoSearchOutline />
+          <IoSearchOutline
+            className="nav-search-btn"
+            onClick={handleSearchBtn}
+          />
 
           {isLoggedIn ? (
             <Link to="/wishlist" className="nav-userItems nav-wishlist">
@@ -89,6 +107,21 @@ const Navbar = () => {
           <HiShoppingBag className=" nav-shopping-mob" />
         </div>
       </div>
+      <div className={`nav-search-container ${isSearchOpen ? "open" : ""}`}>
+        <form className="nav-mob-search" onSubmit={handleSearch}>
+          <IoSearchOutline className="nav-mob-search-icon" />
+          <input
+            ref={inputRef}
+            type="text"
+            name="search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Discover what you're looking for..."
+            required
+            className="nav-mob-search-input"
+          />
+        </form>
+      </div>
       <div className={`nav-sidebar ${isMenuOpen ? "open" : ""}`}>
         <div className="nav-mob-up">
           <div className="nav-mob-icon">
@@ -103,14 +136,19 @@ const Navbar = () => {
           </div>
           <div className="nav-mob-cont">
             <div className="sidebar-title">SHOP</div>
-            <div className="nav-mob-search">
+            <form className="nav-mob-search" onSubmit={handleSearch}>
               <IoSearchOutline className="nav-mob-search-icon" />
               <input
+                ref={inputRef}
                 type="text"
+                name="search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search for a product..."
+                required
                 className="nav-mob-search-input"
-                placeholder="Search for a Product"
               />
-            </div>
+            </form>
           </div>
         </div>
         <div className="sidebar-menu">

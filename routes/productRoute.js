@@ -8,6 +8,7 @@ import {
   productPhotoController,
   singleProductController,
   updateProductController,
+  searchProductController,
 } from "../controllers/productController.js";
 
 const router = express.Router();
@@ -25,5 +26,7 @@ router.get("/product-photo/:pid", productPhotoController);
 router.delete("/delete-product/:pid", deleteProductController);
 
 router.get("/paginated-products", getPaginatedProductsController);
+
+router.get("/search-product/:search", searchProductController);
 
 export default router;

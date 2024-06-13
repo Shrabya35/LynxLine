@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import "./SingleProduct.css";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import Layout from "../../components/Layout";
 import PageNotFound from "../PNF/PageNotFound";
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
 import { FaShareAlt, FaStar } from "react-icons/fa";
 import { FaRegHeart, FaHeart } from "react-icons/fa6";
 
-const SingleProduct = ({ description, keywords, author }) => {
+const SingleProduct = () => {
   const { slug } = useParams();
   const [productData, setProductData] = useState(null);
   const [sugProducts, setSugProducts] = useState([]);
@@ -69,7 +68,7 @@ const SingleProduct = ({ description, keywords, author }) => {
                   product.type === productData.type &&
                   product._id !== productData._id
               )
-              .slice(0, 6);
+              .slice(0, 5);
             setSugProducts(filteredProducts);
           }
         }
@@ -173,14 +172,7 @@ const SingleProduct = ({ description, keywords, author }) => {
   }
 
   return (
-    <Layout>
-      <Helmet>
-        <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
-        <meta name="author" content={author} />
-        <meta charSet="utf-8" />
-        <title>{productData.name} | LynxLine</title>
-      </Helmet>
+    <Layout title={`${productData.name} - LynxLine`}>
       <div className="SingleProduct">
         <div className="sp-product-container">
           <div className="sp-section">

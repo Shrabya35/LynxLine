@@ -17,10 +17,6 @@ const AddProduct = () => {
   const [shipping, setShipping] = useState(0);
   const [image, setImage] = useState("");
 
-  const userDetailsString =
-    localStorage.getItem("userDetails") ||
-    sessionStorage.getItem("userDetails");
-
   const getAllCategories = async () => {
     try {
       const { data } = await axios.get(
@@ -37,9 +33,6 @@ const AddProduct = () => {
   useEffect(() => {
     getAllCategories();
   }, []);
-
-  const userDetails = JSON.parse(userDetailsString);
-  const firstName = userDetails?.name.split(" ")[0];
 
   const handleCreateProduct = async (e) => {
     e.preventDefault();
@@ -94,7 +87,7 @@ const AddProduct = () => {
   };
 
   return (
-    <AdminLayout title={`${firstName} | Product - LynxLine`}>
+    <AdminLayout title={`Add Product - LynxLine`}>
       <div className="Admin-Category Admin-product">
         <Toaster />
         <div className="category-title product-title">
