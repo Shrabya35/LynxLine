@@ -86,7 +86,7 @@ const SingleProduct = () => {
       if (userEmail && productData) {
         try {
           const response = await axios.get(
-            `http://192.168.1.10:9080/api/v1/auth/wishlist/${userEmail}`
+            `http://192.168.1.10:9080/api/v1/user/wishlist/${userEmail}`
           );
           const wishlist = response.data.wishlist;
           setIsWishlisted(
@@ -108,8 +108,8 @@ const SingleProduct = () => {
     }
     try {
       const endpoint = isWishlisted
-        ? "http://192.168.1.10:9080/api/v1/auth/remove-wishlist"
-        : "http://192.168.1.10:9080/api/v1/auth/add-wishlist";
+        ? "http://192.168.1.10:9080/api/v1/user/remove-wishlist"
+        : "http://192.168.1.10:9080/api/v1/user/add-wishlist";
       await axios.post(endpoint, {
         email: userEmail,
         productId: productData._id,

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "../../components/Layout";
 import "./HomePage.css";
 import axios from "axios";
@@ -6,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [gbProducts, setGBProducts] = useState([]);
   const [offerIndex, setOfferIndex] = useState(0);
@@ -22,32 +24,40 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, [offers.length]);
 
+  const fetchProducts = async (category) => {
+    try {
+      const { data } = await axios.get(
+        "http://192.168.1.10:9080/api/v1/product/get-product"
+      );
+      if (data?.success) {
+        const filteredProducts = data.products
+          .filter((product) => product.category.name === category)
+          .slice(0, 9);
+        return filteredProducts;
+      } else {
+        throw new Error("Failed to fetch products");
+      }
+    } catch (error) {
+      toast.error("Something went wrong while fetching products");
+      console.log(error);
+      return [];
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://192.168.1.10:9080/api/v1/product/get-product"
-        );
-        if (data?.success) {
-          const filteredProducts = data.products
-            .filter((product) => product.category.name === "Fresh Fits")
-            .slice(0, 9);
+      const freshFitsProducts = await fetchProducts("Fresh Fits");
+      setProducts(freshFitsProducts);
 
-          setProducts(filteredProducts);
-
-          const gymBroProducts = data.products
-            .filter((product) => product.category.name === "Gym Bro")
-            .slice(0, 9);
-          setGBProducts(gymBroProducts);
-        } else {
-        }
-      } catch (error) {
-        toast.error("Something went wrong while fetching products");
-        console.log(error);
-      }
+      const gymBroProducts = await fetchProducts("Gym Bro");
+      setGBProducts(gymBroProducts);
     };
     fetchData();
   }, []);
+
+  const viewMore = (category) => {
+    navigate(`/view-more?category=${category}`);
+  };
 
   return (
     <Layout title={"LynxLine - Unleash Your Inner Beast"}>
@@ -79,7 +89,7 @@ const HomePage = () => {
           <div className="home-category-1">
             <div className="home-product-title">
               <h2>Fresh Fits</h2>
-              <p>View all</p>
+              <p onClick={() => viewMore("Fresh Fits")}>View all</p>
             </div>
             <div className="product-card-container">
               {products.map((p) => (
@@ -132,7 +142,7 @@ const HomePage = () => {
           <div className="home-category-2 home-category-1 ">
             <div className="home-product-title">
               <h2>Gym Bro T-shirts</h2>
-              <p>View all</p>
+              <p onClick={() => viewMore("Gym Bro")}>View all</p>
             </div>
             <div className="product-card-container">
               {gbProducts.map((p) => (

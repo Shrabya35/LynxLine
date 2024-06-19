@@ -60,7 +60,6 @@
 .home-product-title p {
   text-decoration: underline;
   cursor: pointer;
-  font-weight: bold;
 }
 .product-card-container {
   padding: 2rem 0 0 0.5rem;

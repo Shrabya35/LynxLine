@@ -31,7 +31,7 @@ const UserProfile = () => {
     if (email) {
       try {
         const { data } = await axios.get(
-          `http://192.168.1.10:9080/api/v1/auth/user-details/${email}`
+          `http://192.168.1.10:9080/api/v1/user/user-details/${email}`
         );
         setUserDetail(data.user);
       } catch (error) {

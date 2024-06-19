@@ -74,7 +74,7 @@ const Wishlist = ({ description, keywords, author }) => {
     const fetchWishlist = async (page) => {
       try {
         const response = await axios.get(
-          `http://192.168.1.10:9080/api/v1/auth/wishlist/${userEmail}?page=${page}&limit=9`
+          `http://192.168.1.10:9080/api/v1/user/wishlist/${userEmail}?page=${page}&limit=9`
         );
         const wishlistData = response.data;
         setWishlist(wishlistData.wishlist);

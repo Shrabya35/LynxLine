@@ -6,6 +6,7 @@ import connectDB from "./config/connectDB.js";
 import authRoute from "./routes/authRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
 import productRoute from "./routes/productRoute.js";
+import userRoute from "./routes/userRoute.js";
 
 import cors from "cors";
 
@@ -25,6 +26,7 @@ app.use(morgan("dev"));
 app.use(cors());
 
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/user", userRoute);
 app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/product", productRoute);
 

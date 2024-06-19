@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import NoFilterResult from "../../assets/No-filter-Results.svg";
@@ -8,7 +8,9 @@ import Layout from "../../components/Layout";
 import toast, { Toaster } from "react-hot-toast";
 
 const SearchPage = () => {
-  const { searchTerm } = useParams();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchTerm = queryParams.get("search");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);

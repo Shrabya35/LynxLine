@@ -38,7 +38,7 @@ const Navbar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    navigate(`/search/${searchTerm}`);
+    navigate(`/search-page?search=${searchTerm}`);
     setMenuOpen(false);
     inputRef.current.blur();
   };

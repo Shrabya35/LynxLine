@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "../../components/Layout";
 import "./MWA.css";
 import "./HomePage.css";
@@ -7,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Women = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [offerIndex, setOfferIndex] = useState(0);
   const offers = [
@@ -22,25 +24,37 @@ const Women = () => {
     return () => clearInterval(timer);
   }, [offers.length]);
 
+  const fetchProducts = async (type) => {
+    try {
+      const { data } = await axios.get(
+        "http://192.168.1.10:9080/api/v1/product/get-product"
+      );
+      if (data?.success) {
+        const filteredProducts = data.products
+          .filter((product) => product.type === type)
+          .slice(0, 9);
+        return filteredProducts;
+      } else {
+        throw new Error("Failed to fetch products");
+      }
+    } catch (error) {
+      toast.error("Something went wrong while fetching products");
+      console.log(error);
+      return [];
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://192.168.1.10:9080/api/v1/product/get-product"
-        );
-        if (data?.success) {
-          const filteredProducts = data.products
-            .filter((product) => product.type === "Women")
-            .slice(0, 9);
-          setProducts(filteredProducts);
-        }
-      } catch (error) {
-        toast.error("Something went wrong while fetching products");
-        console.log(error);
-      }
+      const womensProducts = await fetchProducts("Women");
+      setProducts(womensProducts);
     };
     fetchData();
   }, []);
+
+  const viewMore = (type) => {
+    navigate(`/view-more?type=${type}`);
+  };
 
   return (
     <Layout title={"LynxLine - Unleash Your Inner Beast"}>
@@ -74,7 +88,7 @@ const Women = () => {
           <div className="home-category-1" id="shop-women">
             <div className="home-product-title">
               <h2>Women's Fits</h2>
-              <p>View all</p>
+              <p onClick={() => viewMore("Women")}>View all</p>
             </div>
             <div className="product-card-container">
               {products.map((p) => (
