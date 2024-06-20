@@ -1,0 +1,129 @@
+.ShoppingBag {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 80vh;
+}
+
+.shopping-bag-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem 3rem;
+  background: #f4f4f4;
+  flex-grow: 1;
+}
+
+.shopping-bag-section {
+  flex-grow: 3;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.sb-product-card {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 0.5rem 0.5rem;
+}
+.sb-product-card-body {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sb-product-card-title {
+  flex: 1;
+  word-wrap: break-word;
+  max-width: 50%;
+}
+
+.sb-product-card-img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.sb-order-summary {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.sb-order-summary-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 0.5rem 0.5rem;
+}
+
+.sb-order-summary-title {
+  text-align: left;
+}
+.sb-os-voucher {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+.sb-os-voucher-input {
+  width: 100%;
+  border: 1px solid rgba(145, 136, 136, 0.576);
+  font-size: 0.5rem;
+  font-weight: 400;
+  outline: none;
+  color: black;
+  background: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+.sb-os-voucher-apply-btn {
+  border: none;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+.sb-os-voucher-apply-btn:hover {
+  background: rgba(0, 0, 0, 0.837);
+}
+.sb-os-title,
+.sb-os-subtotal,
+.sb-os-shipping,
+.sb-os-discount,
+.sb-os-total {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.sb-os-checkout,
+.sb-os-checkout-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sb-product-card-quantity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.sb-quantity-alter-btn {
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  cursor: pointer;
+  align-self: center;
+  transition: 0.4s ease-in-out;
+}
+.sb-quantity-alter-btn:hover {
+  background: rgba(225, 222, 222, 0.444);
+}
+.sb-quantity-alter-btn-inactive {
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  cursor: not-allowed;
+  align-self: center;
+  opacity: 0.2;
+  background: rgba(225, 222, 222, 0.444);
+}

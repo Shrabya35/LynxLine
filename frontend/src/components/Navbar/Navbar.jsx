@@ -1,5 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import NavLogo from "../../assets/logo.png";
@@ -12,6 +13,7 @@ import { HiShoppingBag } from "react-icons/hi2";
 import toast, { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
+  const [shoppingBag, setShoppingBag] = useState([]);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,11 +21,39 @@ const Navbar = () => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
+  const userDetailsString = useMemo(
+    () =>
+      localStorage.getItem("userDetails") ||
+      sessionStorage.getItem("userDetails"),
+    []
+  );
+  const userDetails = useMemo(
+    () => JSON.parse(userDetailsString),
+    [userDetailsString]
+  );
+  const userEmail = userDetails?.email;
+
   useEffect(() => {
     const token =
       localStorage.getItem("token") || sessionStorage.getItem("token");
     setIsLoggedIn(token ? true : false);
   }, []);
+
+  useEffect(() => {
+    const fetchShoppingBag = async () => {
+      try {
+        const response = await axios.get(
+          `http://192.168.1.10:9080/api/v1/user/shoppingBag/${userEmail}`
+        );
+        const shoppingBagData = response.data;
+        setShoppingBag(shoppingBagData.shoppingBag);
+      } catch (error) {
+        console.error("Error checking wishlist:", error);
+      }
+    };
+
+    fetchShoppingBag();
+  }, [userEmail]);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -34,6 +64,9 @@ const Navbar = () => {
   };
   const handleWishlist = () => {
     toast.error("Sign in to save and view your wishlist");
+  };
+  const handleSearchBag = () => {
+    toast.error("Sign in to View Your Shopping Bag");
   };
 
   const handleSearch = (e) => {
@@ -84,27 +117,59 @@ const Navbar = () => {
             />
           )}
           {isLoggedIn ? (
-            <Link to="/profile/user" className="nav-userItems nav-account">
+            <Link
+              to="/profile/user"
+              className="nav-userItems nav-account nav-relative"
+            >
               <LuUser />
+              <span className="loggedin-sign"></span>
             </Link>
           ) : (
             <Link to="/auth" className="nav-userItems nav-account">
               <LuUser />
             </Link>
           )}
-          <HiShoppingBag className="nav-userItems nav-shopping" />
+          {isLoggedIn ? (
+            <Link
+              to="/shopping-bag"
+              className="nav-userItems nav-shopping nav-relative"
+            >
+              <HiShoppingBag />
+              {shoppingBag.length > 0 && (
+                <span className="shopping-bag-count">{shoppingBag.length}</span>
+              )}
+            </Link>
+          ) : (
+            <div
+              className="nav-userItems nav-shopping"
+              onClick={handleSearchBag}
+            >
+              <HiShoppingBag />
+            </div>
+          )}
         </div>
         <div className="nav-user-mob">
           {isLoggedIn ? (
-            <a href="/profile/user" className="nav-user-account-mob">
+            <a href="/profile/user" className="nav-user-account-mob ">
               <LuUser />
             </a>
           ) : (
-            <a href="/auth" className="nav-user-account-mob">
+            <a href="/auth" className="nav-user-account-mob nav-relative">
               <LuUser />
             </a>
           )}
-          <HiShoppingBag className=" nav-shopping-mob" />
+          {isLoggedIn ? (
+            <a href="/shopping-bag" className="nav-shopping-mob nav-relative">
+              <HiShoppingBag />
+              {shoppingBag.length > 0 && (
+                <span className="shopping-bag-count">{shoppingBag.length}</span>
+              )}
+            </a>
+          ) : (
+            <div className="nav-shopping-mob" onClick={handleSearchBag}>
+              <HiShoppingBag />
+            </div>
+          )}
         </div>
       </div>
       <div className={`nav-search-container ${isSearchOpen ? "open" : ""}`}>

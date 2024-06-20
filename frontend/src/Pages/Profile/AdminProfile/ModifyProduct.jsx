@@ -159,7 +159,11 @@ const ModifyProduct = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <AdminLayout title={`Loading...`}>
+        <p>Loading...</p>
+      </AdminLayout>
+    );
   }
 
   return (

@@ -150,7 +150,7 @@ const SearchPage = () => {
 
   if (loading) {
     return (
-      <Layout>
+      <Layout title={`Loading...`}>
         <p>Loading...</p>
       </Layout>
     );

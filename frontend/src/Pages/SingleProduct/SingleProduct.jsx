@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./SingleProduct.css";
 import axios from "axios";
-import { Helmet } from "react-helmet";
 import Layout from "../../components/Layout";
 import PageNotFound from "../PNF/PageNotFound";
 import toast, { Toaster } from "react-hot-toast";
@@ -110,17 +109,34 @@ const SingleProduct = () => {
       const endpoint = isWishlisted
         ? "http://192.168.1.10:9080/api/v1/user/remove-wishlist"
         : "http://192.168.1.10:9080/api/v1/user/add-wishlist";
-      await axios.post(endpoint, {
+      const response = await axios.post(endpoint, {
         email: userEmail,
         productId: productData._id,
       });
       setIsWishlisted(!isWishlisted);
-      toast.success(
-        isWishlisted ? "Item removed from wishlist" : "Item added to wishlist"
-      );
+      toast.success(response.data.message);
     } catch (error) {
       toast.error("Error updating wishlist");
       console.error("Error updating wishlist:", error);
+    }
+  };
+  const handleShoppingBag = async () => {
+    try {
+      const response = await axios.post(
+        "http://192.168.1.10:9080/api/v1/user/add-shoppingBag",
+        {
+          email: userEmail,
+          productId: productData._id,
+        }
+      );
+      toast.success(response.data.message);
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An error occurred while updating the shopping bag.");
+        console.error("Error updating Shopping Bag:", error);
+      }
     }
   };
 
@@ -164,7 +180,11 @@ const SingleProduct = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <Layout title={`Loading...`}>
+        <p>Loading...</p>
+      </Layout>
+    );
   }
 
   if (!productData) {
@@ -209,7 +229,9 @@ const SingleProduct = () => {
                   <p>Category: {productData.category.name}</p>
                 </div>
                 <div className="sp-detail-button">
-                  <button className="sp-atb-btn">ADD TO BAG</button>
+                  <button className="sp-atb-btn" onClick={handleShoppingBag}>
+                    ADD TO BAG
+                  </button>
                 </div>
               </div>
             </div>

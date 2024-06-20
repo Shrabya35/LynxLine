@@ -2,14 +2,13 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "./Wishlist.css";
 import Layout from "../../components/Layout";
-import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import NoFilterResult from "../../assets/No-filter-Results.svg";
 import NoWishlist from "../../assets/no-wishlist.svg";
 
-const Wishlist = ({ description, keywords, author }) => {
+const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
   const [category, setCategory] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -159,21 +158,14 @@ const Wishlist = ({ description, keywords, author }) => {
 
   if (loading) {
     return (
-      <Layout>
+      <Layout title={`Loading...`}>
         <p>Loading...</p>
       </Layout>
     );
   }
 
   return (
-    <Layout>
-      <Helmet>
-        <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
-        <meta name="author" content={author} />
-        <meta charSet="utf-8" />
-        <title>Wishlist | LynxLine</title>
-      </Helmet>
+    <Layout title={`Wishlist | LynxLine`}>
       <div className="Wishlist">
         <div className="home-offer wishlist-offer">
           <h4 className="home-offer-text">{offers[offerIndex]}</h4>

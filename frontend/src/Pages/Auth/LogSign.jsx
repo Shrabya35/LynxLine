@@ -141,6 +141,8 @@ const LogInForm = () => {
         sessionStorage.removeItem("userDetails");
         toast.error("Session expired. Please log in again.");
         navigate("/login");
+      } else if (error.response && error.response.status === 400) {
+        toast.error(error.response.data.message);
       } else {
         console.error("An error occurred:", error);
         toast.error("An error occurred. Please try again later.");

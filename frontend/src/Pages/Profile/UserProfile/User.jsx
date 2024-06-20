@@ -76,12 +76,8 @@ const UserProfile = () => {
 
   if (loading) {
     return (
-      <Layout title={`${firstName} - LynxLine`}>
-        <div className="Profile">
-          <div className="profile-title">
-            <h1>Loading...</h1>
-          </div>
-        </div>
+      <Layout title={`Loading...`}>
+        <p>Loading...</p>
       </Layout>
     );
   }

@@ -8,6 +8,7 @@ import Women from "./Pages/Home/Women";
 import Accesories from "./Pages/Home/Accesories";
 import SingleProduct from "./Pages/SingleProduct/SingleProduct";
 import Wishlist from "./Pages/Wishlist/Wishlist";
+import ShoppingBag from "./Pages/ShoppingBag/ShoppingBag";
 import SearchPage from "./Pages/ProductsPage/SearchPage";
 import ViewMore from "./Pages/ProductsPage/ViewMore";
 
@@ -45,6 +46,7 @@ const App = () => {
         <Route path="/search-page/" element={<SearchPage />} />
         <Route path="/view-more" element={<ViewMore />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/shopping-bag" element={<ShoppingBag />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile/" element={<PrivateRoutes />}>
           <Route path="user" element={<UserProfile />} />

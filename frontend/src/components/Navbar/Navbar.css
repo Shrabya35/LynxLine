@@ -63,6 +63,31 @@ li {
 .nav-search-container.open {
   display: block;
 }
+.nav-relative {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.shopping-bag-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #007db5;
+  color: white;
+  border-radius: 50%;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.loggedin-sign {
+  position: absolute;
+  bottom: 0;
+  right: 0.5rem;
+  background-color: #007db5;
+  border-radius: 50%;
+  height: 0.25rem;
+  width: 0.25rem;
+}
 @media (min-width: 765px) {
   .nav-container {
     .nav-container {
