@@ -12,12 +12,13 @@ const ForgotPassword = () => {
   const [otp, setOtp] = useState("");
   const [gototp, setGototp] = useState(false);
   const navigate = useNavigate();
+  const baseUrl = window.env.REACT_APP_API_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     axios
-      .post("http://192.168.1.10:9080/api/v1/auth/forgot-password", {
+      .post(`${baseUrl}/auth/forgot-password`, {
         email,
         otp,
         newPassword,
@@ -37,10 +38,9 @@ const ForgotPassword = () => {
 
   const handleGenerateOTP = async () => {
     try {
-      const response = await axios.post(
-        "http://192.168.1.10:9080/api/v1/auth/generate-otp",
-        { email }
-      );
+      const response = await axios.post(`${baseUrl}/auth/generate-otp`, {
+        email,
+      });
       const { success, message } = response.data;
 
       if (success) {

@@ -11,6 +11,7 @@ const Men = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [offerIndex, setOfferIndex] = useState(0);
+  const baseUrl = window.env.REACT_APP_API_BASE_URL;
   const offers = [
     "🎉 Shop over $75 & enjoy FREE delivery🚚💰",
     "🌟 Discover our exclusive deals & discounts this month! 💸✨",
@@ -26,9 +27,7 @@ const Men = () => {
 
   const fetchProducts = async (type) => {
     try {
-      const { data } = await axios.get(
-        "http://192.168.1.10:9080/api/v1/product/get-product"
-      );
+      const { data } = await axios.get(`${baseUrl}/product/get-product`);
       if (data?.success) {
         const filteredProducts = data.products
           .filter((product) => product.type === type)
@@ -95,7 +94,7 @@ const Men = () => {
                 <Link to={`/products/${p.slug}`}>
                   <div className="product-card" key={p._id}>
                     <img
-                      src={`http://192.168.1.10:9080/api/v1/product/product-photo/${p._id}`}
+                      src={`${baseUrl}/product/product-photo/${p._id}`}
                       className="product-card-img"
                       alt={p.name}
                     />

@@ -3,8 +3,8 @@ import "./adminManage.css";
 import AdminLayout from "./AdminLayout/AdminLayout";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-import ConfirmModal from "./modal/ConfirmModal";
-import UpdateModal from "./modal/UpdateModal";
+import ConfirmModal from "../../../modal/ConfirmModal";
+import UpdateModal from "../../../modal/UpdateModal";
 
 const CreateCategory = () => {
   const [category, setCategory] = useState([]);
@@ -14,6 +14,7 @@ const CreateCategory = () => {
   const [categoryIdToDelete, setCategoryIdToDelete] = useState(null);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [categoryToUpdate, setCategoryToUpdate] = useState(null);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const userDetailsString =
     localStorage.getItem("userDetails") ||
@@ -22,22 +23,20 @@ const CreateCategory = () => {
   const userDetails = JSON.parse(userDetailsString);
   const firstName = userDetails?.name.split(" ")[0];
 
-  const getAllCategories = async () => {
-    try {
-      const { data } = await axios.get(
-        "http://192.168.1.10:9080/api/v1/category/get-category"
-      );
-      if (data?.success) {
-        setCategory(data?.category);
-      }
-    } catch (error) {
-      toast.error("Something Went Wrong");
-    }
-  };
-
   useEffect(() => {
+    const getAllCategories = async () => {
+      try {
+        const { data } = await axios.get(`${baseUrl}/category/get-category`);
+        if (data?.success) {
+          setCategory(data?.category);
+        }
+      } catch (error) {
+        console.log("Something Went Wrong");
+        toast.error("Something Went Wrong");
+      }
+    };
     getAllCategories();
-  }, []);
+  }, [baseUrl]);
 
   const handleNew = () => {
     setCategoryForm(!categoryForm);
@@ -47,10 +46,9 @@ const CreateCategory = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://192.168.1.10:9080/api/v1/category/create-category",
-        { name }
-      );
+      const response = await axios.post(`${baseUrl}/category/create-category`, {
+        name,
+      });
 
       const { success, message, category: newCategory } = response.data;
 
@@ -82,7 +80,7 @@ const CreateCategory = () => {
 
     try {
       const response = await axios.delete(
-        `http://192.168.1.10:9080/api/v1/category/delete-category/${categoryIdToDelete}`
+        `${baseUrl}/category/delete-category/${categoryIdToDelete}`
       );
 
       const { success, message } = response.data;
@@ -118,7 +116,7 @@ const CreateCategory = () => {
 
     try {
       const response = await axios.put(
-        `http://192.168.1.10:9080/api/v1/category/update-category/${categoryToUpdate._id}`,
+        `${baseUrl}/category/update-category/${categoryToUpdate._id}`,
         { name: newName }
       );
 

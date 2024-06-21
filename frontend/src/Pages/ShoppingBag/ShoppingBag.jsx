@@ -2,15 +2,20 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "./ShoppingBag.css";
 import Layout from "../../components/Layout";
+import toast, { Toaster } from "react-hot-toast";
+import NoFilterResult from "../../assets/No-filter-Results.svg";
 import { Link } from "react-router-dom";
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 const ShoppingBag = () => {
   const [bag, setBag] = useState([]);
   const [subtotal, setSubtotal] = useState("");
   const [total, setTotal] = useState("");
+  const [totalItems, setTotalItems] = useState("");
   const [loading, setLoading] = useState(true);
   const [offerIndex, setOfferIndex] = useState(0);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const offers = [
     "🎉 Shop over $75 & enjoy FREE delivery🚚💰",
@@ -41,7 +46,7 @@ const ShoppingBag = () => {
     const fetchBag = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.1.10:9080/api/v1/user/shoppingBag/${userEmail}`
+          `${baseUrl}/user/shoppingBag/${userEmail}`
         );
         const bagData = response.data;
         setBag(bagData.shoppingBag);
@@ -52,44 +57,69 @@ const ShoppingBag = () => {
     };
 
     fetchBag();
-  }, [userEmail]);
+  }, [baseUrl, userEmail]);
 
-  useEffect(() => {
-    const fetchPrice = async () => {
-      try {
-        const response = await axios.get(
-          `http://192.168.1.10:9080/api/v1/user/shoppingBag-total/${userEmail}`
-        );
-        const bagPrice = response.data;
-        setSubtotal(bagPrice.subtotal);
-        setTotal(bagPrice.total);
-      } catch (error) {
-        console.error("Error checking wishlist:", error);
-      }
-    };
+  const handleRemoveItem = async (productId) => {
+    try {
+      const response = await axios.post(`${baseUrl}/user/remove-shoppingBag`, {
+        email: userEmail,
+        productId: productId,
+      });
+      const res = await axios.get(
+        `${baseUrl}/user/shoppingBag-total/${userEmail}`
+      );
+      const bagPrice = res.data;
+      const updatedBag = bag.filter((item) => item.product._id !== productId);
+      setBag(updatedBag);
+      setSubtotal(bagPrice.subtotal);
+      setTotal(bagPrice.total);
+      setTotalItems(bagPrice.totalItems);
 
-    fetchPrice();
-  }, [userEmail]);
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error("Error removing item from shopping bag");
+      console.error("Error removing item from shopping bag:", error);
+    }
+  };
 
   const updateQuantity = async (productId, newQuantity) => {
     try {
       const response = await axios.put(
-        `http://192.168.1.10:9080/api/v1/user/updateQuantity/${userEmail}`,
+        `${baseUrl}/user/updateQuantity/${userEmail}`,
         { email: userEmail, productId, quantity: newQuantity }
       );
       const { shoppingBag } = response.data;
       setBag(shoppingBag);
 
       const res = await axios.get(
-        `http://192.168.1.10:9080/api/v1/user/shoppingBag-total/${userEmail}`
+        `${baseUrl}/user/shoppingBag-total/${userEmail}`
       );
       const bagPrice = res.data;
       setSubtotal(bagPrice.subtotal);
       setTotal(bagPrice.total);
+      setTotalItems(bagPrice.totalItems);
     } catch (error) {
       console.error("Error updating quantity:", error);
     }
   };
+
+  useEffect(() => {
+    const fetchPrice = async () => {
+      try {
+        const response = await axios.get(
+          `${baseUrl}/user/shoppingBag-total/${userEmail}`
+        );
+        const bagPrice = response.data;
+        setSubtotal(bagPrice.subtotal);
+        setTotal(bagPrice.total);
+        setTotalItems(bagPrice.totalItems);
+      } catch (error) {
+        console.error("Error checking wishlist:", error);
+      }
+    };
+
+    fetchPrice();
+  }, [baseUrl, userEmail]);
 
   if (loading) {
     return (
@@ -112,7 +142,7 @@ const ShoppingBag = () => {
                 <div className="sb-product-card" key={item.product._id}>
                   <Link to={`/products/${item.product.slug}`}>
                     <img
-                      src={`http://192.168.1.10:9080/api/v1/product/product-photo/${item.product._id}`}
+                      src={`${baseUrl}/product/product-photo/${item.product._id}`}
                       className="sb-product-card-img"
                       alt={item.product.name}
                     />
@@ -125,6 +155,12 @@ const ShoppingBag = () => {
                       <h4 className="sb-product-card-price">
                         ${item.product.price}
                       </h4>
+                      <div className="sb-product-card-mid-buttons">
+                        <FaRegTrashAlt
+                          className="sb-product-card-mid-btn"
+                          onClick={() => handleRemoveItem(item.product._id)}
+                        />
+                      </div>
                     </div>
                     <div className="sb-product-card-quantity">
                       {item.quantity > 1 ? (
@@ -161,6 +197,22 @@ const ShoppingBag = () => {
                 </div>
               ))}
             </div>
+            {bag.length === 0 && (
+              <div className="no-filter-result">
+                <div className="no-filter-result-container">
+                  <div className="no-filter-result-img">
+                    <img src={NoFilterResult} alt="no-filter-result" />
+                  </div>
+                  <div className="no-filter-result-title">
+                    <h4>Empty Bag Alert!</h4>
+                    <p>
+                      Your bag looks a bit lonely. It's time to fill it up with
+                      your favorite goodies!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="sb-order-summary">
@@ -169,12 +221,12 @@ const ShoppingBag = () => {
                 <h4>Order Summary</h4>
               </div>
               <div className="sb-os-subtotal">
-                <p>Subtotal ({bag.length} items)</p>
+                <p>Subtotal ({totalItems} items)</p>
                 <p>$ {subtotal}</p>
               </div>
               <div className="sb-os-shipping">
                 <p>Estimated Shipping </p>
-                <p>$ 5</p>
+                {subtotal === 0 ? <p>$ {subtotal}</p> : <p>$ 5</p>}
               </div>
               <div className="sb-os-discount">
                 <p>Discount</p>
@@ -193,7 +245,7 @@ const ShoppingBag = () => {
               </div>
               <div className="sb-os-total">
                 <p>Total</p>
-                <p>$ {total}</p>
+                {subtotal === 0 ? <p>$ {subtotal}</p> : <p>$ {total}</p>}
               </div>
               <div className="sb-os-checkout">
                 <button className="sb-os-checkout-btn sb-os-voucher-apply-btn">
@@ -203,6 +255,7 @@ const ShoppingBag = () => {
             </div>
           </div>
         </div>
+        <Toaster />
       </div>
     </Layout>
   );

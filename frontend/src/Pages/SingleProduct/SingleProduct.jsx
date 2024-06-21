@@ -15,6 +15,7 @@ const SingleProduct = () => {
   const [loading, setLoading] = useState(true);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const token =
@@ -37,7 +38,7 @@ const SingleProduct = () => {
   const fetchData = useCallback(async () => {
     try {
       const { data } = await axios.get(
-        `http://192.168.1.10:9080/api/v1/product/single-product/${slug}`
+        `${baseUrl}/product/single-product/${slug}`
       );
       setProductData(data.product);
       setLoading(false);
@@ -46,7 +47,7 @@ const SingleProduct = () => {
       console.error(error);
       setLoading(false);
     }
-  }, [slug]);
+  }, [baseUrl, slug]);
 
   useEffect(() => {
     fetchData();
@@ -57,7 +58,7 @@ const SingleProduct = () => {
       try {
         if (productData && productData.category) {
           const { data: sugData } = await axios.get(
-            "http://192.168.1.10:9080/api/v1/product/get-product"
+            `${baseUrl}/product/get-product`
           );
           if (sugData?.success) {
             const filteredProducts = sugData.products
@@ -78,14 +79,14 @@ const SingleProduct = () => {
     };
 
     fetchSugData();
-  }, [productData]);
+  }, [baseUrl, productData]);
 
   useEffect(() => {
     const checkWishlist = async () => {
       if (userEmail && productData) {
         try {
           const response = await axios.get(
-            `http://192.168.1.10:9080/api/v1/user/wishlist/${userEmail}`
+            `${baseUrl}/user/wishlist/${userEmail}`
           );
           const wishlist = response.data.wishlist;
           setIsWishlisted(
@@ -98,7 +99,7 @@ const SingleProduct = () => {
     };
 
     checkWishlist();
-  }, [productData, userEmail]);
+  }, [baseUrl, productData, userEmail]);
 
   const handleWishlist = async () => {
     if (!isLoggedIn) {
@@ -107,8 +108,8 @@ const SingleProduct = () => {
     }
     try {
       const endpoint = isWishlisted
-        ? "http://192.168.1.10:9080/api/v1/user/remove-wishlist"
-        : "http://192.168.1.10:9080/api/v1/user/add-wishlist";
+        ? `${baseUrl}/user/remove-wishlist`
+        : `${baseUrl}/user/add-wishlist`;
       const response = await axios.post(endpoint, {
         email: userEmail,
         productId: productData._id,
@@ -122,13 +123,10 @@ const SingleProduct = () => {
   };
   const handleShoppingBag = async () => {
     try {
-      const response = await axios.post(
-        "http://192.168.1.10:9080/api/v1/user/add-shoppingBag",
-        {
-          email: userEmail,
-          productId: productData._id,
-        }
-      );
+      const response = await axios.post(`${baseUrl}/user/add-shoppingBag`, {
+        email: userEmail,
+        productId: productData._id,
+      });
       toast.success(response.data.message);
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -199,7 +197,7 @@ const SingleProduct = () => {
             <div className="sp-container">
               <div className="sp-image-container">
                 <img
-                  src={`http://192.168.1.10:9080/api/v1/product/product-photo/${productData._id}`}
+                  src={`${baseUrl}/product/product-photo/${productData._id}`}
                   className="product-card-img"
                   alt={productData.name}
                 />
@@ -247,7 +245,7 @@ const SingleProduct = () => {
                   <Link to={`/products/${p.slug}`} key={p._id}>
                     <div className="product-card">
                       <img
-                        src={`http://192.168.1.10:9080/api/v1/product/product-photo/${p._id}`}
+                        src={`${baseUrl}/product/product-photo/${p._id}`}
                         className="product-card-img"
                         alt={p.name}
                       />

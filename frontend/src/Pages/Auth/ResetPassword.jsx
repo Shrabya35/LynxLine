@@ -11,19 +11,17 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const baseUrl = window.env.REACT_APP_API_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://192.168.1.10:9080/api/v1/auth/reset-password",
-        {
-          email,
-          password,
-          newPassword,
-        }
-      );
+      const response = await axios.post(`${baseUrl}/auth/reset-password`, {
+        email,
+        password,
+        newPassword,
+      });
 
       const { success, message } = response.data;
       if (success) {

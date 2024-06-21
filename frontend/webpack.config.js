@@ -1,5 +1,6 @@
 import webpack from "webpack";
 import path from "path";
+import Dotenv from "dotenv-webpack";
 import browserifyZlib from "browserify-zlib";
 import querystringEs3 from "querystring-es3";
 import pathBrowserify from "path-browserify";
@@ -45,5 +46,5 @@ export default {
       net: false,
     },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [new webpack.HotModuleReplacementPlugin(), new Dotenv()],
 };

@@ -16,23 +16,22 @@ const AddProduct = () => {
   const [quantity, setQuantity] = useState("");
   const [shipping, setShipping] = useState(0);
   const [image, setImage] = useState("");
-
-  const getAllCategories = async () => {
-    try {
-      const { data } = await axios.get(
-        "http://192.168.1.10:9080/api/v1/category/get-category"
-      );
-      if (data?.success) {
-        setFetchedCategories(data?.category);
-      }
-    } catch (error) {
-      toast.error("Something Went Wrong");
-    }
-  };
+  const baseUrl = window.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
+    const getAllCategories = async () => {
+      try {
+        const { data } = await axios.get(`${baseUrl}/category/get-category`);
+        if (data?.success) {
+          setFetchedCategories(data?.category);
+        }
+      } catch (error) {
+        console.log("Something Went Wrong");
+        toast.error("Something Went Wrong");
+      }
+    };
     getAllCategories();
-  }, []);
+  }, [baseUrl]);
 
   const handleCreateProduct = async (e) => {
     e.preventDefault();
@@ -56,7 +55,7 @@ const AddProduct = () => {
       formData.append("image", image);
 
       const response = await axios.post(
-        "http://192.168.1.10:9080/api/v1/product/create-product",
+        `${baseUrl}/product/create-product`,
         formData,
         {
           headers: {

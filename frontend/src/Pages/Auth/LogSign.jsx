@@ -11,12 +11,13 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const baseUrl = window.env.REACT_APP_API_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     axios
-      .post("http://192.168.1.10:9080/api/v1/auth/register", {
+      .post(`${baseUrl}/auth/register`, {
         name,
         email,
         password,
@@ -91,6 +92,7 @@ const SignUpForm = () => {
 const LogInForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
+  const baseUrl = window.env.REACT_APP_API_BASE_URL;
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -104,13 +106,10 @@ const LogInForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://192.168.1.10:9080/api/v1/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${baseUrl}/auth/login`, {
+        email,
+        password,
+      });
 
       const { success, message, token, user } = response.data;
       const userDetails = {

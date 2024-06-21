@@ -20,6 +20,7 @@ const SearchPage = () => {
   const [sort, setSort] = useState("latest");
   const [isMobOpen, setMobOpen] = useState(false);
   const [offerIndex, setOfferIndex] = useState(0);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const offers = [
     "🎉 Shop over $75 & enjoy FREE delivery🚚💰",
@@ -34,30 +35,27 @@ const SearchPage = () => {
     return () => clearInterval(timer);
   }, [offers.length]);
 
-  const getAllCategories = async () => {
-    try {
-      const { data } = await axios.get(
-        "http://192.168.1.10:9080/api/v1/category/get-category"
-      );
-      if (data?.success) {
-        setCategory(data?.category);
-      }
-    } catch (error) {
-      console.log("Something Went Wrong");
-      toast.error("SOmething Went Wrong");
-    }
-  };
-
   useEffect(() => {
+    const getAllCategories = async () => {
+      try {
+        const { data } = await axios.get(`${baseUrl}/category/get-category`);
+        if (data?.success) {
+          setCategory(data?.category);
+        }
+      } catch (error) {
+        console.log("Something Went Wrong");
+        toast.error("Something Went Wrong");
+      }
+    };
     getAllCategories();
-  }, []);
+  }, [baseUrl]);
 
   useEffect(() => {
     const fetchSearchData = async () => {
       setLoading(true);
       try {
         const { data } = await axios.get(
-          `http://192.168.1.10:9080/api/v1/product/search-product/${searchTerm}?page=${page}&limit=9`
+          `${baseUrl}/product/search-product/${searchTerm}?page=${page}&limit=9`
         );
         if (data && data.results) {
           setSearchResult(data.results);
@@ -73,7 +71,7 @@ const SearchPage = () => {
     };
 
     fetchSearchData();
-  }, [searchTerm, page]);
+  }, [baseUrl, searchTerm, page]);
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
@@ -236,7 +234,7 @@ const SearchPage = () => {
                     <Link to={`/products/${item.slug}`} key={item._id}>
                       <div className="wishlist-card product-card">
                         <img
-                          src={`http://192.168.1.10:9080/api/v1/product/product-photo/${item._id}`}
+                          src={`${baseUrl}/product/product-photo/${item._id}`}
                           className="product-card-img"
                           alt={item.name}
                         />

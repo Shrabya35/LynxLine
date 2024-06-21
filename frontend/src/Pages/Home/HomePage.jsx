@@ -11,10 +11,12 @@ const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [gbProducts, setGBProducts] = useState([]);
   const [offerIndex, setOfferIndex] = useState(0);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
   const offers = [
     "🎉 Shop over $75 & enjoy FREE delivery🚚💰",
     "🌟 Discover our exclusive deals & discounts this month! 💸✨",
-    "💳 Get 20% off on your purchase with code BlackNigga! 💳🛍️",
+    "💳 Get 20% off on your purchase with code BLACKNIGGA 💳🛍️",
   ];
 
   useEffect(() => {
@@ -24,27 +26,25 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, [offers.length]);
 
-  const fetchProducts = async (category) => {
-    try {
-      const { data } = await axios.get(
-        "http://192.168.1.10:9080/api/v1/product/get-product"
-      );
-      if (data?.success) {
-        const filteredProducts = data.products
-          .filter((product) => product.category.name === category)
-          .slice(0, 9);
-        return filteredProducts;
-      } else {
-        throw new Error("Failed to fetch products");
-      }
-    } catch (error) {
-      toast.error("Something went wrong while fetching products");
-      console.log(error);
-      return [];
-    }
-  };
-
   useEffect(() => {
+    const fetchProducts = async (category) => {
+      try {
+        const { data } = await axios.get(`${baseUrl}/product/get-product`);
+        if (data?.success) {
+          const filteredProducts = data.products
+            .filter((product) => product.category.name === category)
+            .slice(0, 9);
+          return filteredProducts;
+        } else {
+          throw new Error("Failed to fetch products");
+        }
+      } catch (error) {
+        toast.error("Something went wrong while fetching products");
+        console.log(error);
+        return [];
+      }
+    };
+
     const fetchData = async () => {
       const freshFitsProducts = await fetchProducts("Fresh Fits");
       setProducts(freshFitsProducts);
@@ -53,7 +53,7 @@ const HomePage = () => {
       setGBProducts(gymBroProducts);
     };
     fetchData();
-  }, []);
+  }, [baseUrl]);
 
   const viewMore = (category) => {
     navigate(`/view-more?category=${category}`);
@@ -79,7 +79,7 @@ const HomePage = () => {
               >
                 Shop Women
               </a>
-              <a href="men" className="home-banner-btn home-banner-btn-men">
+              <a href="/men" className="home-banner-btn home-banner-btn-men">
                 Shop Men
               </a>
             </div>
@@ -96,7 +96,7 @@ const HomePage = () => {
                 <Link to={`/products/${p.slug}`} key={p._id}>
                   <div className="product-card">
                     <img
-                      src={`http://192.168.1.10:9080/api/v1/product/product-photo/${p._id}`}
+                      src={`${baseUrl}/product/product-photo/${p._id}`}
                       className="product-card-img"
                       alt={p.name}
                     />
@@ -139,7 +139,7 @@ const HomePage = () => {
               <button className="home-banner-btn">Shop Now</button>
             </div>
           </div>
-          <div className="home-category-2 home-category-1 ">
+          <div className="home-category-2 home-category-1">
             <div className="home-product-title">
               <h2>Gym Bro T-shirts</h2>
               <p onClick={() => viewMore("Gym Bro")}>View all</p>
@@ -149,7 +149,7 @@ const HomePage = () => {
                 <Link to={`/products/${p.slug}`} key={p._id}>
                   <div className="product-card">
                     <img
-                      src={`http://192.168.1.10:9080/api/v1/product/product-photo/${p._id}`}
+                      src={`${baseUrl}/product/product-photo/${p._id}`}
                       className="product-card-img"
                       alt={p.name}
                     />

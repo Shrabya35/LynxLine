@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import userModel from "../models/userModel.js";
 
 export const singleUserController = async (req, res) => {
@@ -166,16 +167,22 @@ export const updateQuantityController = async (req, res) => {
 export const removeShoppingBagController = async (req, res) => {
   try {
     const { email, productId } = req.body;
+
     const user = await userModel.findOne({ email });
-    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     user.shoppingBag = user.shoppingBag.filter(
-      (item) => item.toString() !== productId
+      (item) => !item.product.equals(productId)
     );
+
     await user.save();
 
     res.status(200).json({ message: "Product removed from Shopping Bag" });
   } catch (error) {
+    console.error("Error removing product from shopping bag:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
@@ -196,7 +203,7 @@ export const getShoppingBagController = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Paginated Shopping Bag fetched successfully",
+      message: "Shopping Bag fetched successfully",
       total,
       shoppingBag,
     });
@@ -219,13 +226,29 @@ export const getShoppingBagPriceController = async (req, res) => {
 
     let totalPrice = 0;
     let subTotal = 0;
+    let totalItems = 0;
     let shippingFee = 5;
-    user.shoppingBag.forEach((item) => {
-      subTotal += item.product.price * item.quantity;
-      totalPrice = subTotal + shippingFee;
-    });
 
-    res.status(200).json({ total: totalPrice, subtotal: subTotal });
+    if (user.shoppingBag && Array.isArray(user.shoppingBag)) {
+      user.shoppingBag.forEach((item) => {
+        if (item.product && item.product.price && item.quantity) {
+          subTotal += item.product.price * item.quantity;
+          totalItems += item.quantity;
+        } else {
+          console.warn(`Invalid shopping bag item for user: ${user.email}`);
+        }
+      });
+
+      totalPrice = subTotal + shippingFee;
+    } else {
+      console.warn(
+        `Shopping bag missing or not an array for user: ${user.email}`
+      );
+    }
+
+    res
+      .status(200)
+      .json({ total: totalPrice, subtotal: subTotal, totalItems: totalItems });
   } catch (error) {
     console.error("Error in calculating total price:", error);
     res.status(500).json({ message: "Server error", error: error.message });

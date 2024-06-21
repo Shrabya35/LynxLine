@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "./AdminLayout/AdminLayout";
-import ConfirmModal from "./modal/ConfirmModal";
+import ConfirmModal from "../../../modal/ConfirmModal";
 import "./adminManage.css";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
