@@ -12,6 +12,7 @@
   padding: 1rem 3rem;
   background: #f4f4f4;
   flex-grow: 1;
+  flex-wrap: wrap;
 }
 
 .shopping-bag-section {
@@ -20,6 +21,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  width: 100%;
 }
 .sb-product-card {
   display: flex;
@@ -87,6 +89,7 @@
 .sb-order-summary {
   flex-grow: 1;
   flex-basis: 0;
+  width: 100%;
 }
 
 .sb-order-summary-container {
@@ -141,4 +144,41 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+@media (max-width: 767px) {
+  .shopping-bag-container {
+    position: relative;
+    width: 100%;
+    padding: 0.5rem;
+  }
+  .sb-product-card {
+    align-items: center;
+  }
+  .sb-product-card-img {
+    width: 7rem;
+    height: 7rem;
+  }
+  .sb-product-card-title {
+    flex: 1;
+    overflow: unset;
+    white-space: unset;
+    text-overflow: unset;
+    word-break: break-all;
+    max-width: 100%;
+  }
+  .sb-product-card-body {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    gap: 1.5rem;
+  }
+  .sb-order-summary {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+  .sb-order-summary-container {
+    border-top: 1px solid rgba(165, 151, 151, 0.441);
+  }
 }

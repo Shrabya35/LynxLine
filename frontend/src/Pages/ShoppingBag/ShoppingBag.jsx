@@ -197,6 +197,7 @@ const ShoppingBag = () => {
                 </div>
               ))}
             </div>
+
             {bag.length === 0 && (
               <div className="no-filter-result">
                 <div className="no-filter-result-container">
