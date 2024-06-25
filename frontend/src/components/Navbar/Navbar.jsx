@@ -227,7 +227,11 @@ const Navbar = () => {
             <a href="/accessories">Accesories</a>
           </li>
           <li className="nav-items-mob">
-            <a href="/about">My Cart</a>
+            {isLoggedIn ? (
+              <a href="/shopping-bag">My Shopping Bag</a>
+            ) : (
+              <span onClick={handleSearchBag}>My Shopping Bag</span>
+            )}
           </li>
           <li className="nav-items-mob">
             {isLoggedIn ? (

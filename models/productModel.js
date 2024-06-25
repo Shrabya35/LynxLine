@@ -38,6 +38,12 @@ const productSchema = new mongoose.Schema(
     shipping: {
       type: Boolean,
     },
+    ratings: [
+      {
+        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        rating: { type: Number, required: true },
+      },
+    ],
   },
   { timestamps: true }
 );

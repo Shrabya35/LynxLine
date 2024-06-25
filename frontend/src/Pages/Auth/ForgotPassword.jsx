@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   const [otp, setOtp] = useState("");
   const [gototp, setGototp] = useState(false);
   const navigate = useNavigate();
-  const baseUrl = window.env.REACT_APP_API_BASE_URL;
+  const baseUrl = process.REACT_APP_API_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

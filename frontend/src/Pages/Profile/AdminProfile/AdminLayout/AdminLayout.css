@@ -54,6 +54,9 @@
     margin-top: -0.4rem;
   }
   .admin-nav-items {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     cursor: pointer;
   }
   .admin-sec-nav {

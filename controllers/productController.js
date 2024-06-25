@@ -308,3 +308,118 @@ export const searchProductController = async (req, res) => {
     });
   }
 };
+
+export const addRatingController = async (req, res) => {
+  const { productId, rating, userId } = req.body;
+
+  try {
+    const existingUserRating = await userModel.findOne({
+      _id: userId,
+      "ratings.productId": productId,
+    });
+
+    if (existingUserRating) {
+      const updateResult = await userModel.updateOne(
+        { _id: userId, "ratings.productId": productId },
+        { $set: { "ratings.$.rating": rating } }
+      );
+
+      if (updateResult.matchedCount === 0) {
+        console.error("No matching user rating found for update.");
+      }
+    } else {
+      console.log("Adding new user rating for product", productId);
+      await userModel.findByIdAndUpdate(userId, {
+        $push: { ratings: { productId, rating } },
+      });
+    }
+
+    const existingProductRating = await productModel.findOne({
+      _id: productId,
+      "ratings.user": userId,
+    });
+
+    if (existingProductRating) {
+      // If the user has already rated this product, update the rating
+      console.log("Updating product rating for user", userId);
+      const updateResult = await productModel.updateOne(
+        { _id: productId, "ratings.user": userId },
+        { $set: { "ratings.$.rating": rating } }
+      );
+
+      if (updateResult.matchedCount === 0) {
+        console.error("No matching product rating found for update.");
+      }
+    } else {
+      console.log("Adding new product rating for user", userId);
+      await productModel.findByIdAndUpdate(productId, {
+        $push: { ratings: { user: userId, rating } },
+      });
+    }
+
+    res.status(200).json({ message: "Rating added successfully" });
+  } catch (error) {
+    console.error("Error adding/updating rating:", error);
+    res.status(500).json({ error: "Failed to add/update rating" });
+  }
+};
+
+export const getProductRatingsController = async (req, res) => {
+  const productId = req.params.productId;
+
+  try {
+    const product = await productModel
+      .findById(productId)
+      .populate("ratings.user");
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const totalRatings = product.ratings.length;
+
+    let oneStar = 0,
+      twoStar = 0,
+      threeStar = 0,
+      fourStar = 0,
+      fiveStar = 0;
+    let sumWeightedRatings = 0;
+
+    product.ratings.forEach((rating) => {
+      switch (rating.rating) {
+        case 1:
+          oneStar++;
+          break;
+        case 2:
+          twoStar++;
+          break;
+        case 3:
+          threeStar++;
+          break;
+        case 4:
+          fourStar++;
+          break;
+        case 5:
+          fiveStar++;
+          break;
+      }
+      sumWeightedRatings += rating.rating;
+    });
+
+    const averageRating =
+      totalRatings > 0 ? sumWeightedRatings / totalRatings : 0;
+
+    res.status(200).json({
+      averageRating,
+      totalRatings,
+      oneStar,
+      twoStar,
+      threeStar,
+      fourStar,
+      fiveStar,
+    });
+  } catch (error) {
+    console.error("Error fetching product ratings:", error);
+    res.status(500).json({ error: "Failed to fetch product ratings" });
+  }
+};

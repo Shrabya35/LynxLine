@@ -52,6 +52,7 @@ const ShoppingBag = () => {
         setBag(bagData.shoppingBag);
         setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.error("Error checking wishlist:", error);
       }
     };

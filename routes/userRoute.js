@@ -9,6 +9,7 @@ import {
   removeShoppingBagController,
   updateQuantityController,
   getShoppingBagPriceController,
+  getUserProductRating,
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -30,5 +31,7 @@ router.post("/remove-shoppingBag", removeShoppingBagController);
 router.put("/updateQuantity/:email", updateQuantityController);
 
 router.get("/shoppingBag-total/:email", getShoppingBagPriceController);
+
+router.get("/:userId/product-ratings/:productId", getUserProductRating);
 
 export default router;

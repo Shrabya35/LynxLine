@@ -11,7 +11,7 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const baseUrl = window.env.REACT_APP_API_BASE_URL;
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

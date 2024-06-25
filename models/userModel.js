@@ -44,6 +44,12 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    ratings: [
+      {
+        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+        rating: { type: Number, required: true },
+      },
+    ],
   },
   { timestamps: true }
 );

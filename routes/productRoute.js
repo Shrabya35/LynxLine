@@ -9,6 +9,8 @@ import {
   singleProductController,
   updateProductController,
   searchProductController,
+  addRatingController,
+  getProductRatingsController,
 } from "../controllers/productController.js";
 
 const router = express.Router();
@@ -28,5 +30,9 @@ router.delete("/delete-product/:pid", deleteProductController);
 router.get("/paginated-products", getPaginatedProductsController);
 
 router.get("/search-product/:search", searchProductController);
+
+router.post("/add-rating", addRatingController);
+
+router.get("/product-ratings/:productId", getProductRatingsController);
 
 export default router;

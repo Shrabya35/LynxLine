@@ -16,7 +16,7 @@ const AddProduct = () => {
   const [quantity, setQuantity] = useState("");
   const [shipping, setShipping] = useState(0);
   const [image, setImage] = useState("");
-  const baseUrl = window.env.REACT_APP_API_BASE_URL;
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const getAllCategories = async () => {

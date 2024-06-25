@@ -11,6 +11,7 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const fetchUserRef = useRef(null);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const userDetailsString = useMemo(
     () =>
@@ -31,7 +32,7 @@ const UserProfile = () => {
     if (email) {
       try {
         const { data } = await axios.get(
-          `http://192.168.1.10:9080/api/v1/user/user-details/${email}`
+          `${baseUrl}/user/user-details/${email}`
         );
         setUserDetail(data.user);
       } catch (error) {
@@ -47,7 +48,7 @@ const UserProfile = () => {
     if (userDetails) {
       fetchUserRef.current();
     }
-  }, [email, userDetails]);
+  }, [baseUrl, email, userDetails]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");

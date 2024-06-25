@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import userModel from "../models/userModel.js";
+import productModel from "../models/productModel.js";
 
 export const singleUserController = async (req, res) => {
   try {
@@ -252,5 +253,31 @@ export const getShoppingBagPriceController = async (req, res) => {
   } catch (error) {
     console.error("Error in calculating total price:", error);
     res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+export const getUserProductRating = async (req, res) => {
+  const { userId, productId } = req.params;
+  try {
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      console.log(`User ${userId} not found`);
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const ratingObj = user.ratings.find(
+      (rating) => rating.productId.toString() === productId
+    );
+
+    if (ratingObj) {
+      const userRating = ratingObj.rating;
+      return res.status(200).json({ userRating });
+    } else {
+      return res.status(404).json({ message: "Rating not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching user rating for product:", error);
+    res.status(500).json({ error: "Failed to fetch user rating for product" });
   }
 };

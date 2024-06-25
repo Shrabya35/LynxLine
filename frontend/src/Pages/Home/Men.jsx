@@ -11,7 +11,7 @@ const Men = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [offerIndex, setOfferIndex] = useState(0);
-  const baseUrl = window.env.REACT_APP_API_BASE_URL;
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const offers = [
     "🎉 Shop over $75 & enjoy FREE delivery🚚💰",
     "🌟 Discover our exclusive deals & discounts this month! 💸✨",
@@ -25,31 +25,31 @@ const Men = () => {
     return () => clearInterval(timer);
   }, [offers.length]);
 
-  const fetchProducts = async (type) => {
-    try {
-      const { data } = await axios.get(`${baseUrl}/product/get-product`);
-      if (data?.success) {
-        const filteredProducts = data.products
-          .filter((product) => product.type === type)
-          .slice(0, 9);
-        return filteredProducts;
-      } else {
-        throw new Error("Failed to fetch products");
-      }
-    } catch (error) {
-      toast.error("Something went wrong while fetching products");
-      console.log(error);
-      return [];
-    }
-  };
-
   useEffect(() => {
+    const fetchProducts = async (type) => {
+      try {
+        const { data } = await axios.get(`${baseUrl}/product/get-product`);
+        if (data?.success) {
+          const filteredProducts = data.products
+            .filter((product) => product.type === type)
+            .slice(0, 9);
+          return filteredProducts;
+        } else {
+          throw new Error("Failed to fetch products");
+        }
+      } catch (error) {
+        toast.error("Something went wrong while fetching products");
+        console.error(error);
+        return [];
+      }
+    };
+
     const fetchData = async () => {
       const mensProducts = await fetchProducts("Men");
       setProducts(mensProducts);
     };
     fetchData();
-  }, []);
+  }, [baseUrl]);
 
   const viewMore = (type) => {
     navigate(`/view-more?type=${type}`);
