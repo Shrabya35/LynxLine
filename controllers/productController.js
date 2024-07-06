@@ -340,7 +340,6 @@ export const addRatingController = async (req, res) => {
     });
 
     if (existingProductRating) {
-      // If the user has already rated this product, update the rating
       console.log("Updating product rating for user", userId);
       const updateResult = await productModel.updateOne(
         { _id: productId, "ratings.user": userId },

@@ -1,0 +1,106 @@
+.admin-dashboard-top {
+  padding: 1rem;
+}
+.admin-dashboard-container {
+  padding: 1rem 1rem 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.admin-dashboard-order-data {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.admin-dashboard-order-data-section {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.admin-dashboard-order-data-card {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  background: #2669ff;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  min-width: calc(- 1rem);
+}
+.adodc-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+.abodc-left-bottom {
+  font-size: 0.9rem;
+}
+.abodc-right-icon {
+  font-size: 1.75rem;
+  font-weight: bolder;
+}
+.admin-dashboard-order-data-card-packaging {
+  background: #ffc400;
+}
+.admin-dashboard-order-data-card-delivered {
+  background: #00d247;
+}
+.admin-dashboard-order-data-card-cancelled {
+  background: #ff0000;
+}
+.admin-dashboard-graph {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0 1rem 0;
+}
+.admin-dashboard-graph-left {
+  flex: 2;
+  border-radius: 0.5rem;
+  background: #f0f0f7;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+.admin-dashboard-graph-right {
+  flex: 1;
+  border-radius: 0.5rem;
+  background: #f0f0f7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+  height: 60vh;
+}
+.admin-dashboard-graph-left,
+.admin-dashboard-graph-right {
+  width: 100%;
+  max-width: 100%;
+}
+@media (max-width: 770px) {
+  .admin-dashboard-container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .admin-dashboard-order-data-card {
+    min-width: 100%;
+  }
+  .admin-dashboard-graph {
+    flex-direction: column;
+  }
+}

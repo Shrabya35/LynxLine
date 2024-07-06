@@ -90,9 +90,7 @@ li {
 }
 @media (min-width: 770px) {
   .nav-container {
-    .nav-container {
-      padding: 1rem 2rem 1rem 2rem;
-    }
+    padding: 1rem 2rem 1rem 2rem;
   }
   .nav-logo a {
     display: flex;

@@ -137,14 +137,16 @@
     font-size: 1rem;
   }
   .footer-small {
-    align-self: center;
     gap: 2rem;
-  }
-  .footer-small-img {
-    gap: 0;
-    margin: auto;
-  }
-  .footer-small {
     flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-small-img img {
+    margin-right: 0;
+  }
+  .footer-small-left {
+    width: 100%;
+    justify-content: space-between;
   }
 }

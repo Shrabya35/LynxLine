@@ -24,15 +24,15 @@ const UserProfile = () => {
     () => JSON.parse(userDetailsString),
     [userDetailsString]
   );
-  const email = userDetails?.email;
-  const firstName = userDetails?.name.split(" ")[0];
+  const userEmail = userDetails?.email;
+  const firstName = userDetail?.name.split(" ")[0];
   const ProfileLogo = firstName?.charAt(0);
 
   fetchUserRef.current = async () => {
-    if (email) {
+    if (userEmail) {
       try {
         const { data } = await axios.get(
-          `${baseUrl}/user/user-details/${email}`
+          `${baseUrl}/user/user-details/${userEmail}`
         );
         setUserDetail(data.user);
       } catch (error) {
@@ -48,7 +48,7 @@ const UserProfile = () => {
     if (userDetails) {
       fetchUserRef.current();
     }
-  }, [baseUrl, email, userDetails]);
+  }, [baseUrl, userEmail, userDetails]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");

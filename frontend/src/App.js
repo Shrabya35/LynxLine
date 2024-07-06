@@ -22,7 +22,7 @@ import UserProfile from "./Pages/Profile/UserProfile/User";
 
 //Admin
 import AdminRoute from "./route/AdminRoute";
-import AdminProfile from "./Pages/Profile/AdminProfile/Admin";
+import AdminDashboard from "./Pages/Profile/AdminProfile/AdminDashboard";
 import CreateCategory from "./Pages/Profile/AdminProfile/CreateCategory";
 import ViewProduct from "./Pages/Profile/AdminProfile/ViewProduct";
 import AddProduct from "./Pages/Profile/AdminProfile/AddProduct";
@@ -52,7 +52,7 @@ const App = () => {
           <Route path="user" element={<UserProfile />} />
         </Route>
         <Route path="/profile/" element={<AdminRoute />}>
-          <Route path="admin" element={<AdminProfile />} />
+          <Route path="admin" element={<AdminDashboard />} />
           <Route path="admin/category" element={<CreateCategory />} />
           <Route path="admin/add-product" element={<AddProduct />} />
           <Route path="admin/view-products" element={<ViewProduct />} />

@@ -10,6 +10,7 @@ import {
   updateQuantityController,
   getShoppingBagPriceController,
   getUserProductRating,
+  getUserCountsController,
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -33,5 +34,7 @@ router.put("/updateQuantity/:email", updateQuantityController);
 router.get("/shoppingBag-total/:email", getShoppingBagPriceController);
 
 router.get("/:userId/product-ratings/:productId", getUserProductRating);
+
+router.get("/get-user-count-dated", getUserCountsController);
 
 export default router;

@@ -281,3 +281,34 @@ export const getUserProductRating = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch user rating for product" });
   }
 };
+
+export const getUserCountsController = async (req, res) => {
+  try {
+    const now = new Date();
+    const months = Array.from({ length: 5 }, (_, i) => {
+      const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      return {
+        month: date.toLocaleString("default", { month: "long" }),
+        date,
+      };
+    }).reverse();
+
+    const userCounts = await Promise.all(
+      months.map(async ({ date }, i) => {
+        const start = new Date(date);
+        const end = new Date(date);
+        end.setMonth(end.getMonth() + 1);
+
+        const newUsers = await userModel.countDocuments({
+          createdAt: { $gte: start, $lt: end },
+        });
+
+        return { month: months[i].month, newUsers };
+      })
+    );
+
+    res.status(200).json(userCounts);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

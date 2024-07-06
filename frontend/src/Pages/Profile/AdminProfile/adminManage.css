@@ -184,6 +184,15 @@
   display: flex;
   justify-content: space-around;
 }
+.view-products-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem 1rem 2rem;
+}
+.view-products-top-add-category {
+  display: flex;
+  gap: 0.5rem;
+}
 @media (max-width: 770px) {
   .Admin-Category {
     padding: 1rem;
