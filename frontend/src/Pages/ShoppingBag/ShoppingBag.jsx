@@ -11,6 +11,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 const ShoppingBag = () => {
   const [bag, setBag] = useState([]);
   const [subtotal, setSubtotal] = useState("");
+  const [shippingFee, setShippingFee] = useState("");
   const [total, setTotal] = useState("");
   const [totalItems, setTotalItems] = useState("");
   const [loading, setLoading] = useState(true);
@@ -75,6 +76,7 @@ const ShoppingBag = () => {
       setSubtotal(bagPrice.subtotal);
       setTotal(bagPrice.total);
       setTotalItems(bagPrice.totalItems);
+      setShippingFee(bagPrice.shippingFee);
 
       toast.success(response.data.message);
     } catch (error) {
@@ -99,6 +101,7 @@ const ShoppingBag = () => {
       setSubtotal(bagPrice.subtotal);
       setTotal(bagPrice.total);
       setTotalItems(bagPrice.totalItems);
+      setShippingFee(bagPrice.shippingFee);
     } catch (error) {
       console.error("Error updating quantity:", error);
     }
@@ -228,7 +231,7 @@ const ShoppingBag = () => {
               </div>
               <div className="sb-os-shipping">
                 <p>Estimated Shipping </p>
-                {subtotal === 0 ? <p>$ {subtotal}</p> : <p>$ 5</p>}
+                {subtotal === 0 ? <p>$ {subtotal}</p> : <p>$ {shippingFee}</p>}
               </div>
               <div className="sb-os-discount">
                 <p>Discount</p>

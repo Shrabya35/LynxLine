@@ -239,7 +239,9 @@ export const getShoppingBagPriceController = async (req, res) => {
           console.warn(`Invalid shopping bag item for user: ${user.email}`);
         }
       });
-
+      if (subTotal >= 70) {
+        shippingFee = 0;
+      }
       totalPrice = subTotal + shippingFee;
     } else {
       console.warn(
@@ -249,7 +251,12 @@ export const getShoppingBagPriceController = async (req, res) => {
 
     res
       .status(200)
-      .json({ total: totalPrice, subtotal: subTotal, totalItems: totalItems });
+      .json({
+        total: totalPrice,
+        subtotal: subTotal,
+        totalItems: totalItems,
+        shippingFee,
+      });
   } catch (error) {
     console.error("Error in calculating total price:", error);
     res.status(500).json({ message: "Server error", error: error.message });

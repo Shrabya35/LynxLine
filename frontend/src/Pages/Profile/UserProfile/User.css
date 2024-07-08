@@ -1,5 +1,5 @@
 .Profile {
-  padding: 0;
+  padding-bottom: 1rem;
   margin: 0;
   width: 100%;
   display: flex;
@@ -26,6 +26,9 @@
 .profile-left {
   flex: 0 0 35%;
   padding: 1rem 1rem 0 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .profile-account {
@@ -74,7 +77,6 @@
   font-weight: 600;
   cursor: pointer;
 }
-
 .profile-right {
   align-items: center;
   flex: 65%;

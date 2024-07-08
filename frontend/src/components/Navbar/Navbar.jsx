@@ -74,6 +74,7 @@ const Navbar = () => {
     navigate(`/search-page?search=${searchTerm}`);
     setMenuOpen(false);
     inputRef.current.blur();
+    setSearchOpen(false);
   };
   const handleSearchBtn = () => {
     setSearchOpen(!isSearchOpen);

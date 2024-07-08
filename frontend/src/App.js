@@ -14,7 +14,6 @@ import ViewMore from "./Pages/ProductsPage/ViewMore";
 
 //User Auth
 import Auth from "./Pages/Auth/Auth";
-import PageNotFound from "./Pages/PNF/PageNotFound";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import PrivateRoutes from "./route/PrivateRoutes";
@@ -28,8 +27,16 @@ import ViewProduct from "./Pages/Profile/AdminProfile/ViewProduct";
 import AddProduct from "./Pages/Profile/AdminProfile/AddProduct";
 import ModifyProduct from "./Pages/Profile/AdminProfile/ModifyProduct";
 
-//Others
-import About from "./Pages/About/About";
+//Static
+import About from "./Pages/StaticPages/About";
+import TermsAndCondition from "./Pages/StaticPages/TermsAndCondition";
+import PrivacyPolicy from "./Pages/StaticPages/PrivacyPolicy";
+import ReturnPolicy from "./Pages/StaticPages/ReturnPolicy";
+import ContactUs from "./Pages/StaticPages/ContactUs";
+import OrderGuide from "./Pages/StaticPages/OrderGuide";
+
+//Page Not Found
+import PageNotFound from "./Pages/PNF/PageNotFound";
 
 const App = () => {
   return (
@@ -47,7 +54,6 @@ const App = () => {
         <Route path="/view-more" element={<ViewMore />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/shopping-bag" element={<ShoppingBag />} />
-        <Route path="/about" element={<About />} />
         <Route path="/profile/" element={<PrivateRoutes />}>
           <Route path="user" element={<UserProfile />} />
         </Route>
@@ -58,6 +64,16 @@ const App = () => {
           <Route path="admin/view-products" element={<ViewProduct />} />
           <Route path="admin/product/:slug" element={<ModifyProduct />} />
         </Route>
+        <Route path="/article/about" element={<About />} />
+        <Route
+          path="/article/terms-and-condition"
+          element={<TermsAndCondition />}
+        />
+        <Route path="/article/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/article/return-policy" element={<ReturnPolicy />} />
+        <Route path="/article/contact-us" element={<ContactUs />} />
+        <Route path="/article/order-guide" element={<OrderGuide />} />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>

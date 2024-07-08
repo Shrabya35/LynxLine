@@ -32,19 +32,18 @@ const Footer = () => {
               <div className="footer-links footer-flex">
                 <ul>
                   <li className="footer-link footer-links-lynxline">
-                    <a href="/">About LynxLine</a>
+                    <a href="/article/about">About LynxLine</a>
                   </li>
                   <li className="footer-link footer-links-lynxline">
-                    <a href="/">Careers</a>
+                    <a href="/article/terms-and-condition">
+                      Terms & Conditions
+                    </a>
                   </li>
                   <li className="footer-link footer-links-lynxline">
-                    <a href="/">Terms & Conditions</a>
+                    <a href="/article/privacy-policy">Privacy Policy</a>
                   </li>
                   <li className="footer-link footer-links-lynxline">
-                    <a href="/">Privacy Policy</a>
-                  </li>
-                  <li className="footer-link footer-links-lynxline">
-                    <a href="/">Return Policy</a>
+                    <a href="/article/return-policy">Return Policy</a>
                   </li>
                 </ul>
               </div>
@@ -74,13 +73,10 @@ const Footer = () => {
               <div className="footer-links footer-flex">
                 <ul>
                   <li className="footer-link footer-links-help">
-                    <a href="/">Contact Us</a>
+                    <a href="/article/contact-us">Contact Us</a>
                   </li>
                   <li className="footer-link footer-links-help">
-                    <a href="/">Returns</a>
-                  </li>
-                  <li className="footer-link footer-links-help">
-                    <a href="/">Orders</a>
+                    <a href="/article/order-guide">Order</a>
                   </li>
                   <li className="footer-link footer-links-help">
                     <a href="/auth/reset-password">Reset Password</a>
