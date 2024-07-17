@@ -1,14 +1,20 @@
 import React, { useState, useEffect, useMemo } from "react";
-import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+
 import "./ShoppingBag.css";
 import Layout from "../../components/Layout";
+
+import { nanoid } from "nanoid";
+import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+
 import NoFilterResult from "../../assets/No-filter-Results.svg";
-import { Link } from "react-router-dom";
+
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
 
 const ShoppingBag = () => {
+  const navigate = useNavigate();
   const [bag, setBag] = useState([]);
   const [subtotal, setSubtotal] = useState("");
   const [shippingFee, setShippingFee] = useState("");
@@ -125,6 +131,19 @@ const ShoppingBag = () => {
     fetchPrice();
   }, [baseUrl, userEmail]);
 
+  const handleProceedToCheckout = () => {
+    const storedToken = sessionStorage.getItem("checkoutToken");
+
+    if (storedToken) {
+      navigate(`/checkout?cts=${storedToken}`);
+    } else {
+      const newToken = nanoid();
+      sessionStorage.setItem("checkoutToken", newToken);
+      console.log("Generated token:", newToken);
+      navigate(`/checkout?cts=${newToken}`);
+    }
+  };
+
   if (loading) {
     return (
       <Layout title={`Loading...`}>
@@ -233,28 +252,16 @@ const ShoppingBag = () => {
                 <p>Estimated Shipping </p>
                 {subtotal === 0 ? <p>$ {subtotal}</p> : <p>$ {shippingFee}</p>}
               </div>
-              <div className="sb-os-discount">
-                <p>Discount</p>
-                <p>$ 0</p>
-              </div>
-
-              <div className="sb-os-voucher">
-                <input
-                  type="text"
-                  name="voucher"
-                  placeholder="Enter Voucher Code"
-                  required
-                  className="sb-os-voucher-input"
-                />
-                <button className="sb-os-voucher-apply-btn">Apply</button>
-              </div>
               <div className="sb-os-total">
                 <p>Total</p>
                 {subtotal === 0 ? <p>$ {subtotal}</p> : <p>$ {total}</p>}
               </div>
               <div className="sb-os-checkout">
-                <button className="sb-os-checkout-btn sb-os-voucher-apply-btn">
-                  Checkout ({bag.length})
+                <button
+                  className="sb-os-checkout-btn checkout-order-btn"
+                  onClick={handleProceedToCheckout}
+                >
+                  Checkout Securely ({bag.length})
                 </button>
               </div>
             </div>

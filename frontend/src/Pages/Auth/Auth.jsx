@@ -44,4 +44,11 @@ const Auth = ({ description, keywords, author }) => {
   );
 };
 
+Auth.defaultProps = {
+  title: "LynxLine - Unleash Your Inner Beast",
+  description: "Official Store of LynxLine",
+  keywords: "LynxLine,Sports wear, gym wears",
+  author: "LynxLine CO.",
+};
+
 export default Auth;

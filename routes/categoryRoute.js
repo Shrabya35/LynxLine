@@ -6,7 +6,6 @@ import {
   singleCategoryController,
   updateCategoryController,
 } from "../controllers/categoryController.js";
-import { isAdmin, requireSignIn } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 

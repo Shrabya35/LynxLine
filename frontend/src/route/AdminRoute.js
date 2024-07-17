@@ -28,10 +28,8 @@ const AdminRoute = () => {
         });
 
         if (res.data && res.data.ok) {
-          console.log("User is an admin");
           setOK(true);
         } else {
-          console.log("User is not an admin");
           setOK(false);
         }
       } catch (error) {
@@ -44,8 +42,6 @@ const AdminRoute = () => {
 
     checkAdminAuth();
   }, []);
-
-  console.log("OK:", ok);
 
   if (loading) {
     return <div>Loading...</div>;

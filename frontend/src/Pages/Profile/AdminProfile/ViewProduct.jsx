@@ -16,7 +16,7 @@ const ViewProduct = () => {
     const fetchProducts = async (page) => {
       try {
         const response = await axios.get(
-          `${baseUrl}product/paginated-products?page=${page}&limit=9`
+          `${baseUrl}/product/paginated-products?page=${page}&limit=9`
         );
         setProducts(response.data.products);
         setTotalPages(response.data.pages);

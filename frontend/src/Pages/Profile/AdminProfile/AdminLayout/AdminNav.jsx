@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import NavLogo from "../../../../assets/logo.png";
+import "./AdminLayout.css";
 import { MdDashboard, MdShoppingCart } from "react-icons/md";
 import { FaTachometerAlt, FaClipboardList } from "react-icons/fa";
-import { IoLogOut } from "react-icons/io5";
+import { IoLogOut, IoTicket } from "react-icons/io5";
+import { Menu, Dropdown } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 
 const AdminNav = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
+  const OrderDropdownMenu = (
+    <Menu className="custom-dropdown-menu-order">
+      <Menu.Item key="1">
+        <a href="/link1">All Orders</a>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <a href="/link2">Pending</a>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <a href="/link3">Completed</a>
+      </Menu.Item>
+      <Menu.Item key="4">
+        <a href="/link3">Cancelled</a>
+      </Menu.Item>
+    </Menu>
+  );
 
   const userDetailsString =
     localStorage.getItem("userDetails") ||
@@ -27,9 +45,13 @@ const AdminNav = () => {
 
     navigate("/");
   };
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
+  const LogoutDropdownMenu = (
+    <Menu className="custom-dropdown-menu-logout">
+      <Menu.Item key="1">
+        <IoLogOut className="admin-icon" onClick={handleLogout} />
+      </Menu.Item>
+    </Menu>
+  );
   return (
     <main className="admin-nav admin-flex">
       <nav className="admin-nav1">
@@ -40,16 +62,9 @@ const AdminNav = () => {
               <h2 className="logo-name">LynxLine</h2>
             </a>
           </li>
-          <li className="admin-profile-mob" onClick={toggleDropdown}>
+          <Dropdown overlay={LogoutDropdownMenu} className="admin-profile-mob">
             <span className=" admin-profile-icon">{ProfileLogo}</span>
-            {showDropdown && (
-              <div className="dropdown">
-                <span>
-                  <IoLogOut className="admin-icon" onClick={handleLogout} />
-                </span>
-              </div>
-            )}
-          </li>
+          </Dropdown>
         </ul>
       </nav>
       <nav className="admin-sec-nav admin-flex">
@@ -58,17 +73,26 @@ const AdminNav = () => {
             <FaTachometerAlt className="admin-icon" />
             <span> Dashboard</span>
           </a>
-          <a href="/profile/admin/add-product" className="admin-nav-items">
-            <FaClipboardList className="admin-icon" />
-            <span>Orders</span>
-          </a>
-          <a href="/profile/admin/view-products" className="admin-nav-items">
-            <MdShoppingCart className="admin-icon" />
-            <span>View Products</span>
+
+          <Dropdown overlay={OrderDropdownMenu}>
+            <div className="admin-nav-items">
+              <FaClipboardList className="admin-icon" />
+              <span>
+                Orders <DownOutlined />
+              </span>
+            </div>
+          </Dropdown>
+          <a href="/profile/admin/category" className="admin-nav-items ">
+            <IoTicket className="admin-icon" />
+            <span> Voucher</span>
           </a>
           <a href="/profile/admin/category" className="admin-nav-items ">
             <MdDashboard className="admin-icon" />
             <span> Category</span>
+          </a>
+          <a href="/profile/admin/view-products" className="admin-nav-items">
+            <MdShoppingCart className="admin-icon" />
+            <span>View Products</span>
           </a>
         </div>
       </nav>

@@ -104,36 +104,9 @@
 .sb-order-summary-title {
   text-align: left;
 }
-.sb-os-voucher {
-  width: 100%;
-  display: flex;
-  gap: 1rem;
-}
-.sb-os-voucher-input {
-  width: 100%;
-  border: 1px solid rgba(145, 136, 136, 0.576);
-  font-size: 0.5rem;
-  font-weight: 400;
-  outline: none;
-  color: black;
-  background: none;
-  font-size: 1rem;
-  padding: 0.5rem;
-}
-.sb-os-voucher-apply-btn {
-  border: none;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.sb-os-voucher-apply-btn:hover {
-  background: rgba(0, 0, 0, 0.837);
-}
 .sb-os-title,
 .sb-os-subtotal,
 .sb-os-shipping,
-.sb-os-discount,
 .sb-os-total {
   width: 100%;
   display: flex;

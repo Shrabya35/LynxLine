@@ -19,6 +19,13 @@
   align-items: center;
   border-radius: 50%;
 }
+.custom-dropdown-menu-order {
+  padding: 1rem !important;
+  background-color: #cacad0 !important;
+}
+.custom-dropdown-menu-order a {
+  font-size: 1rem !important;
+}
 @media (min-width: 850px) {
   .admin-layout {
     display: flex;
@@ -104,6 +111,9 @@
   }
 }
 @media (max-width: 850px) {
+  .custom-dropdown-menu-order {
+    background-color: #f4f4f5 !important;
+  }
   .admin-layout {
     display: grid;
     grid-template-rows: auto 1fr;
@@ -153,7 +163,7 @@
     justify-content: space-between;
   }
 
-  .admin-main-nav a span {
+  .admin-nav-items span {
     display: none;
   }
 

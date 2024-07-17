@@ -1,6 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+//Routes
+import PrivateRoutes from "./route/PrivateRoutes";
+import AdminRoute from "./route/AdminRoute";
+import CheckoutRoute from "./route/CheckoutRoute";
+
 //Pages
 import HomePage from "./Pages/Home/HomePage";
 import Men from "./Pages/Home/Men";
@@ -16,11 +21,9 @@ import ViewMore from "./Pages/ProductsPage/ViewMore";
 import Auth from "./Pages/Auth/Auth";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
-import PrivateRoutes from "./route/PrivateRoutes";
 import UserProfile from "./Pages/Profile/UserProfile/User";
 
 //Admin
-import AdminRoute from "./route/AdminRoute";
 import AdminDashboard from "./Pages/Profile/AdminProfile/AdminDashboard";
 import CreateCategory from "./Pages/Profile/AdminProfile/CreateCategory";
 import ViewProduct from "./Pages/Profile/AdminProfile/ViewProduct";
@@ -54,6 +57,7 @@ const App = () => {
         <Route path="/view-more" element={<ViewMore />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/shopping-bag" element={<ShoppingBag />} />
+        <Route path="/checkout" element={<CheckoutRoute />} />
         <Route path="/profile/" element={<PrivateRoutes />}>
           <Route path="user" element={<UserProfile />} />
         </Route>

@@ -46,5 +46,5 @@ export default {
       net: false,
     },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin(), new Dotenv()],
+  plugins: [new Dotenv()],
 };
