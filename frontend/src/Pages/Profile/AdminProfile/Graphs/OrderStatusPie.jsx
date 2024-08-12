@@ -1,18 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import axios from "axios";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const OrderStatusPie = () => {
+  const [pending, setpending] = useState("");
+  const [processing, setProcessing] = useState("");
+  const [delivered, setDelivered] = useState("");
+  const [cancelled, setCancelled] = useState("");
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+  useEffect(() => {
+    const countOrders = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/order/count-orders`);
+        const {
+          pendingOrders,
+          processingOrders,
+          deliveredOrders,
+          cancelledOrders,
+        } = response.data;
+        setpending(pendingOrders);
+        setProcessing(processingOrders);
+        setDelivered(deliveredOrders);
+        setCancelled(cancelledOrders);
+      } catch (error) {
+        console.error("Error Counting orders:", error);
+      }
+    };
+
+    countOrders();
+  }, [baseUrl]);
+
   const data = {
-    labels: ["In Progress", "Delivered", "Cancel"],
+    labels: ["Pending", "Processing", "Delivered", "Cancelled"],
     datasets: [
       {
         label: "# of Votes",
-        data: [4, 2, 1],
-        backgroundColor: ["#ffc400", "#00d247", "#ff0000"],
-        borderColor: ["#ffc400", "#00d247", "#ff0000"],
+        data: [pending, processing, delivered, cancelled],
+        backgroundColor: ["#ffc107", "#2669ff", "#28a745", "#ff0000"],
+        borderColor: ["#ffc107", "#2669ff", "#28a745", "#ff0000"],
         borderWidth: 1,
       },
     ],

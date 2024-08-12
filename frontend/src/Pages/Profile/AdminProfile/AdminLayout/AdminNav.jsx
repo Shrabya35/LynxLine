@@ -4,7 +4,7 @@ import NavLogo from "../../../../assets/logo.png";
 import "./AdminLayout.css";
 import { MdDashboard, MdShoppingCart } from "react-icons/md";
 import { FaTachometerAlt, FaClipboardList } from "react-icons/fa";
-import { IoLogOut, IoTicket } from "react-icons/io5";
+import { IoLogOut } from "react-icons/io5";
 import { Menu, Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 
@@ -18,9 +18,12 @@ const AdminNav = () => {
         <a href="/link2">Pending</a>
       </Menu.Item>
       <Menu.Item key="3">
-        <a href="/link3">Completed</a>
+        <a href="/link2">Processing</a>
       </Menu.Item>
       <Menu.Item key="4">
+        <a href="/link3">Delivered</a>
+      </Menu.Item>
+      <Menu.Item key="5">
         <a href="/link3">Cancelled</a>
       </Menu.Item>
     </Menu>
@@ -82,10 +85,6 @@ const AdminNav = () => {
               </span>
             </div>
           </Dropdown>
-          <a href="/profile/admin/category" className="admin-nav-items ">
-            <IoTicket className="admin-icon" />
-            <span> Voucher</span>
-          </a>
           <a href="/profile/admin/category" className="admin-nav-items ">
             <MdDashboard className="admin-icon" />
             <span> Category</span>

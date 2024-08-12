@@ -5,6 +5,7 @@ import axios from "axios";
 const PrivateRoutes = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const isAuthenticated =
     !!localStorage.getItem("token") || !!sessionStorage.getItem("token");
 
@@ -19,8 +20,7 @@ const PrivateRoutes = () => {
           setLoading(false);
           return;
         }
-
-        const res = await axios.get("/api/v1/auth/admin-auth", {
+        const res = await axios.get(`${baseUrl}/auth/admin-auth`, {
           headers: {
             Authorization: token,
             "Cache-Control": "no-cache",
@@ -44,7 +44,7 @@ const PrivateRoutes = () => {
     };
 
     checkAdminStatus();
-  }, []);
+  }, [baseUrl]);
 
   if (loading) {
     return <div>Loading...</div>;

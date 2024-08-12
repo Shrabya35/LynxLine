@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import userModel from "../models/userModel.js";
 import productModel from "../models/productModel.js";
+import orderModel from "../models/orderModel.js";
 
 export const singleUserController = async (req, res) => {
   try {
@@ -249,14 +250,12 @@ export const getShoppingBagPriceController = async (req, res) => {
       );
     }
 
-    res
-      .status(200)
-      .json({
-        total: totalPrice,
-        subtotal: subTotal,
-        totalItems: totalItems,
-        shippingFee,
-      });
+    res.status(200).json({
+      total: totalPrice,
+      subtotal: subTotal,
+      totalItems: totalItems,
+      shippingFee,
+    });
   } catch (error) {
     console.error("Error in calculating total price:", error);
     res.status(500).json({ message: "Server error", error: error.message });
@@ -317,5 +316,63 @@ export const getUserCountsController = async (req, res) => {
     res.status(200).json(userCounts);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+export const getOrderController = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const skip = (page - 1) * limit;
+
+    const orders = await orderModel
+      .find({ userId })
+      .sort({ orderDate: -1 })
+      .skip(skip)
+      .limit(limit)
+      .populate({
+        path: "items.productId",
+        select: "name price slug",
+      });
+
+    const totalOrders = await orderModel.countDocuments({ userId });
+
+    res.status(200).send({
+      success: true,
+      message: "Orders fetched successfully",
+      totalOrders,
+      page,
+      totalPages: Math.ceil(totalOrders / limit),
+      orders,
+    });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).send({
+      success: false,
+      message: "Error fetching orders by user",
+      error: error.message,
+    });
+  }
+};
+
+export const cancelOrderController = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const order = await orderModel.findByIdAndUpdate(orderId, {
+      status: "cancelled",
+    });
+    res.status(201).send({
+      success: true,
+      message: "Order Cancelled successfully",
+      order,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Cancelling Order",
+      error,
+    });
   }
 };

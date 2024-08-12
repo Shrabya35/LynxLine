@@ -11,6 +11,8 @@ import {
   getShoppingBagPriceController,
   getUserProductRating,
   getUserCountsController,
+  getOrderController,
+  cancelOrderController,
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -36,5 +38,9 @@ router.get("/shoppingBag-total/:email", getShoppingBagPriceController);
 router.get("/:userId/product-ratings/:productId", getUserProductRating);
 
 router.get("/get-user-count-dated", getUserCountsController);
+
+router.get("/get-orders/:userId", getOrderController);
+
+router.patch("/cancel-order/:orderId", cancelOrderController);
 
 export default router;

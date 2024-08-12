@@ -139,7 +139,6 @@ const ShoppingBag = () => {
     } else {
       const newToken = nanoid();
       sessionStorage.setItem("checkoutToken", newToken);
-      console.log("Generated token:", newToken);
       navigate(`/checkout?cts=${newToken}`);
     }
   };

@@ -164,7 +164,7 @@ export const updateProductController = async (req, res) => {
 
     let shippingValue;
     if (shipping === "Not Specified") {
-      shippingValue = undefined; //
+      shippingValue = undefined; 
     } else {
       shippingValue = shipping === "true" || shipping === "1" ? true : false;
     }

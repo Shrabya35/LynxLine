@@ -1,0 +1,35 @@
+<svg width="287" height="221" viewBox="0 0 287 221" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="143.5" cy="110.5" r="81.1442" fill="#E8E8E8" />
+    <g filter="url(#filter0_d)">
+        <circle cx="143.5" cy="110.5" r="67.5" fill="white" />
+    </g>
+    <path d="M113.5 110L129 125.5L173.5 81" stroke="#4CAF50" stroke-width="10"
+        stroke-linecap="round" stroke-linejoin="round" />
+    <defs>
+        <filter id="filter0_d" x="56" y="33" width="175" height="175" filterUnits="userSpaceOnUse"
+            color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feColorMatrix in="SourceAlpha" type="matrix"
+                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+            <feOffset dy="4" />
+            <feGaussianBlur stdDeviation="12" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
+        </filter>
+    </defs>
+    <path
+        d="M204.542 0L207.284 4.08568L211.37 6.8281L207.284 9.57051L204.542 13.6562L201.8 9.57051L197.714 6.8281L201.8 4.08568L204.542 0Z"
+        fill="#FFD700" />
+    <path
+        d="M278.082 110.912L280.824 114.998L284.91 117.741L280.824 120.483L278.082 124.569L275.34 120.483L271.254 117.741L275.34 114.998L278.082 110.912Z"
+        fill="#FFD700" />
+    <path
+        d="M44.2011 163.958L46.9436 168.043L51.0292 170.786L46.9436 173.528L44.2011 177.614L41.4587 173.528L37.373 170.786L41.4587 168.043L44.2011 163.958Z"
+        fill="#FFD700" />
+    <path
+        d="M36.9677 53.0452L39.7102 57.1309L43.7958 59.8733L39.7102 62.6157L36.9677 66.7014L34.2253 62.6157L30.1396 59.8733L34.2253 57.1309L36.9677 53.0452Z"
+        fill="#FFD700" />
+    <circle cx="280.803" cy="36.072" r="3.67667" stroke="#FFD700" stroke-width="2.10095" />
+    <circle cx="4.72714" cy="105.995" r="3.67667" stroke="#FFD700" stroke-width="2.10095" />
+</svg>

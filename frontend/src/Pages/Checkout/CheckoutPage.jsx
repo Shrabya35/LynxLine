@@ -4,17 +4,21 @@ import { Helmet } from "react-helmet";
 import { IoInformationCircleOutline, IoClose } from "react-icons/io5";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { nanoid } from "nanoid";
+import { useNavigate, Link } from "react-router-dom";
 
 import { Select } from "antd";
 const { Option } = Select;
 
 const CheckoutPage = ({ description, keywords, author }) => {
+  const navigate = useNavigate();
+  const [userId, SetUserId] = useState("");
   const [country, setCountry] = useState("");
   const [addressLine1, setAdressLine1] = useState("");
   const [addressLine2, setAdressLine2] = useState("");
   const [city, setCity] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [phone, setPhone] = useState("");
   const [bag, setBag] = useState([]);
   const [subtotal, setSubtotal] = useState("");
   const [shippingFee, setShippingFee] = useState("");
@@ -48,6 +52,64 @@ const CheckoutPage = ({ description, keywords, author }) => {
   const userEmail = LocalStorageUserDetails?.email;
 
   useEffect(() => {
+    if (LocalStorageUserDetails) {
+      const fetchUserRef = async () => {
+        if (userEmail) {
+          try {
+            const { data } = await axios.get(
+              `${baseUrl}/user/user-details/${userEmail}`
+            );
+            SetUserId(data.user._id);
+            setPhone(data.user.phone);
+          } catch (error) {
+            toast.error("Something went wrong while fetching the user details");
+            console.error(error);
+          }
+        }
+      };
+
+      fetchUserRef();
+    }
+  }, [baseUrl, userEmail, LocalStorageUserDetails]);
+
+  const handleSubmitOrder = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${baseUrl}/order/create-order`, {
+        userId: userId,
+        address: {
+          country,
+          addressLine1,
+          addressLine2,
+          city,
+          zipcode,
+          phone,
+        },
+        total: total,
+      });
+
+      const { success, message } = response.data;
+
+      if (success) {
+        toast.success(message);
+        sessionStorage.removeItem("checkoutToken");
+        let successToken = sessionStorage.getItem("successToken");
+
+        if (!successToken) {
+          successToken = nanoid();
+          sessionStorage.setItem("successToken", successToken);
+        }
+
+        navigate(`/checkout?sts=${successToken}`);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error creating order:", error);
+      toast.error(`Error creating order: ${error.message}`);
+    }
+  };
+
+  useEffect(() => {
     const fetchBag = async () => {
       try {
         const bagResponse = await axios.get(
@@ -59,7 +121,7 @@ const CheckoutPage = ({ description, keywords, author }) => {
       } catch (error) {
         toast.error("Failed to chekout your order");
         setBagLoading(false);
-        console.error("Error checking wishlist:", error);
+        console.error("Error checking order:", error);
       }
     };
 
@@ -155,6 +217,7 @@ const CheckoutPage = ({ description, keywords, author }) => {
             <div className="checkout-container-delivery checkout-flex">
               <h3>Delivery</h3>
               <form
+                onSubmit={handleSubmitOrder}
                 action="POST"
                 className="checkout-container-delivery-form checkout-flex"
               >

@@ -26,7 +26,7 @@
   justify-content: space-around;
   align-items: center;
   color: white;
-  background: #2669ff;
+  background: #ffc107;
   border-radius: 0.25rem;
   box-sizing: border-box;
   min-width: calc(- 1rem);
@@ -46,10 +46,10 @@
   font-weight: bolder;
 }
 .admin-dashboard-order-data-card-packaging {
-  background: #ffc400;
+  background: #2669ff;
 }
 .admin-dashboard-order-data-card-delivered {
-  background: #00d247;
+  background: #28a745;
 }
 .admin-dashboard-order-data-card-cancelled {
   background: #ff0000;
