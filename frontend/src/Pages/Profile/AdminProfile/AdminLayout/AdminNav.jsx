@@ -12,19 +12,19 @@ const AdminNav = () => {
   const OrderDropdownMenu = (
     <Menu className="custom-dropdown-menu-order">
       <Menu.Item key="1">
-        <a href="/link1">All Orders</a>
+        <a href="/profile/admin/all-orders">All Orders</a>
       </Menu.Item>
       <Menu.Item key="2">
-        <a href="/link2">Pending</a>
+        <a href="/profile/admin/pending-orders">Pending</a>
       </Menu.Item>
       <Menu.Item key="3">
-        <a href="/link2">Processing</a>
+        <a href="/profile/admin/processing-orders">Processing</a>
       </Menu.Item>
       <Menu.Item key="4">
-        <a href="/link3">Delivered</a>
+        <a href="/profile/admin/delivered-orders">Delivered</a>
       </Menu.Item>
       <Menu.Item key="5">
-        <a href="/link3">Cancelled</a>
+        <a href="/profile/admin/cancelled-orders">Cancelled</a>
       </Menu.Item>
     </Menu>
   );

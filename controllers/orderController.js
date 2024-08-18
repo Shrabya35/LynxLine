@@ -1,6 +1,7 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import productModel from "../models/productModel.js";
+import mongoose from "mongoose";
 import { nanoid } from "nanoid";
 
 export const createOrderController = async (req, res) => {
@@ -91,14 +92,19 @@ export const getOrderController = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
+    const { status } = req.query;
+
+    const filter = status ? { status } : {};
 
     const orders = await orderModel
-      .find({})
+      .find(filter)
+      .sort({ orderDate: -1 })
       .skip(skip)
       .limit(limit)
-      .populate("items.productId", "name price");
+      .populate("items.productId", "name price")
+      .populate("userId", "name email");
 
-    const totalOrders = await orderModel.countDocuments({});
+    const totalOrders = await orderModel.countDocuments(filter);
 
     res.status(200).send({
       success: true,
@@ -111,11 +117,12 @@ export const getOrderController = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       success: false,
-      message: "Error fetching orders by user",
+      message: "Error fetching orders",
       error,
     });
   }
 };
+
 export const countOrderController = async (req, res) => {
   try {
     const totalOrders = await orderModel.countDocuments({});
@@ -150,9 +157,9 @@ export const updateOrderStatus = async (req, res) => {
 
   try {
     const { status } = req.body;
-    const { id } = req.params;
+    const { orderId } = req.params;
 
-    const order = await orderModel.findById(id).session(session);
+    const order = await orderModel.findById(orderId).session(session);
     if (!order) {
       throw new Error("Order not found");
     }
@@ -193,43 +200,33 @@ export const updateOrderStatus = async (req, res) => {
     });
   }
 };
-export const searchOrdersController = async (req, res) => {
+export const searchOrderController = async (req, res) => {
+  const searchTerm = req.params.search;
   try {
-    const { orderId, userId, page = 1, limit = 10 } = req.query;
-    const skip = (page - 1) * limit;
-
     let query = {};
 
-    if (orderId) {
-      query.orderId = orderId;
+    if (mongoose.Types.ObjectId.isValid(searchTerm)) {
+      query = { $or: [{ _id: searchTerm }, { orderId: searchTerm }] };
+    } else {
+      query = { orderId: searchTerm };
     }
 
-    if (userId) {
-      query.userId = userId;
-    }
+    const order = await orderModel
+      .findOne(query)
+      .populate("items.productId", "name price")
+      .populate("userId", "name email phone");
 
-    if (!orderId && !userId) {
-      return res.status(400).send({
+    if (!order) {
+      return res.status(404).send({
         success: false,
-        message: "Please provide either an orderId or a userId to search",
+        message: "Order not found",
       });
     }
 
-    const orders = await orderModel
-      .find(query)
-      .skip(skip)
-      .limit(parseInt(limit))
-      .populate("items.productId", "name price");
-
-    const totalOrders = await orderModel.countDocuments(query);
-
     res.status(200).send({
       success: true,
-      message: "Orders fetched successfully",
-      totalOrders,
-      page: parseInt(page),
-      totalPages: Math.ceil(totalOrders / limit),
-      orders,
+      message: "Searched Order fetched successfully",
+      order,
     });
   } catch (error) {
     console.error("Error searching orders: ", error);

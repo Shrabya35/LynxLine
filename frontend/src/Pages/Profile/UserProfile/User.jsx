@@ -222,7 +222,7 @@ const UserProfile = () => {
                                 />
                               </Link>
                               <div className="user-order-card-product-body">
-                                <div className="user-order-product-title">
+                                <div className="user-order-card-product-title">
                                   {item.productId.name}
                                 </div>
                                 <div className="user-order-product-desc">

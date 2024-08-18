@@ -57,7 +57,6 @@ const ViewProduct = () => {
             <h2>Products</h2>
           </div>
           <div className="view-products-top-right">
-            <div className="admin-view-products-search">lol</div>
             <a
               href="/profile/admin/add-product"
               className="view-products-top-add-category create-category-btn"

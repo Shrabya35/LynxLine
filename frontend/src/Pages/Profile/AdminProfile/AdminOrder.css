@@ -1,0 +1,87 @@
+.Order-Details {
+  padding: 1rem;
+}
+.order-details-top {
+  margin-bottom: 1rem;
+  padding: 0;
+  align-items: center;
+}
+.order-details-bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+.order-details-card {
+  background: #f4f4f4;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.order-detail-card-total {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.order-details-card-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+.order-details-card-bottom-right {
+  text-align: center;
+}
+.user-details-card-button {
+  display: flex;
+  justify-content: flex-end;
+}
+.save-order-btn:disabled {
+  cursor: no-drop;
+}
+.all-orders-top {
+  align-items: center;
+}
+.admin-all-order-search {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.25rem;
+  border-bottom: 1px solid rgba(46, 44, 44, 0.249);
+  border: 1px solid black;
+}
+.admin-all-order-search-input {
+  width: 100%;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  color: black;
+  font-size: 1rem;
+  padding: 0.25rem;
+}
+.all-orders-bottom {
+  width: 100%;
+}
+.all-orders-bottom table {
+  width: 100%;
+}
+.custom-table-tr th,
+.custom-table-tr td {
+  text-align: center;
+}
+.view-order-btn {
+  background-color: #1a9fb6;
+}
+.view-order-btn:hover {
+  background-color: hsla(189, 75%, 37%, 0.723);
+}
+.all-order-pagination {
+  margin-top: 2rem;
+}
+@media (max-width: 770px) {
+  .All-Orders {
+    width: 100%;
+    overflow: hidden;
+  }
+}

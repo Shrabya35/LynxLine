@@ -140,8 +140,7 @@
 
 .custom-table th,
 .custom-table td {
-  border-bottom: 1px solid #ddd;
-  padding: 1rem;
+  padding: 0.5rem;
   text-align: left;
 }
 .custom-table th:nth-child(2) {

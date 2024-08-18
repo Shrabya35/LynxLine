@@ -29,6 +29,12 @@ import CreateCategory from "./Pages/Profile/AdminProfile/CreateCategory";
 import ViewProduct from "./Pages/Profile/AdminProfile/ViewProduct";
 import AddProduct from "./Pages/Profile/AdminProfile/AddProduct";
 import ModifyProduct from "./Pages/Profile/AdminProfile/ModifyProduct";
+import AdminAllOrder from "./Pages/Profile/AdminProfile/AdminAllOrder";
+import AdminPendingOrder from "./Pages/Profile/AdminProfile/AdminPendingOrder";
+import AdminProcessingOrder from "./Pages/Profile/AdminProfile/AdminProcessingOrder";
+import AdminCancelledOrder from "./Pages/Profile/AdminProfile/AdminCancelledOrder";
+import AdminDeliveredOrder from "./Pages/Profile/AdminProfile/AdminDeliveredOrder";
+import OrderDetails from "./Pages/Profile/AdminProfile/OrderDetails";
 
 //Static
 import About from "./Pages/StaticPages/About";
@@ -67,6 +73,21 @@ const App = () => {
           <Route path="admin/add-product" element={<AddProduct />} />
           <Route path="admin/view-products" element={<ViewProduct />} />
           <Route path="admin/product/:slug" element={<ModifyProduct />} />
+          <Route path="admin/all-orders" element={<AdminAllOrder />} />
+          <Route path="admin/pending-orders" element={<AdminPendingOrder />} />
+          <Route
+            path="admin/processing-orders"
+            element={<AdminProcessingOrder />}
+          />
+          <Route
+            path="admin/delivered-orders"
+            element={<AdminDeliveredOrder />}
+          />
+          <Route
+            path="admin/cancelled-orders"
+            element={<AdminCancelledOrder />}
+          />
+          <Route path="admin/view-order/" element={<OrderDetails />} />
         </Route>
         <Route path="/article/about" element={<About />} />
         <Route
